@@ -1,71 +1,144 @@
+'''Exercício 1: Utilizando estruturas de controle de fluxo e listas.Para controlar os compromissos do dia a dia podemos utilizar um uma 
+lista de tarefas. Com alguns dos recursos básicos da linguagem que já conhecemos podemos implementar o aplicativo ToDoList que permita:
+
+● Listar as tarefas que estão registradas.
+○ As tarefas já finalizadas aparecem no início da lista identificadas porum box confirmado ([x]) no final da tarefa;
+○ As tarefas pendentes aparecem logo a seguir identificadas por um box vazio ([ ]) no final da tarefa;
+○ Cada tarefa é precedida por um ID, número sequencial atribuído no momento que ela foi cadastrada;
+
+○ Exemplo:
+1. Preparar a marmita [x]
+2. Arrumar a mochila [ ]
+3. Fechar as janelas [ ]
+
+● Registrar uma nova tarefa.
+○ Uma descrição da tarefa é solicitada ao usuário (Exemplo: “arrumar o quarto”);
+○ A tarefa é registrada e a ela é atribuído um ID e um box vazio é adicionado no final da string com a descrição da tarefa. 
+(Exemplo: “3.arrumar o quarto[ ]”);
+○ No momento de registrar, deve-se garantir que a string com a descrição da tarefa começa com maiúscula (Exemplo: “3.Arrumar o quarto[ ]”);
+○ Uma mensagem confirmando a execução da tarefa deve ser apresentada. (Exemplo: “Tarefa registrada!!!”)
+
+● Marcar uma tarefa como realizada.
+○ O aplicativo solicita o identificador da tarefa e, existindo, ela é movida para o início da lista e o box vazio no final é substituído 
+por um box confirmado;
+○ Caso o identificado não exista ou a tarefa já tenha sido realizada nada será feito.
+○ Uma mensagem confirmando a execução da tarefa deve ser apresentada.
+
+● Editar uma tarefa.
+○ O aplicativo solicita o identificador da tarefa e, existindo, é solicitada uma nova descrição da mesma;
+○ O status do box da tarefa e o identificador da mesma não pode ser alterado na edição;
+○ Uma mensagem confirmando a execução da tarefa deve ser apresentada.
+
+Exercício 2: Pesquisa sobre persistência de dados.
+● Durante o módulo anterior abordamos o tema de persistência de dados utilizando arquivos. Pesquise sobre arquivos em 
+Python e proponha as modificações necessárias para que o aplicativo do exercício anterior utilize um arquivo para armazenar a lista 
+de tarefas.
+'''
+
 import os
-todoList = []
-finishList = []
+import platform
+import locale
+from datetime import datetime
+locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
+data_e_hora_atual = datetime.now()
+tarefas = {}
+proximo_id = 1
 
-
-def registraTarefa():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    
-    novaTodo = input("Adicione um tarefa: ")
-    todoList.append(novaTodo)
-    print("\nTarefa registrada!!!\n")
-
+def cadastrar():
   
-def listarTarefas():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    print("\n\t======= CADASTRAR TAREFA =======")
+    global proximo_id
+    descricao = input("\n\tDigite a descrição da tarefa: ")
+    tarefas[proximo_id] = [descricao.capitalize(), False]
+    proximo_id += 1
+    print("\n\tTarefa registrada!!!")
+    pause()
     
-    if len(finishList) > 0:
-        for index, item in enumerate(finishList):
-            try:
-                print(index + 1,".", item, "[x]")
-                
-            except Exception as inst:
-                print ("Ocorreu um erro!",inst)
-    for index, item in enumerate(todoList):
-        try:
-            id = len(finishList) + (index + 1)
-            print(id,".", item, "[ ]")
-            
-        except Exception as inst:
-            print ("Ocorreu um erro!",inst)
-    
-def concluirTarefa():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    
-    listarTarefas()
-    id = input("Informe o identificador da tarefa: ")
-    
-    for i in range(len(todoList)):
-        if(i ==  (int(id) - 1)):
-          finishList.append(todoList[i])
-          todoList.pop(i)
-          print("Tarefa localizada: ", todoList[i])
-          print("Tarefa concluida !!! ")
-        
-def Menu():
-    
-    print("\n\n1 - P/ Adicionar tarefa")
-    print("2 - P/ Concluir tarefa")
-    print("3 - P/ Listar tarefa")
-    print("0 - P/ Sair")
-    escolha = input("Sua escolha: ")
-    
-    return escolha
-    
-def main():
-    while True:
-        esc = Menu()
-        match esc:
-            case "1":
-                registraTarefa()
-            case "2":
-                concluirTarefa()
-            
-            case "3":
-                listarTarefas()
-            case "0": 
-                return   
-                
+def listar():
+  
+  print("\n\t======= TAREFAS =======")
+  for id_tarefa, tarefa in tarefas.items():
+    if tarefa[1]:
+      print(f"\t{id_tarefa}. {tarefa[0]} [x]")
+    else:
+      print(f"\t{id_tarefa}. {tarefa[0]} [ ]") 
+  print("\t=======================") 
 
-main()
+
+
+def pause():
+  input("\tPressione Enter para continuar...")
+
+def limpaTela():
+  sistema_operacional = platform.system().lower()
+
+  if sistema_operacional == "windows":
+    os.system("cls")
+  elif sistema_operacional == "linux":
+    os.system("clear")
+  else:
+    print("Sistema operacional não suportado para limpar a tela.")
+      
+def menu():
+  
+  while True:
+    
+    limpaTela()
+    formato_personalizado = "\n\t%A, %d de %B de %Y %H:%M:%S"
+    data_e_hora_formatada = data_e_hora_atual.strftime(formato_personalizado)
+    print(data_e_hora_formatada)
+
+    print("\n\t======= MENU =======")
+    print("\t[1] - REGISTRAR TAREFA")
+    print("\t[2] - LISTAR TAREFAS")
+    print("\t[3] - MARCAR TAREFA COMO REALIZADA")
+    print("\t[4] - EDITAR TAREFA")
+    print("\t[0] - SAIR")
+    opcao = input("\tENTRADA -> ")
+    
+    if(opcao == "1" or opcao == "2" or opcao == "3" or opcao == "4" or opcao == "0"):
+      return opcao
+    else:
+      print("\tOps, opção inválida. Tente novamente.")
+      pause()
+    
+def main(): 
+ 
+  carregarTarefasDeArquivo()
+  
+  while True:
+        
+    opcao = menu()
+        
+    match opcao:
+          
+      case "1":
+        limpaTela()
+        cadastrar()
+        salvarTarefasEmArquivo()
+              
+      case "2":
+        limpaTela()
+        listar()
+        pause()
+            
+      case "3":
+        limpaTela()
+        marcarTarefaComoRealizada()
+                
+      case "4":
+        limpaTela()
+        editarTarefa()
+                
+      case "0": 
+        return 
+              
+      case _:
+        print("\tOps, Opção inválida. Tente novamente!")
+        pause()
+          
+try:
+  main()
+except Exception as e:
+  print("Erro não tratado:", e)
            
