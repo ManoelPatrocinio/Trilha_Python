@@ -37,3 +37,31 @@ for i in range(10):
   hex_value = hex(dec_value)
   print(f"\t'{char}' - Decimal: {dec_value}, Octal: {oct_value}, Hexadecimal: {hex_value}")
 print('\t='+'=' *60)
+
+caractere = input('\tDigite um caractere qualquer: ')
+
+str(caractere)
+dec_value = ord(caractere)
+oct_value = oct(dec_value)
+hex_value = hex(dec_value)
+print(f"\n\t'{caractere}' - Decimal: {dec_value}, Octal: {oct_value}, Hexadecimal: {hex_value}")
+print('\t='+'=' *60)
+
+print('\tCaracteres especiais e seus códigos numéricos em octal e hexadecimal:')
+caractereEspecial1 = 'ç'
+caractereEspecial2 = 'ã'
+
+str(caractereEspecial1)
+str(caractereEspecial2)
+
+dec_value1 = ord(caractereEspecial1)
+oct_value1 = oct(dec_value1)
+hex_value1 = hex(dec_value1)
+
+dec_value2 = ord(caractereEspecial2)
+oct_value2 = oct(dec_value2)
+hex_value2 = hex(dec_value2)
+
+print(f"\n\t'{caractereEspecial1}' - Decimal: {dec_value1}, Octal: {oct_value1}, Hexadecimal: {hex_value1}")
+print(f"\t'{caractereEspecial2}' - Decimal: {dec_value2}, Octal: {oct_value2}, Hexadecimal: {hex_value2}")
+print('\t='+'=' *60)
