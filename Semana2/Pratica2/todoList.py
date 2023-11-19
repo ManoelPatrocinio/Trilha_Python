@@ -64,6 +64,22 @@ def listar():
       print(f"\t{id_tarefa}. {tarefa[0]} [ ]") 
   print("\t=======================") 
 
+def marcarTarefaComoRealizada():
+  
+  print("\n\t======= MARCAR TAREFA COMO REALIZADA =======")
+  listar()  # Mostra a lista de tarefas para que o usuário escolha qual marcar como realizada
+  id_tarefa = int(input("\tDigite o ID da tarefa a ser marcada como realizada: "))
+
+  if id_tarefa in tarefas:
+    limpaTela()
+    tarefas[id_tarefa][1] = True
+    listar()
+    print("\n\tTarefa marcada como realizada!")
+    pause()
+  else:
+    print("\n\tID de tarefa inválido. Tente novamente.")
+    pause()
+
 
 
 def pause():
