@@ -80,6 +80,24 @@ def marcarTarefaComoRealizada():
     print("\n\tID de tarefa inválido. Tente novamente.")
     pause()
 
+def editarTarefa():
+  
+  print("\n\t======= EDITAR TAREFA =======")
+  listar()  # Mostra a lista de tarefas para que o usuário escolha qual editar
+  id_tarefa = int(input("\n\tDigite o ID da tarefa a ser editada: "))
+  limpaTela()
+
+  if id_tarefa in tarefas:
+    nova_descricao = input("\n\tDigite a nova descrição da tarefa: ")
+    tarefas[id_tarefa][0] = nova_descricao.capitalize()
+    limpaTela()
+    listar()
+    print("\n\tTarefa editada com sucesso!")
+    pause()
+  else:
+    print("\n\tID de tarefa inválido. Tente novamente.")
+    pause()
+    
 
 
 def pause():
