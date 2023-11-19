@@ -62,3 +62,44 @@ print('\t='+'=' *60)
 pause()
 limpaTela()
 
+print('\t='+'=' *70)
+print('\t+= -= *= /= Operadores Aritméticos Compostos em Python += -= *= /=')
+
+# Adição com atribuição
+x = 10
+y = 3
+print('\n\tx = {}\n\ty = {}\n\tx += y'.format(x, y))
+x += y
+print('\tAdição com atribuição {}'.format(x))
+
+# Subtração com atribuição
+print('\n\tx = {}\n\ty = {}\n\tx -= y'.format(x, y))
+x -= y
+print('\tSubtração com atribuição {}'.format(x))
+
+# Multiplicação com atribuição
+print('\n\tx = {}\n\ty = {}\n\tx *= y'.format(x, y))
+x *= y
+print('\tMultiplicação com atribuição {}'.format(x))
+
+# Divisão com atribuição
+print('\n\tx = {}\n\ty = {}\n\tx /= y'.format(x, y))
+x /= y
+print('\tDivisão com atribuição {:.0f}'.format(x))
+
+print('\t='+'=' *70)
+pause()
+limpaTela()
+
+print('\t='+'=' *110)
+print('\tPrincipais diferenças em relação a C/C++:\n'
+      '\n\tDivisão padrão retorna float: Em Python, a divisão de dois inteiros resulta em um número de ponto flutuante, \n\ta menos que você use o operador de divisão inteira //. Em C/C++, a divisão de inteiros resulta em um número inteiro, \n\te se você quiser um resultado de ponto flutuante, pelo menos um dos operandos deve ser do tipo float.\n'
+      '\n\tSem restrições de tamanho em inteiros: Em Python, os inteiros não têm um tamanho fixo, \n\to que significa que você pode trabalhar com inteiros de qualquer tamanho, sem preocupações com estouro. Em C/C++, \n\to tamanho dos inteiros é limitado pela arquitetura do sistema.\n'
+      '\n\tOperadores compostos simplificados: Python oferece operadores compostos mais expressivos, como +=, -= etc., \n\ttornando o código mais conciso em comparação com C/C++.\n'
+      '\n\tExponenciação mais intuitiva: O operador ** em Python é usado para exponenciação, enquanto em C/C++, \n\tvocê usaria a função pow ou implementaria um loop para calcular a potência.'
+      '\n\t='+'=' *110)
+
+pause()
+limpaTela()
+
+ 
