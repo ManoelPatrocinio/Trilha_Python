@@ -102,4 +102,27 @@ print('\tPrincipais diferenças em relação a C/C++:\n'
 pause()
 limpaTela()
 
- 
+print('\t='+'=' *30)
+print('\tCálculo do Fatorial em Python:\n')
+
+resultFatorial = 1
+
+for i in range(1, 30 + 1):
+    resultFatorial *= i
+    print('\t', resultFatorial)
+
+print('\n\tResultado do fatorial de 30 = {}'.format(resultFatorial))
+
+print('\t='+'=' *70)
+pause()
+limpaTela()
+
+print('\n\t='+'=' *120)
+print('\tEm C/C++, o tamanho do inteiro é geralmente de 4 bytes para int e 8 bytes para long long int. \n\n\tO valor máximo representável depende da arquitetura do sistema.'
+      'um int de 4 bytes, o valor máximo seria 2^31 - 1 (2147483647). \n\tSe considerarmos um long long int de 8 bytes, o valor máximo seria 2^63 - 1.'
+      '\n\n\tO valor do fatorial de 30 em Python, que é um número significativamente grande, não teria problemas em ser representado em Python. \n\tPython automaticamente usa uma quantidade de memória suficiente para lidar com números grandes'
+      '\n\t='+'=' *120)
+
+pause()
+limpaTela()
+
