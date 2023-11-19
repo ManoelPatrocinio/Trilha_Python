@@ -1,29 +1,16 @@
-def palindromo(nome):    
-    size = len(nome)
-    if size == 0:
-        # Se a string é vazia, ela não é palíndromo
-        return False
-    for i in range(0, size // 2):
-        if nome[i] != nome[size - i - 1]: # encontrei diferença, nem precisa continuar
-            return False
-    return True
+'''
+Exercício 4: Manipulação de variáveis de tipo string e explorando os métodos da classe.
 
-nome = "Manoel Patrocinio"
+● As variáveis de tipo string possuem uma série de funcionalidades já implementadas e seus caracteres e substrings podem ser acessados 
+usando indexação e slicing. Crie um exemplo onde:
 
-namePerParts = nome.split(" ")
+● Declare uma variável nome atribuindo a ela seu nome completo;
 
-print('O primeiro nome é: ',namePerParts[0], "com ", len(namePerParts[0]), " caracteres")
-print('O sobrenome nome é: ',namePerParts[1], "com ", len(namePerParts[1]), " caracteres")
+● Pesquise por funcionalidades já implementadas nas strings e separe em duas variáveis novas seu nome do seu sobrenome;
 
-namePerParts.sort()
+● Verifique qual das duas novas variáveis antecede a outra na ordem alfabética;
 
-print('\nO primeiro nome em ordem alfabética é: ',namePerParts[0])
-print('O segundo  nome em ordem alfabética é: ',namePerParts[1])
+● Verifique a quantidade de caracteres de cada uma das novas variáveis;
 
- 
-if palindromo(namePerParts[0]):
-    print("\nSeu primeiro nome é um palindromo")
-else:
-    print("\nSeu primeiro nome não é um palindromo")
-        
-
+● Verifique se seu nome é um palíndromo;
+'''

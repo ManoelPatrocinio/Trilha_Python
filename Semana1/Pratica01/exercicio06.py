@@ -1,26 +1,32 @@
+'''
+Exercício 6: Manipulando listas
+
+● Dado o seguinte código, e antes de implementar, veja o que será impresso em cada caso:
+
 L = [1,2,3,4,5,6,7,8,9]
-
-print("Lista original:")
-print(L)
-
-
-print("\nLista usando slicing:")
-
-print(L[::2])
+print(L[::-1])
 print(L[-1::])
 print(L[:-1:])
 print(L[::-2])
 print(L[-2::])
 print(L[:-2:])
 
-signo = ["Macaco","Galo","Cão","Porco","Rato","Boi","Tigre","Coelho","Dragão","Serpente","Cavalo","Carneiro"]
+● Uma forma simplificada de determinar o seu animal no zodiaco chines é apresentada na seguinte tabela:
 
-ano = input("Informe seu ano de nascimento: ")
+ano do nascimento % 12 | signo
+        0              | macaco
+        1              | galo
+        2              | cão
+        3              | porco
+        4              | rato
+        5              | boi
+        6              | tigre
+        7              | coelho
+        8              | dragão
+        9              | serpente
+        10             | cavalo
+        11             | carneiro
+        
+● Descubra qual o signo de um usuário de acordo com seu ano de nascimento.
 
-try:
-    resto = int(ano) % 12
-    if resto >= 0 & resto < 12: 
-        print("seu animal no zodiaco chines é:", signo[resto])
-    
-except Exception as inst:
-    print ("Ocorreu um erro!",inst)
+'''

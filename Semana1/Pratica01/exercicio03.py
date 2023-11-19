@@ -1,15 +1,23 @@
-i = '0'
+'''
+Exercício 3: Manipulação de variáveis de tipo string e explorando o uso de print.
 
-contador = 0
+● Os caracteres numéricos aparecem na tabela ASCII, e em outras, numa sequência que começa pelo caractere '0' até o caractere '9'. 
+As strings em Python são formadas por conjuntos de caracteres que podem ser tratadas também como valores numéricos. 
+Com base nestas afirmações desenvolva um programa em Python que:
 
-for x in "0123456789":
-    print("Em caractere: ", x , "| inteiro: ",ord(x), "| hexadecimal: ", hex(ord(x)), "| octal: ",oct(ord(x)))
+● Imprima na tela, utilizando print, cada um dos caracteres numéricos e seu correspondente código numérico. Pesquise como modificar o
+comportamento do print para imprimir como caractere e como número.
+Exemplo:'0' - 48
+'1' - 49
+…
+'9' - 57
 
+● Modifique o exercício anterior para que a saída imprima também o código numérico em octal e em hexadecimal.
 
-caractere = input("\n informe um caractere: ")
+● Acrescente ao código do exercício anterior a possibilidade de ler um caractere qualquer e imprima no mesmo formato do inciso anterior.
+Pesquise como ler um valor da entrada padrão.
 
-print("Em caractere: ", caractere , "| inteiro: ",ord(caractere), "| hexadecimal: ", hex(ord(caractere)), "| octal: ",oct(ord(caractere)))
+● Pesquise como trabalha Python os caracteres especiais, ‘ç’ e ‘ã’ por exemplo. Acrescente no código do exercício anterior um exemplo
+que demonstra como usar este recurso.
 
-if(ord(caractere) >= 128):
-    print("Para as letras acentuadas, bem como para outros caracteres usados num determinado idioma, que não \
-    pertencem à tabela ASCII, são atribuídos códigos numéricos entre 128 e 255." )
+'''

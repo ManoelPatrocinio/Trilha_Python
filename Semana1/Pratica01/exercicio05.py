@@ -1,21 +1,16 @@
-import sys
+'''
+Exercício 5: Manipulação de variáveis de ponto flutuante, explorando as características e os limites.
 
-expo2 = 2.0
-print("EXPONENCIAÇÃO COM VARIAVEIS FLUTUANTES  EM PYTHON \n")
-print("Menor valor da  potencia de 2 : ", expo2 ** sys.float_info.min)
-print("Maior valor da  potencia de 2 : ", expo2 ** sys.float_info.max)
+● Durante a aula foi apresentado o tipo de dado que permite representar um subconjunto dos números de ponto flutuante. Sobre estes tipos 
+de dados:
 
+● Demonstre como funcionam os operadores aritméticos e aritméticos compostos em Python;
 
-   
+● Utilizando o operador de exponenciação mostre qual a maior e a menor potência de 2 que pode ser representada com variáveis de ponto 
+flutuante.
 
-print("\nVARIÁVEIS FLOATS IMUTÁVEIS EM PYTHON \n")
+● As variáveis numéricas são imutáveis. Demonstre com exemplos as implicações desta afirmação;
 
-var1 = 19.99        
-var2 = var1    
-print("\nExemplo Prático: \n")
-print("o valor de var1 = ", var1)
-print("o valor de var2 = ", var2)
-print("\nApós incrementar o valor de var1 em 1 (+= 1):\n")
-var1 += 1         # incrementando var1 em 1
-print("o valor de var1 = ", var1)
-print("o valor de var2 = ", var2)
+● Verifique quais métodos estão disponíveis para as variáveis de ponto flutuante;
+
+'''
