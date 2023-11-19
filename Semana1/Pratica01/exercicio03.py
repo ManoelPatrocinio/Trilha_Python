@@ -21,3 +21,19 @@ Pesquise como ler um valor da entrada padrão.
 que demonstra como usar este recurso.
 
 '''
+
+print('\n\tCaracteres numéricos e seus códigos numéricos:\n')
+
+for i in range(10):
+  print(f"\t'{str(i)}' - {ord(str(i))}")
+print('\t='+'=' *60)
+  
+print('\tCaracteres numéricos e seus códigos numéricos em octal e hexadecimal:\n') 
+
+for i in range(10):
+  char = str(i)
+  dec_value = ord(char)
+  oct_value = oct(dec_value)
+  hex_value = hex(dec_value)
+  print(f"\t'{char}' - Decimal: {dec_value}, Octal: {oct_value}, Hexadecimal: {hex_value}")
+print('\t='+'=' *60)
