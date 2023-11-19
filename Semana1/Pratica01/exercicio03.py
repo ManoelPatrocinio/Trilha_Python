@@ -17,8 +17,8 @@ Exemplo:'0' - 48
 ● Acrescente ao código do exercício anterior a possibilidade de ler um caractere qualquer e imprima no mesmo formato do inciso anterior.
 Pesquise como ler um valor da entrada padrão.
 
-● Pesquise como trabalha Python os caracteres especiais, ‘ç’ e ‘ã’ por exemplo. Acrescente no código do exercício anterior um exemplo
-que demonstra como usar este recurso.
+● Pesquise como trabalha Python os caracteres especiais, ‘ç’ e ‘ã’ por exemplo. Acrescente no código do exercício anterior um exemplo que 
+demonstra como usar este recurso.
 
 '''
 
@@ -64,4 +64,4 @@ hex_value2 = hex(dec_value2)
 
 print(f"\n\t'{caractereEspecial1}' - Decimal: {dec_value1}, Octal: {oct_value1}, Hexadecimal: {hex_value1}")
 print(f"\t'{caractereEspecial2}' - Decimal: {dec_value2}, Octal: {oct_value2}, Hexadecimal: {hex_value2}")
-print('\t='+'=' *60)
+print('\t='+'=' *60) 
