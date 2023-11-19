@@ -142,3 +142,29 @@ print('\n\t='+'=' *50)
 pause()
 limpaTela()
 
+print('\n\t='+'=' *80)
+print('\tMetodos disponiveis em variaveis inteiras:')
+
+print('\n\ttype(): Retorna o tipo do objeto: {}'.format(type(numImult_1)))
+print('\t.real e .imag: Números complexos {} e número imaginario {}'.format(numImult_1.real, numImult_1.imag))
+print('\tid(): Retorna o identificador do objeto: {}'.format(id(numImult_1)))
+print('\thex(): Retorna o valor hexadecimal do objeto: {}'.format(hex(numImult_1)))
+print('\tbin(): Retorna o valor binario do objeto: {}'.format(bin(numImult_1)))
+print('\tint(): Retorna o valor inteiro do objeto: {}'.format(int(numImult_1)))
+print('\tfloat(): Retorna o valor float do objeto: {}'.format(float(numImult_1)))
+print('\tcomplex(): Retorna o valor complexo do objeto: {}'.format(complex(numImult_1)))
+print('\tbool(): Retorna o valor booleano do objeto: {}'.format(bool(numImult_1)))
+print('\tstr(): Retorna o valor string do objeto: {}'.format(str(numImult_1)))
+print('\tabs(): Retorna o valor absoluto do objeto: {}'.format(abs(numImult_1)))
+print('\tpow(): Retorna o valor do objeto elevado a um valor: {}'.format(pow(numImult_1, 2)))
+print('\tdivmod(): Retorna o valor da divisão e o resto da divisão do objeto: {}'.format(divmod(numImult_1, 2)))
+
+numImult_1 = 100.0
+print('\tnumImult é um valor inteiro? {}'.format(numImult_1.is_integer()))
+
+numImult_1 = 100.05
+print('\tnumImult é um valor inteiro? {}'.format(numImult_1.is_integer()))
+
+print('\t='+'=' *80)
+pause()
+limpaTela()
