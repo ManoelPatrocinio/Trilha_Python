@@ -126,3 +126,19 @@ print('\tEm C/C++, o tamanho do inteiro é geralmente de 4 bytes para int e 8 by
 pause()
 limpaTela()
 
+print('\n\t='+'=' *50)
+print('\tImutabilidade Númerica em Python:')
+
+# Atribuição de um valor inteiro
+numImult_1 = 100
+numImult_2 = numImult_1
+print('\n\tValores das variaveis:\n\tnumImult_1 = {} e numImult_2 = {}'.format(numImult_1, numImult_2))
+
+numImult_1 += 1
+print('\n\tnumImult_1 += 1\n\tApós a variavel numImult_1 ser incrementada: {}'
+      '\n\tEnquanto a variavel numImult_2 continua igual a {}'.format(numImult_1, numImult_2))
+
+print('\n\t='+'=' *50)
+pause()
+limpaTela()
+
