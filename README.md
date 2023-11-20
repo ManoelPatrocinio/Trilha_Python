@@ -10,3 +10,4 @@
             ATV EM SALA
             PRATICA
         README.md
+aa .
