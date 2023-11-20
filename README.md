@@ -5,6 +5,7 @@
     Manoel Patrocinio | Branch : manoel | E-MAIL: manoelpatrocinio99@gmail.com
     Sergio de Souza Santos | Branch : sergio | E-MAIL: sergiodesouzasantos97@gmail.com
     Tales  Araujo | Branch : tales | E-MAIL: talesaraujo18@gmail.com
+    Vitor Sousa | Branch : Vitor | E-MAIL: vitor.pereira@cepedi.org.br
 
 ## ESTRUTURA DE PASTAS
     REPOSITÓRIO
