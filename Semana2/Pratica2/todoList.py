@@ -1,71 +1,112 @@
 import os
-todoList = []
-finishList = []
 
+# The list to store tasks
+tasks = []
 
-def registraTarefa():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    
-    novaTodo = input("Adicione um tarefa: ")
-    todoList.append(novaTodo)
+# Reading the .txt file
+def readFile(string_array):
+    with open('./Semana2/Pratica2/output.txt', 'r') as file:
+        for line in file:
+            # Removing newline character
+            line = line.strip()
+            
+            # Adding line to the array
+            string_array.append(line)
+            
+def saveOnFile(string_array):
+# Writing the array back to a new .txt file
+    with open('./Semana2/Pratica2/output.txt', 'w') as file:
+        for line in string_array:
+            # Writing line to the file
+            file.write(line + '\n')
+
+def add_task(newTask):
+    taskFormated = newTask.capitalize()
+    tasks.append(taskFormated)
     print("\nTarefa registrada!!!\n")
+    saveOnFile(tasks)
+    
 
-  
-def listarTarefas():
+def display_tasks():
     os.system('cls' if os.name == 'nt' else 'clear')
-    
-    if len(finishList) > 0:
-        for index, item in enumerate(finishList):
-            try:
-                print(index + 1,".", item, "[x]")
-                
-            except Exception as inst:
-                print ("Ocorreu um erro!",inst)
-    for index, item in enumerate(todoList):
-        try:
-            id = len(finishList) + (index + 1)
-            print(id,".", item, "[ ]")
-            
-        except Exception as inst:
-            print ("Ocorreu um erro!",inst)
-    
-def concluirTarefa():
+    for i, task in enumerate(tasks):
+        if task.find("[x]") > -1 :
+            print(f"{i+1}. {task}")
+        else:
+            print(f"{i+1}. {task} [ ]")
+
+def mark_completed(index):
     os.system('cls' if os.name == 'nt' else 'clear')
-    
-    listarTarefas()
-    id = input("Informe o identificador da tarefa: ")
-    
-    for i in range(len(todoList)):
-        if(i ==  (int(id) - 1)):
-          finishList.append(todoList[i])
-          todoList.pop(i)
-          print("Tarefa localizada: ", todoList[i])
-          print("Tarefa concluida !!! ")
+
+    if 0 < index <= len(tasks):
+        tasks.insert(0,f"{tasks[index-1]} [x]")
+        tasks.pop(index)
         
-def Menu():
-    
-    print("\n\n1 - P/ Adicionar tarefa")
-    print("2 - P/ Concluir tarefa")
-    print("3 - P/ Listar tarefa")
-    print("0 - P/ Sair")
-    escolha = input("Sua escolha: ")
-    
-    return escolha
-    
-def main():
-    while True:
-        esc = Menu()
-        match esc:
-            case "1":
-                registraTarefa()
-            case "2":
-                concluirTarefa()
-            
-            case "3":
-                listarTarefas()
-            case "0": 
-                return   
-                
+        print("Tarefa concluida !!! ")
+        saveOnFile(tasks)
+    else:
+        print("Numero inválido. Tente Novamente.")
 
-main()
-           
+def edit_task(index):
+    os.system('cls' if os.name == 'nt' else 'clear')
+    if 0 < index <= len(tasks):
+        editedTask = input("Informe a nova descrição: ")
+        if tasks[index-1].find("[x]") > -1 :
+            tasks[index-1] = editedTask + " [x]"
+            saveOnFile(tasks)
+            
+        else:
+            tasks[index-1] = editedTask 
+            saveOnFile(tasks)
+            
+    else:
+        print("Numero inválido. Tente Novamente.")
+    
+def delete_task(index):
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
+    if 0 < index <= len(tasks):
+        tasks.pop(index-1)
+        print("Tarefa excluida !!! ")
+        saveOnFile(tasks)
+    else:
+        print("Numero inválido. Tente Novamente.")
+
+def main():
+    
+    while True:
+        print("\nTodo List")
+        print("---------")
+        print("1. Adicionar tarefa")
+        print("2. Exibir lista")
+        print("3. Marcar tarefa como completa ")
+        print("4. Editar tarefa")
+        print("5. Deletar tarefa")
+        print("6. Sair")
+
+        option = int(input("Sua escolha: "))
+
+        if option == 1:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            task = input("Informe a tarefa: ")
+            add_task(task)
+        elif option == 2:
+            display_tasks()
+        elif option == 3:
+            index = int(input("Informe o numero da tarefa que deseja completar: "))
+            mark_completed(index)
+        elif option == 4:
+            index = int(input("Informe o numero da tarefa que deseja editar: "))
+            edit_task(index)
+        elif option == 5:
+            index = int(input("Informe o numero da tarefa que deseja deletar: "))
+            delete_task(index)
+        elif option == 6:
+            break
+        else:
+            print("Opcao invalida. Tente novamente.")
+
+if __name__ == "__main__":
+    readFile(tasks)
+    main()
+   
