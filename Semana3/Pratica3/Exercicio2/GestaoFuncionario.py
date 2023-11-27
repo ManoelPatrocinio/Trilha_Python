@@ -130,7 +130,67 @@ def listar():
       print("\t====================================")
   else:
     print("\n\tNão há funcionários cadastrados.")
+   
+def editar():
+  
+  limpaTela()
+  id_funcionario = None
     
+  if len(funcionarios) > 0:
+    
+    print("\n\t        EDITAR FUNCIONÁRIO       \n") 
+    listar()
+    
+    while True:
+        
+      id_funcionario_input = input("\n\tInforme o ID do funcionário que deseja editar: ")
+
+      if id_funcionario_input.strip():  # Verifica se a string não é vazia após remover espaços em branco
+            
+        try:
+          
+          id_funcionario = int(id_funcionario_input)
+          break  # Sai do loop se a conversão for bem-sucedida
+            
+        except ValueError:
+          limpaTela() 
+          print("\n\tPor favor, insira um número válido.")
+          pause()
+          limpaTela() 
+          
+      else:
+        limpaTela()
+        print("\n\tPor favor, insira um ID válido.")
+        pause()
+        limpaTela()
+      
+    if id_funcionario in funcionarios:
+        
+      limpaTela()
+      print("\n\t======= EDITAR FUNCIONÁRIO =======")
+        
+      print("\n\tInforme os novos dados do funcionário: ")
+      nome = input("\n\tNome do Funcionário: ")
+      sobrenome = input("\tSobrenome do Funcionário: ")
+      ano_nascimento = input("\tInforme o Ano de nascimento do mesmo: ")
+      rg = input("\tInforme o RG do Funcionário: ")
+      ano_admissao = input("\tAno de admissão na empresa: ")
+      salario = float(input("\tSalário do funcionário: "))
+        
+      funcionarios[id_funcionario] = [nome, sobrenome, ano_nascimento, rg, ano_admissao, salario]
+        
+      limpaTela()
+      listar()  
+      print("\n\tFuncionário editado com sucesso!")
+      pause()
+    else:
+      limpaTela()
+      print("\n\tFuncionário não encontrado!")
+      pause()
+  else:
+    print("\n\tNão há funcionários cadastrados.")
+    pause()
+     
 def pause():
   input("\tPressione Enter para continuar...")
   
