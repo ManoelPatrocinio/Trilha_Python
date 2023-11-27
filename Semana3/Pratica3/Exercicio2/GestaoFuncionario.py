@@ -366,7 +366,6 @@ def carregarFuncionariosDeArquivo():
       linhas = arquivo.readlines() 
      
       if not linhas:
-        print("\n\tCarregando funcionários...")
         print("O arquivo está vazio.")
         return
       
