@@ -347,7 +347,94 @@ def excluir():
   else:
     print("\n\tNão há funcionários cadastrados.")
     pause()
-           
+ 
+def salvarFuncionariosEmArquivo():
+  
+  global funcionarios
+  with open("Semana3/Pratica3/Exercicio2/BancoDeDados/arquivo.txt", "w") as arquivo:
+    funcionarios_ordenados = sorted(funcionarios.items(), key=lambda x: x[1][5])
+    for id_funcionario, dados_funcionario in funcionarios.items():
+        arquivo.write(f"{id_funcionario},{dados_funcionario[0]},{dados_funcionario[1]},{dados_funcionario[2]},{dados_funcionario[3]},{dados_funcionario[4]},{dados_funcionario[5]}\n")
+
+def carregarFuncionariosDeArquivo():
+  
+  global funcionarios
+ 
+  try:
+    with open("Semana3/Pratica3/Exercicio2/BancoDeDados/arquivo.txt", "r") as arquivo:
+      
+      linhas = arquivo.readlines() 
+     
+      if not linhas:
+        print("\n\tCarregando funcionários...")
+        print("O arquivo está vazio.")
+        return
+      
+      for linha in linhas:
+        partes = linha.strip().split(',')
+
+        if len(partes) == 7:
+          try:
+            id_funcionario, nome, sobrenome, ano_nascimento, rg, ano_admissao, salario = map(str, partes)
+            
+            funcionarios[int(id_funcionario)] = [
+              nome,
+              sobrenome,
+              ano_nascimento,
+              rg,
+              ano_admissao,
+              float(salario) 
+            ]
+            
+          except ValueError as e:
+            print(f"Erro ao processar a linha: {linha}")
+            print(f"Mensagem de erro: {e}")
+        else:
+          print(f"Formato inválido na linha: {linha}")
+
+  except FileNotFoundError:
+    print("O arquivo não foi encontrado.")
+      
+def validarData():
+  
+  while True:
+      
+    data_nascimento_input = input("\tDATA ENTRADA -> ")
+
+    try:
+          
+      # Tenta criar um objeto datetime a partir da string e do formato fornecidos
+      data_nascimento = datetime.strptime(data_nascimento_input, '%d/%m/%Y')
+
+      # Obtém o ano do nascimento
+      ano_nascimento = data_nascimento.date().year
+
+      # Obtém o ano atual
+      ano_atual = date.today().year
+
+      # Verifica se o ano de nascimento é menor ou igual ao ano atual
+      if ano_nascimento <= ano_atual:
+        print("\tOps, data válida!")
+
+        # Formata a data no formato desejado
+        formato_personalizado = "%d/%m/%Y"
+        data_nascimento_formatada_str = data_nascimento.strftime(formato_personalizado)
+
+        return data_nascimento_formatada_str  # Retorna a data de nascimento validada e formatada
+
+      else:
+        limpaTela()
+        print("\tOps, data invalida! Certifique-se de fornecer uma data válida.")
+        pause()
+        limpaTela() 
+                
+    except ValueError:
+      # Se ocorrer um erro ao tentar converter para datetime, ou seja, se não for uma data válida
+      limpaTela() 
+      print("\tOps, data invalida! formato correto: DD/MM/YYYY")
+      pause()
+      limpaTela()
+                
 def pause():
   input("\tPressione Enter para continuar...")
   
