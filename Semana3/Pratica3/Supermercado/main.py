@@ -140,6 +140,43 @@ def listar():
 
     else:
         print("\n\tAinda não existem produtos cadastrados.")
+
+def editarProduto():
+    
+    print("\n\t        EDITAR PRODUTO       ")
+    listar()
+    codigoDoProduto = input("\n\tInforme o CÓDIGO do produto que deseja editar: ")
+    
+    for id in produtos:
+        
+        if produtos[id]["codigo"] == codigoDoProduto:
+            
+            limpaTela()
+            print("\n\t======= PRODUTO ENCONTRADO =======")
+            print("\tCódigo: ", produtos[id]["codigo"])
+            print("\tNome: ", produtos[id]["nome"])
+            print("\tPreço: ", produtos[id]["preco"])
+            print("\tQuantidade: ", produtos[id]["quantidade"])
+            print("\t=================================")
+            pause()
+            
+            limpaTela()
+            print("\n\t======= EDITAR PRODUTO =======")
+            print("\n\tInforme os novos dados do produto: ")
+            codigo = input("\n\tInforme o código do produto: ")
+            nome = input("\tNome do produto: ")
+            preco = input("\tPreço do produto: ")
+            quantidade = input("\tQuantidade do produto:")
+            produtos[id] = {"codigo": codigo, "nome": nome.capitalize(), "preco": preco, "quantidade": quantidade}
+            
+            limpaTela()
+            listar()
+            print("\n\tProduto editado com sucesso!")
+            pause()
+            return
+
+    print("\n\tProduto não encontrado.")
+    pause()
                        
 def main():
     supermercadoEmPython()
