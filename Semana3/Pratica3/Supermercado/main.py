@@ -177,6 +177,46 @@ def editarProduto():
 
     print("\n\tProduto não encontrado.")
     pause()
+    
+    def excluirProduto():
+    
+    print("\n\t        EXCLUIR PRODUTO       ")
+    listar()
+    codigoDoProduto = input("\n\tInforme o CÓDIGO do produto que deseja excluir: ")
+    
+    for id in produtos:
+        
+        if produtos[id]["codigo"] == codigoDoProduto:
+            
+            limpaTela()
+            print("\n\t======= PRODUTO ENCONTRADO =======")
+            print("\tCódigo: ", produtos[id]["codigo"])
+            print("\tNome: ", produtos[id]["nome"])
+            print("\tPreço: ", produtos[id]["preco"])
+            print("\tQuantidade: ", produtos[id]["quantidade"])
+            print("\t=================================")
+            pause()
+            
+            limpaTela()
+            print("\n\t======= EXCLUIR PRODUTO =======")
+            print("\n\tDeseja realmente excluir o produto? ")
+            print("\t[1] - SIM")
+            print("\t[2] - NÃO")
+            opcao = input("\tENTRADA -> ")
+            
+            if(opcao == "1"):
+                del produtos[id]
+                limpaTela()
+                listar()
+                print("\n\tProduto excluído com sucesso!")
+                pause()
+                return
+            else:
+                return
+
+    print("\n\tProduto não encontrado.")
+    pause()
+    
                        
 def main():
     supermercadoEmPython()
