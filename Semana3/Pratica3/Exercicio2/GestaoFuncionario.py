@@ -46,6 +46,42 @@ def menu():
       limpaTela()
       print("\n\tOps, opção inválida! Tente novamente.")
       pause()
+      
+def gestaoFuncionario():
+  
+    carregarFuncionariosDeArquivo()
+  
+    while True:
+      
+      opcao = menu()
+        
+      if opcao == "1":
+        cadastrar()
+        salvarFuncionariosEmArquivo()
+            
+      elif opcao == "2":
+        limpaTela()
+        listar()
+        pause() 
+            
+      elif opcao == "3":
+        editar()
+        salvarFuncionariosEmArquivo()
+            
+      elif opcao == "4":
+        excluir()
+        salvarFuncionariosEmArquivo()
+            
+      elif opcao == "5":
+        consultar()
+        
+      elif opcao == "6":
+        Reajusta_dez_porcento()
+        salvarFuncionariosEmArquivo()
+            
+      elif opcao == "0":
+        print("\n\tSaindo do sistema...")
+        break
 
 def pause():
   input("\tPressione Enter para continuar...")
