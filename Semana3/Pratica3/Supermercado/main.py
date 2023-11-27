@@ -59,6 +59,46 @@ def menu():
             print("\n\tOps, opção inválida! Tente novamente.")
             pause()
 
+def supermercadoEmPython():
+    
+    carregarProdutosDeArquivo()  
+    
+    while True:
+        
+        opcao = menu()
+        
+        match opcao:
+            
+            case "1":
+                limpaTela()
+                cadastrar()
+                salvarProdutosEmArquivo()
+                
+            case "2":
+                limpaTela()
+                listar()
+                pause()
+                
+            case "3":
+                limpaTela()
+                editarProduto()
+                
+            case "4":
+                limpaTela()
+                excluirProduto()
+                
+            case "5":
+                limpaTela()
+                consultarProduto()
+                
+            case "0":
+                return
+                
+            case _:
+                limpaTela()
+                print("\n\tOps, opção inválida! Tente novamente.")
+                pause()
+                
 def main():
     supermercadoEmPython()
 
