@@ -190,7 +190,65 @@ def editar():
   else:
     print("\n\tNão há funcionários cadastrados.")
     pause()
-     
+
+def consultar():
+  
+  limpaTela()
+  id_funcionario = None
+    
+  if len(funcionarios) > 0:
+    
+    print("\n\t        CONSULTAR FUNCIONÁRIO       \n") 
+    listar()
+    
+    while True:
+        
+      id_funcionario_input = input("\n\tInforme o ID do funcionário que deseja consultar: ")
+
+      if id_funcionario_input.strip():
+            
+        try:
+          
+          id_funcionario = int(id_funcionario_input)
+          break  
+            
+        except ValueError:
+          limpaTela() 
+          print("\n\tPor favor, insira um número válido.")
+          pause()
+          limpaTela() 
+          
+      else:
+        limpaTela()
+        print("\n\tPor favor, insira um ID válido.")
+        pause()
+        limpaTela()
+      
+    if id_funcionario in funcionarios:
+        
+      limpaTela()
+      print("\n\t======= CONSULTAR FUNCIONÁRIO =======")
+        
+      print("\n\tID: ", id_funcionario)
+      print("\tNome: ", funcionarios[id_funcionario][0])
+      print("\tSobrenome: ", funcionarios[id_funcionario][1])
+      print("\tAno de nascimento: ", funcionarios[id_funcionario][2])
+      print("\tRG: ", funcionarios[id_funcionario][3])
+      print("\tAno de admissão: ", funcionarios[id_funcionario][4])
+      print("\tSalário: R$ {:.2f}".format(funcionarios[id_funcionario][5]))
+      print("\t====================================")
+        
+      pause()
+        
+    else:
+      limpaTela()
+      print("\n\tFuncionário não encontrado!")
+      pause()
+      
+  else:
+    print("\n\tNão há funcionários cadastrados.")
+    pause()
+         
 def pause():
   input("\tPressione Enter para continuar...")
   
