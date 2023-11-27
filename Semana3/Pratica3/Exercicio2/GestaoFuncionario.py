@@ -111,6 +111,25 @@ def cadastrar():
     listar()
     print("\n\tFuncionário cadastrado com sucesso!")
     pause()
+
+def listar():
+  
+  print("\n\t======= LISTAR FUNCIONÁRIOS =======")
+
+  if len(funcionarios) > 0:
+    
+    funcionarios_ordenados = sorted(funcionarios.items(), key=lambda x: x[1][5])  # Ordena pelo salário (índice 5)
+    for id_funcionario, dados_funcionario in funcionarios_ordenados:
+      print("\tID: ", id_funcionario)
+      print("\tNome: ", dados_funcionario[0])
+      print("\tSobrenome: ", dados_funcionario[1])
+      print("\tAno de nascimento: ", dados_funcionario[2])
+      print("\tRG: ", dados_funcionario[3])
+      print("\tAno de admissão: ", dados_funcionario[4])
+      print("\tSalário: R$ {:.2f}".format(dados_funcionario[5]))
+      print("\t====================================")
+  else:
+    print("\n\tNão há funcionários cadastrados.")
     
 def pause():
   input("\tPressione Enter para continuar...")
