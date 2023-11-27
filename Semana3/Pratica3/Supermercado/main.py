@@ -217,7 +217,30 @@ def editarProduto():
     print("\n\tProduto não encontrado.")
     pause()
     
-                       
+def consultarProduto():
+    
+    print("\n\t        CONSULTAR PRODUTO       ")
+    listar()
+    codigoDoProduto = input("\n\tInforme o CÓDIGO do produto que deseja consultar: ")
+    
+    for id in produtos:
+        
+        if produtos[id]["codigo"] == codigoDoProduto:
+            
+            limpaTela()
+            print("\n\t======= PRODUTO ENCONTRADO =======")
+            print("\tCódigo: ", produtos[id]["codigo"])
+            print("\tNome: ", produtos[id]["nome"])
+            print("\tPreço: ", produtos[id]["preco"])
+            print("\tQuantidade: ", produtos[id]["quantidade"])
+            print("\t=================================")
+            pause()
+            return
+
+    print("\n\tProduto não encontrado.")
+    pause()
+    
+                         
 def main():
     supermercadoEmPython()
 
