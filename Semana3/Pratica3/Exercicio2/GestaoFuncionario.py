@@ -85,32 +85,33 @@ def gestaoFuncionario():
 
 def cadastrar():
   
-    global funcionarios
-    limpaTela()
-    global proximo_id
+  limpaTela()
+  global proximo_id
     
-    print("\n\t======= CADASTRAR FUNCIONÁRIO =======\n")
+  print("\n\t======= CADASTRAR FUNCIONÁRIO =======\n")
     
-    nome = input("\tNome do Funcionário: ")
-    sobrenome = input("\tSobrenome do Funcionário: ")
+  nome = input("\tNome do Funcionário: ")
+  sobrenome = input("\tSobrenome do Funcionário: ")
     
-    print("\tDigite a data de nascimento no formato DD/MM/YYYY: ")
-    ano_nascimento = validarData()  
+  print("\tDigite a data de nascimento no formato DD/MM/YYYY: ")
+  ano_nascimento = validarData()  
     
-    rg = input("\tInforme o RG do Funcionário: ")
+  rg = input("\tInforme o RG do Funcionário: ")
     
-    print("\tAno de admissão na empresa: ")
-    ano_admissao = validarData()
+  print("\tAno de admissão na empresa: ")
+  ano_admissao = validarData()
     
-    salario = float(input("\tSalário do funcionário: "))
+  salario = float(input("\tSalário do funcionário: "))
     
-    funcionarios[proximo_id] = {"nome": nome.capitalize(),"sobrenome": sobrenome.capitalize(),"ano_nascimento": ano_nascimento,"rg": rg,"ano_admissao": ano_admissao,"salario": salario}
-    proximo_id += 1
+  # Calcula o próximo ID como o maior ID existente + 1
+  proximo_id = max(map(int, funcionarios.keys()), default=0) + 1
     
-    limpaTela()
-    listar()
-    print("\n\tFuncionário cadastrado com sucesso!")
-    pause()
+  funcionarios[proximo_id] = {"nome": nome.capitalize(),"sobrenome": sobrenome.capitalize(),"ano_nascimento": ano_nascimento,"rg": rg,"ano_admissao": ano_admissao,"salario": salario}
+    
+  limpaTela()
+  listar()
+  print("\n\tFuncionário cadastrado com sucesso!")
+  pause()
 
 def listar():
   
@@ -351,7 +352,6 @@ def excluir():
     pause()
  
 def salvarFuncionariosEmArquivo():
-  global funcionarios
   
   with open("Semana3/Pratica3/Exercicio2/BancoDeDados/arquivo.txt", "w") as arquivo:
     funcionarios_ordenados = sorted(funcionarios.items(), key=lambda x: x[1]["salario"])
@@ -359,7 +359,7 @@ def salvarFuncionariosEmArquivo():
       arquivo.write(f"{id_funcionario},{dados_funcionario['nome']},{dados_funcionario['sobrenome']},{dados_funcionario['ano_nascimento']},{dados_funcionario['rg']},{dados_funcionario['ano_admissao']},{dados_funcionario['salario']}\n")
 
 def carregarFuncionariosDeArquivo():
-  global funcionarios
+  
   try:
     with open("Semana3/Pratica3/Exercicio2/BancoDeDados/arquivo.txt", "r") as arquivo:
       

@@ -100,6 +100,7 @@ def supermercadoEmPython():
                 pause()
 
 def cadastrar():
+    
     print("\n\t======= CADASTRAR PRODUTO =======")
     global proximo_id
     
