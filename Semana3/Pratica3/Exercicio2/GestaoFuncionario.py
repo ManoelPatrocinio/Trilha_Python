@@ -104,7 +104,7 @@ def cadastrar():
     
     salario = float(input("\tSalário do funcionário: "))
     
-    funcionarios[proximo_id] = [nome.capitalize(), sobrenome.capitalize(), ano_nascimento, rg, ano_admissao, salario]
+    funcionarios[proximo_id] = {"nome": nome.capitalize(),"sobrenome": sobrenome.capitalize(),"ano_nascimento": ano_nascimento,"rg": rg,"ano_admissao": ano_admissao,"salario": salario}
     proximo_id += 1
     
     limpaTela()
@@ -118,16 +118,18 @@ def listar():
 
   if len(funcionarios) > 0:
     
-    funcionarios_ordenados = sorted(funcionarios.items(), key=lambda x: x[1][5])  # Ordena pelo salário (índice 5)
+    funcionarios_ordenados = sorted(funcionarios.items(), key=lambda x: x[1]["salario"])
+
     for id_funcionario, dados_funcionario in funcionarios_ordenados:
       print("\tID: ", id_funcionario)
-      print("\tNome: ", dados_funcionario[0])
-      print("\tSobrenome: ", dados_funcionario[1])
-      print("\tAno de nascimento: ", dados_funcionario[2])
-      print("\tRG: ", dados_funcionario[3])
-      print("\tAno de admissão: ", dados_funcionario[4])
-      print("\tSalário: R$ {:.2f}".format(dados_funcionario[5]))
+      print("\tNome: ", dados_funcionario["nome"])
+      print("\tSobrenome: ", dados_funcionario["sobrenome"])
+      print("\tAno de nascimento: ", dados_funcionario["ano_nascimento"])
+      print("\tRG: ", dados_funcionario["rg"])
+      print("\tAno de admissão: ", dados_funcionario["ano_admissao"])
+      print("\tSalário: R$ {:.2f}".format(dados_funcionario["salario"]))
       print("\t====================================")
+      
   else:
     print("\n\tNão há funcionários cadastrados.")
    
@@ -177,7 +179,7 @@ def editar():
       ano_admissao = input("\tAno de admissão na empresa: ")
       salario = float(input("\tSalário do funcionário: "))
         
-      funcionarios[id_funcionario] = [nome, sobrenome, ano_nascimento, rg, ano_admissao, salario]
+      funcionarios[id_funcionario] = {"nome": nome,"sobrenome": sobrenome,"ano_nascimento": ano_nascimento,"rg": rg,"ano_admissao": ano_admissao,"salario": salario}
         
       limpaTela()
       listar()  
@@ -230,16 +232,15 @@ def consultar():
       print("\n\t======= CONSULTAR FUNCIONÁRIO =======")
         
       print("\n\tID: ", id_funcionario)
-      print("\tNome: ", funcionarios[id_funcionario][0])
-      print("\tSobrenome: ", funcionarios[id_funcionario][1])
-      print("\tAno de nascimento: ", funcionarios[id_funcionario][2])
-      print("\tRG: ", funcionarios[id_funcionario][3])
-      print("\tAno de admissão: ", funcionarios[id_funcionario][4])
-      print("\tSalário: R$ {:.2f}".format(funcionarios[id_funcionario][5]))
+      print("\tNome: ", funcionarios[id_funcionario]["nome"])
+      print("\tSobrenome: ", funcionarios[id_funcionario]["sobrenome"])
+      print("\tAno de nascimento: ", funcionarios[id_funcionario]["ano_nascimento"])
+      print("\tRG: ", funcionarios[id_funcionario]["rg"])
+      print("\tAno de admissão: ", funcionarios[id_funcionario]["ano_admissao"])
+      print("\tSalário: R$ {:.2f}".format(funcionarios[id_funcionario]["salario"]))
       print("\t====================================")
-        
       pause()
-        
+          
     else:
       limpaTela()
       print("\n\tFuncionário não encontrado!")
@@ -254,7 +255,8 @@ def Reajusta_dez_porcento():
   limpaTela()
   print("\n\t========== REAJUSTE DE 10% =========")
   for id_funcionario in funcionarios:
-    funcionarios[id_funcionario][5] = funcionarios[id_funcionario][5] * 1.1
+    
+    for id_funcionario, dados_funcionario in funcionarios.items(): dados_funcionario["salario"] *= 1.1
     print("\tID: ", id_funcionario)
     print("\tNome: ", funcionarios[id_funcionario][0])
     print("\tSobrenome: ", funcionarios[id_funcionario][1])
@@ -349,17 +351,15 @@ def excluir():
     pause()
  
 def salvarFuncionariosEmArquivo():
-  
   global funcionarios
+  
   with open("Semana3/Pratica3/Exercicio2/BancoDeDados/arquivo.txt", "w") as arquivo:
-    funcionarios_ordenados = sorted(funcionarios.items(), key=lambda x: x[1][5])
-    for id_funcionario, dados_funcionario in funcionarios.items():
-        arquivo.write(f"{id_funcionario},{dados_funcionario[0]},{dados_funcionario[1]},{dados_funcionario[2]},{dados_funcionario[3]},{dados_funcionario[4]},{dados_funcionario[5]}\n")
+    funcionarios_ordenados = sorted(funcionarios.items(), key=lambda x: x[1]["salario"])
+    for id_funcionario, dados_funcionario in funcionarios_ordenados:
+      arquivo.write(f"{id_funcionario},{dados_funcionario['nome']},{dados_funcionario['sobrenome']},{dados_funcionario['ano_nascimento']},{dados_funcionario['rg']},{dados_funcionario['ano_admissao']},{dados_funcionario['salario']}\n")
 
 def carregarFuncionariosDeArquivo():
-  
   global funcionarios
- 
   try:
     with open("Semana3/Pratica3/Exercicio2/BancoDeDados/arquivo.txt", "r") as arquivo:
       
@@ -376,14 +376,14 @@ def carregarFuncionariosDeArquivo():
           try:
             id_funcionario, nome, sobrenome, ano_nascimento, rg, ano_admissao, salario = map(str, partes)
             
-            funcionarios[int(id_funcionario)] = [
-              nome,
-              sobrenome,
-              ano_nascimento,
-              rg,
-              ano_admissao,
-              float(salario) 
-            ]
+            funcionarios[id_funcionario] = {
+              "nome" :  nome,
+              "sobrenome" : sobrenome,
+              "ano_nascimento" : ano_nascimento,
+              "rg" : rg,
+              "ano_admissao" : ano_admissao,
+              "salario" : float(salario) 
+            }
             
           except ValueError as e:
             print(f"Erro ao processar a linha: {linha}")
