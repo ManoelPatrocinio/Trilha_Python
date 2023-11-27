@@ -178,7 +178,7 @@ def editarProduto():
     print("\n\tProduto não encontrado.")
     pause()
     
-    def excluirProduto():
+def excluirProduto():
     
     print("\n\t        EXCLUIR PRODUTO       ")
     listar()
@@ -240,10 +240,59 @@ def consultarProduto():
     print("\n\tProduto não encontrado.")
     pause()
     
-                         
+def salvarProdutosEmArquivo():
+    
+    with open("semana3/Pratica3/Supermercado/BancoDeDados/arquivo.txt", "w") as arquivo:
+        
+        for id_produto, produto in produtos.items():
+            arquivo.write(f"{id_produto},{produto['codigo']},{produto['nome']},{produto['preco']},{produto['quantidade']}\n")
+
+def carregarProdutosDeArquivo():
+    
+    try:
+        with open("semana3/Pratica3/Supermercado/BancoDeDados/arquivo.txt", "r") as arquivo:
+            
+            linhas = arquivo.readlines()
+            if not linhas:
+                print("O arquivo está vazio.")
+                return
+
+            for linha in linhas:
+                partes = linha.strip().split(',')
+                if len(partes) == 5:
+                    
+                    try:
+                        id_produto, codigo, nome, preco, quantidade = map(str, partes)
+                        produtos[id_produto] = {
+                            'codigo': codigo,
+                            'nome': nome,
+                            'preco': float(preco),
+                            'quantidade': int(quantidade)
+                        }
+                    except ValueError as e:
+                        print(f"Erro ao processar a linha: {linha}")
+                        print(f"Mensagem de erro: {e}")
+                else:
+                    print(f"Formato inválido na linha: {linha}")
+
+    except FileNotFoundError:
+        print("O arquivo não foi encontrado.")
+         
+def pause():
+  input("\tPressione Enter para continuar...")
+  
+def limpaTela():
+  sistema_operacional = platform.system().lower()
+
+  if sistema_operacional == "windows":
+    os.system("cls")
+  elif sistema_operacional == "linux":
+    os.system("clear")
+  else:
+    print("Sistema operacional não suportado para limpar a tela.")    
+                            
 def main():
     supermercadoEmPython()
-
 
 if __name__ == "__main__":
     main()
