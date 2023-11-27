@@ -98,7 +98,49 @@ def supermercadoEmPython():
                 limpaTela()
                 print("\n\tOps, opção inválida! Tente novamente.")
                 pause()
-                
+
+def cadastrar():
+    print("\n\t======= CADASTRAR PRODUTO =======")
+    global proximo_id
+    
+    codigo = input("\n\tInforme o código do produto: ")
+    nome = input("\tNome do produto: ")
+
+    preco = float(input("\tPreço do produto: "))
+
+    quantidade = int(input("\tQuantidade do produto: "))
+
+    produtos[proximo_id] = {"codigo": codigo, "nome": nome.capitalize(), "preco": preco, "quantidade": quantidade}
+    proximo_id += 1
+    
+    limpaTela()
+    listar()
+    print("\n\tProduto cadastrado com sucesso!")
+    pause()
+
+def listar():
+    print("\n\t======= LISTAR PRODUTOS =======")
+
+    if len(produtos) > 0:
+        # Ordena os produtos com base no preço antes de listar
+        produtos_ordenados = sorted(produtos.items(), key=lambda x: x[1]["preco"])
+
+        for i, (id, produto) in enumerate(produtos_ordenados, start=1):
+            print("\tid: ", id)
+            print("\tCódigo: ", produto["codigo"])
+            print("\tNome: ", produto["nome"])
+            print("\tPreço: {:.2f}".format(produto["preco"]))
+            print("\tQuantidade: ", produto["quantidade"])
+            print("\t=================================")
+
+            # Exibe 10 produtos e pausa a cada 10 produtos
+            if i % 10 == 0:
+                print("\n\tExibindo 10 produtos por vez...")
+                pause()
+
+    else:
+        print("\n\tAinda não existem produtos cadastrados.")
+                       
 def main():
     supermercadoEmPython()
 
