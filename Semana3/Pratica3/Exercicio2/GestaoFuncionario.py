@@ -83,6 +83,35 @@ def gestaoFuncionario():
         print("\n\tSaindo do sistema...")
         break
 
+def cadastrar():
+  
+    global funcionarios
+    limpaTela()
+    global proximo_id
+    
+    print("\n\t======= CADASTRAR FUNCIONÁRIO =======\n")
+    
+    nome = input("\tNome do Funcionário: ")
+    sobrenome = input("\tSobrenome do Funcionário: ")
+    
+    print("\tDigite a data de nascimento no formato DD/MM/YYYY: ")
+    ano_nascimento = validarData()  
+    
+    rg = input("\tInforme o RG do Funcionário: ")
+    
+    print("\tAno de admissão na empresa: ")
+    ano_admissao = validarData()
+    
+    salario = float(input("\tSalário do funcionário: "))
+    
+    funcionarios[proximo_id] = [nome.capitalize(), sobrenome.capitalize(), ano_nascimento, rg, ano_admissao, salario]
+    proximo_id += 1
+    
+    limpaTela()
+    listar()
+    print("\n\tFuncionário cadastrado com sucesso!")
+    pause()
+    
 def pause():
   input("\tPressione Enter para continuar...")
   
