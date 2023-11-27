@@ -248,7 +248,106 @@ def consultar():
   else:
     print("\n\tNão há funcionários cadastrados.")
     pause()
-         
+
+def Reajusta_dez_porcento():
+    
+  limpaTela()
+  print("\n\t========== REAJUSTE DE 10% =========")
+  for id_funcionario in funcionarios:
+    funcionarios[id_funcionario][5] = funcionarios[id_funcionario][5] * 1.1
+    print("\tID: ", id_funcionario)
+    print("\tNome: ", funcionarios[id_funcionario][0])
+    print("\tSobrenome: ", funcionarios[id_funcionario][1])
+    print("\tAno de nascimento: ", funcionarios[id_funcionario][2])
+    print("\tRG: ", funcionarios[id_funcionario][3])
+    print("\tAno de admissão: ", funcionarios[id_funcionario][4])
+    print("\tSalário: R$ {:.2f}".format(funcionarios[id_funcionario][5]))
+    print("\t====================================")
+      
+  print("\n\tFuncionários reajustados com sucesso!")
+  pause() 
+      
+def excluir():
+  
+  limpaTela()
+  id_funcionario = None
+    
+  if len(funcionarios) > 0:
+    
+    print("\n\t        EXCLUIR FUNCIONÁRIO       \n") 
+    listar()
+    
+    while True:
+        
+      id_funcionario_input = input("\n\tInforme o ID do funcionário que deseja excluir: ")
+
+      if id_funcionario_input.strip():
+            
+        try:
+          
+          id_funcionario = int(id_funcionario_input)
+          break  
+            
+        except ValueError:
+          limpaTela() 
+          print("\n\tPor favor, insira um número válido.")
+          pause()
+          limpaTela() 
+          
+      else:
+        limpaTela()
+        print("\n\tPor favor, insira um ID válido.")
+        pause()
+        limpaTela()
+      
+    if id_funcionario in funcionarios:
+        
+      limpaTela()
+      print("\n\t======= EXCLUIR FUNCIONÁRIO =======")
+        
+      print("\n\tVocê tem certeza que deseja excluir o funcionário abaixo?")
+      print("\n\tID: ", id_funcionario)
+      print("\tNome: ", funcionarios[id_funcionario][0])
+      print("\tSobrenome: ", funcionarios[id_funcionario][1])
+      print("\tAno de nascimento: ", funcionarios[id_funcionario][2])
+      print("\tRG: ", funcionarios[id_funcionario][3])
+      print("\tAno de admissão: ", funcionarios[id_funcionario][4])
+      print("\tSalário: R$ {:.2f}".format(funcionarios[id_funcionario][5]))
+      print("\t====================================")
+        
+      while True:
+            
+        opcao = input("\n\t[1] - SIM\n\t[2] - NÃO\n\tENTRADA -> ")
+            
+        if opcao == "1":
+          del funcionarios[id_funcionario]
+          limpaTela()
+          listar()
+          print("\n\tFuncionário excluído com sucesso!")
+          pause()
+          break
+        
+        elif opcao == "2":
+          limpaTela()
+          print("\n\tFuncionário não excluído!")
+          pause()
+          break
+        
+        else:
+          limpaTela()
+          print("\n\tOpção inválida! Tente novamente.")
+          pause()
+          limpaTela()
+          
+    else:
+      limpaTela()
+      print("\n\tFuncionário não encontrado!")
+      pause()
+      
+  else:
+    print("\n\tNão há funcionários cadastrados.")
+    pause()
+           
 def pause():
   input("\tPressione Enter para continuar...")
   
