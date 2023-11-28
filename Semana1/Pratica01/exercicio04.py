@@ -8,7 +8,7 @@ def palindromo(nome):
             return False
     return True
 
-nome = "Manoel Patrocinio"
+nome = "Vitor Sousa"
 
 namePerParts = nome.split(" ")
 
