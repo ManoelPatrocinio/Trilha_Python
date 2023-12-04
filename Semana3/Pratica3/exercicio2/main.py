@@ -126,5 +126,3 @@ if __name__ == "__main__":
     main()
 
 
-
-# how save a list of the dictionary in a file .txt with python ?
