@@ -214,7 +214,7 @@ class ListaSalarios(AnaliseDados):
         print("\n\n--- Cadastro de salario ---\n\n")
         optionQTD = int(input("Quantos salarios deseja cadastrar ? -> "))
         for i in range(optionQTD):
-            salario = float(input("Informe o " + i+1 + " nome: "))
+            salario = float(input("Informe o " + i+1 + " salario: "))
             self.lista.append(salario)
             salario = 0
 
@@ -223,27 +223,38 @@ class ListaSalarios(AnaliseDados):
         Este método ordena a lista e mostra o
         elemento que está na metade da lista
         '''
-        mediana
+        mediana = 0
         
         sorted_list = sorted(self.__lista)
         if len(self.__lista) % 2 == 0:
-            mediana = sorted_list[(len(self.__lista) // 2) - 1]
+            try:
+                mediana =( sorted_list[(len(self.__lista) // 2)] + sorted_list[((len(self.__lista) // 2))-1] )/ 2
+            except ValueError:
+                print("Não foi possivel realizar o calculo da mediana, da lista com numero par de itens.")
+                return
         else:
-            mediana = sorted_list[(len(self.__lista) // 2)]
-        print("A mediana da lista de nomes é:" + mediana)
+            try:
+                mediana = sorted_list[(len(self.__lista) // 2) - 1]
+            except ValueError:
+                print("Não foi possivel realizar o calculo da mediana, da lista com numero impar de itens.")
+                return
+
+        print("A mediana da lista de salarios é:" + mediana)
     
 
     def mostraMenor(self):
         '''
         Este método retorna o menos elemento da lista
         '''
-        pass
+        menor = min(self.__lista)
+        print(f'O menor valor da lista de salarios é: {menor}')
 
     def mostraMaior(self):
         '''
         Este método retorna o maior elemento da lista
         '''
-        pass
+        maior = max(self.__lista)
+        print(f'O maior valor da lista de salarios é: {maior}')
     
     def __str__(self):
         pass
@@ -260,14 +271,36 @@ class ListaIdades(AnaliseDados):
         elementos vão existir na lista e depois
         solicita a digitação de cada um deles
         '''
-        pass
+        print("\n\n--- Cadastro de salario ---\n\n")
+        optionQTD = int(input("Quantas idades deseja cadastrar ? -> "))
+        for i in range(optionQTD):
+            idade = int(input("Informe a " + i+1 + " idade: "))
+            self.lista.append(idade)
+            idade = 0
+
     
     def mostraMediana(self):
         '''
         Este método ordena a lista e mostra o
         elemento que está na metade da lista
         '''
-        pass    
+        mediana = 0
+        
+        sorted_list = sorted(self.__lista)
+        if len(self.__lista) % 2 == 0:
+            try:
+                mediana =( sorted_list[(len(self.__lista) // 2)] + sorted_list[((len(self.__lista) // 2))-1] )/ 2
+            except ValueError:
+                print("Não foi possivel realizar o calculo da mediana, da lista com numero par de idades.")
+                return
+        else:
+            try:
+                mediana = sorted_list[(len(self.__lista) // 2) - 1]
+            except ValueError:
+                print("Não foi possivel realizar o calculo da mediana, da lista com numero impar de idades.")
+                return
+
+        print("A mediana da lista de salarios é:" + mediana)    
     
     def mostraMenor(self):
         '''
