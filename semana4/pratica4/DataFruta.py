@@ -125,26 +125,40 @@ class ListaNomes(AnaliseDados):
         elementos vão existir na lista e depois
         solicita a digitação de cada um deles.
         '''
-        pass
+        print("\n\n--- Cadastro de nomes ---\n\n")
+        optionQTD = int(input("Quantos nomes deseja cadastrar ? -> "))
+        for i in range(optionQTD):
+            nome = input("Informe o " + i+1 + " nome: ")
+            self.lista.append(nome)
+            nome = ""
 
     def mostraMediana(self):
         '''
         Este método ordena a lista e mostra o
         elemento que está na metade da lista
         '''
-        pass    
+        mediana = ""
+        sorted_list = sorted(self.__lista)
+        if len(self.__lista) % 2 == 0:
+            mediana = sorted_list[(len(self.__lista) // 2) - 1]
+        else:
+            mediana = sorted_list[(len(self.__lista) // 2)]
+        print("A mediana da lista de nomes é:" + mediana)
 
     def mostraMenor(self):
         '''
         Este método retorna o menos elemento da lista
         '''
-        pass
+        menor = min(self.__lista, key=lambda x: len(x.strip()))
+        print(f'O menor valor la lista de nomes é: {menor}')
+
 
     def mostraMaior(self):
         '''
         Este método retorna o maior elemento da lista
         '''
-        pass    
+        maior = max(self.__lista, key=lambda x: len(x.strip()))
+    
 
     def __str__(self):
         pass
@@ -197,14 +211,27 @@ class ListaSalarios(AnaliseDados):
         elementos vão existir na lista e depois
         solicita a digitação de cada um deles
         '''
-        pass
+        print("\n\n--- Cadastro de salario ---\n\n")
+        optionQTD = int(input("Quantos salarios deseja cadastrar ? -> "))
+        for i in range(optionQTD):
+            salario = float(input("Informe o " + i+1 + " nome: "))
+            self.lista.append(salario)
+            salario = 0
 
     def mostraMediana(self):
         '''
         Este método ordena a lista e mostra o
         elemento que está na metade da lista
         '''
-        pass    
+        mediana
+        
+        sorted_list = sorted(self.__lista)
+        if len(self.__lista) % 2 == 0:
+            mediana = sorted_list[(len(self.__lista) // 2) - 1]
+        else:
+            mediana = sorted_list[(len(self.__lista) // 2)]
+        print("A mediana da lista de nomes é:" + mediana)
+    
 
     def mostraMenor(self):
         '''
