@@ -112,6 +112,10 @@ class AnaliseDados(ABC):
     @abstractmethod
     def mostraMaior(self):
         pass
+    
+    @abstractmethod
+    def listarEmOrdem(self):
+        pass
 
 class ListaNomes(AnaliseDados):
     
@@ -119,6 +123,9 @@ class ListaNomes(AnaliseDados):
         super().__init__(type("String"))
         self.__lista = []        
 
+    def getList(self):
+        return self.__lista
+    
     def entradaDeDados(self):
         '''
         Este método pergunta ao usuários quantos
@@ -128,8 +135,8 @@ class ListaNomes(AnaliseDados):
         print("\n\n--- Cadastro de nomes ---\n\n")
         optionQTD = int(input("Quantos nomes deseja cadastrar ? -> "))
         for i in range(optionQTD):
-            nome = input("Informe o " + i+1 + " nome: ")
-            self.lista.append(nome)
+            nome = input(f'Informe o  {i+1}º nome:')
+            self.__lista.append(nome)
             nome = ""
 
     def mostraMediana(self):
@@ -143,7 +150,7 @@ class ListaNomes(AnaliseDados):
             mediana = sorted_list[(len(self.__lista) // 2) - 1]
         else:
             mediana = sorted_list[(len(self.__lista) // 2)]
-        print("A mediana da lista de nomes é:" + mediana)
+        print(f'A mediana da lista de nomes é: {mediana}')
 
     def mostraMenor(self):
         '''
@@ -158,7 +165,15 @@ class ListaNomes(AnaliseDados):
         Este método retorna o maior elemento da lista
         '''
         maior = max(self.__lista, key=lambda x: len(x.strip()))
-    
+        print(f'O maior valor la lista de nomes é: {maior}')
+        
+    def listarEmOrdem(self):
+        print("--- Lista ordenada de nomes ---")
+        
+        for item in self.__lista:
+            print(f'{item}')
+            
+             
 
     def __str__(self):
         pass
@@ -175,36 +190,62 @@ class ListaDatas(AnaliseDados):
         elementos vão existir na lista e depois
         solicita a digitação de cada um deles
         '''
-        pass
+        print("\n\n--- Cadastro de Datas ---\n\n")
+        optionQTD = int(input("Quantas datas deseja informar ? -> "))
+        for i in range(optionQTD):
+            _dia = int(input("informe o dia ? -> "))
+            _mes = int(input("informe o mes ? -> "))
+            _ano = int(input("informe o ano ? -> "))
+            novaData = Data(_dia,_mes,_ano)
+
+            self.__lista.append(novaData)
     
     def mostraMediana(self):
         '''
         Este método ordena a lista e mostra o
         elemento que está na metade da lista
         '''
-        pass    
+        mediana = ""
+        sorted_list = sorted(self.__lista)
+                
+        if len(self.__lista) % 2 == 0:
+            mediana = sorted_list[(len(self.__lista) // 2) - 1]
+        else:
+            mediana = sorted_list[(len(self.__lista) // 2)]
+        print(f'A mediana da lista de datas é: {mediana}')
+
+    
      
     def mostraMenor(self):
         '''
         Este método retorna o menos elemento da lista
         '''
-        pass
+        menor = min(self.__lista)
+        print(f'O menor valor da lista de datas é: {menor}')
     
     def mostraMaior(self):
         '''
         Este método retorna o maior elemento da lista
         '''
-        pass
+        maior = max(self.__lista)
+        print(f'O maior valor da lista de datas é: {maior}')
     
     def __str__(self):
         pass
+    def listarEmOrdem(self):
+        print("--- Lista ordenada de datas ---")
+        
+        for item in self.__lista:
+            print(f'{item.__str__()}')
 
-class ListaSalarios(AnaliseDados):
+class ListaSalários(AnaliseDados):
 
     def __init__(self):
         super().__init__(type(float))
         self.__lista = []        
 
+    def getList(self):
+        return self.__lista
     def entradaDeDados(self):
         '''
         Este método pergunta ao usuários quantos
@@ -212,10 +253,10 @@ class ListaSalarios(AnaliseDados):
         solicita a digitação de cada um deles
         '''
         print("\n\n--- Cadastro de salario ---\n\n")
-        optionQTD = int(input("Quantos salarios deseja cadastrar ? -> "))
+        optionQTD = int(input("Quantos salários deseja cadastrar ? -> "))
         for i in range(optionQTD):
-            salario = float(input("Informe o " + i+1 + " salario: "))
-            self.lista.append(salario)
+            salario = float(input(f'Informe o  {i+1}º salario:'))
+            self.__lista.append(salario)
             salario = 0
 
     def mostraMediana(self):
@@ -230,16 +271,16 @@ class ListaSalarios(AnaliseDados):
             try:
                 mediana =( sorted_list[(len(self.__lista) // 2)] + sorted_list[((len(self.__lista) // 2))-1] )/ 2
             except ValueError:
-                print("Não foi possivel realizar o calculo da mediana, da lista com numero par de itens.")
+                print("Não foi possível realizar o calculo da mediana, da lista com numero par de itens.")
                 return
         else:
             try:
                 mediana = sorted_list[(len(self.__lista) // 2) - 1]
             except ValueError:
-                print("Não foi possivel realizar o calculo da mediana, da lista com numero impar de itens.")
+                print("Não foi possível realizar o calculo da mediana, da lista com numero impar de itens.")
                 return
 
-        print("A mediana da lista de salarios é:" + mediana)
+        print(f'A mediana da lista de salários é: {mediana}')
     
 
     def mostraMenor(self):
@@ -247,17 +288,30 @@ class ListaSalarios(AnaliseDados):
         Este método retorna o menos elemento da lista
         '''
         menor = min(self.__lista)
-        print(f'O menor valor da lista de salarios é: {menor}')
+        print(f'O menor valor da lista de salários é: {menor}')
 
     def mostraMaior(self):
         '''
         Este método retorna o maior elemento da lista
         '''
         maior = max(self.__lista)
-        print(f'O maior valor da lista de salarios é: {maior}')
+        print(f'O maior valor da lista de salários é: {maior}')
     
     def __str__(self):
         pass
+    def listarEmOrdem(self):
+        print("--- Lista ordenada de salarios ---")
+        
+        for item in self.__lista:
+            print(f'{item}')
+    def reajuste(self):
+        print("--- Custo da folha com reajuste (10%) ---")
+        reajusta10 = lambda x: x + ( (x * 10) /100)
+        soma = 0
+        for sal in map(reajusta10,self.__lista):
+            soma += sal
+        print(f'custo total apos reajuste: {soma}')   
+        
 
 class ListaIdades(AnaliseDados):
     
@@ -271,11 +325,11 @@ class ListaIdades(AnaliseDados):
         elementos vão existir na lista e depois
         solicita a digitação de cada um deles
         '''
-        print("\n\n--- Cadastro de salario ---\n\n")
+        print("\n\n--- Cadastro de idade ---\n\n")
         optionQTD = int(input("Quantas idades deseja cadastrar ? -> "))
         for i in range(optionQTD):
-            idade = int(input("Informe a " + i+1 + " idade: "))
-            self.lista.append(idade)
+            idade = int(input(f'Informe a  {i+1}º idade:'))
+            self.__lista.append(idade)
             idade = 0
 
     
@@ -291,47 +345,66 @@ class ListaIdades(AnaliseDados):
             try:
                 mediana =( sorted_list[(len(self.__lista) // 2)] + sorted_list[((len(self.__lista) // 2))-1] )/ 2
             except ValueError:
-                print("Não foi possivel realizar o calculo da mediana, da lista com numero par de idades.")
+                print("Não foi possível realizar o calculo da mediana, da lista com numero par de idades.")
                 return
         else:
             try:
                 mediana = sorted_list[(len(self.__lista) // 2) - 1]
             except ValueError:
-                print("Não foi possivel realizar o calculo da mediana, da lista com numero impar de idades.")
+                print("Não foi possível realizar o calculo da mediana, da lista com numero impar de idades.")
                 return
 
-        print("A mediana da lista de salarios é:" + mediana)    
+        print(f'A mediana da lista de idade é: {mediana}')    
     
     def mostraMenor(self):
         '''
         Este método retorna o menos elemento da lista
         '''
-        pass
+        menor = min(self.__lista)
+        print(f'O menor valor da lista de idades é: {menor}')
+
     
     def mostraMaior(self):
         '''
         Este método retorna o maior elemento da lista
         '''
-        pass
+        menor = max(self.__lista)
+        print(f'O maior valor da lista de idades é: {menor}')
 
     def __str__(self):
         pass
+    def listarEmOrdem(self):
+        print("--- Lista ordenada de idades ---")
+        
+        for item in self.__lista:
+            print(f'{item}')
 
+
+def listaNomeSalario(listaNomes, listaSalarios):
+    for nome,salario in zip(listaNomes,listaSalarios):
+        print(f"Nome: {nome}  | salario: {salario}")
+    
+
+    
 def main():
     nomes = ListaNomes()
     datas = ListaDatas()
-    salarios = ListaSalarios()
+    salarios = ListaSalários()
     idades = ListaIdades()
 
     listaListas = [nomes, datas, salarios, idades]
 
     for lista in listaListas:
+        lista.listarEmOrdem()
         lista.entradaDeDados()
         lista.mostraMediana()
         lista.mostraMenor()
         lista.mostraMaior()
+        
         print("___________________")
 
+    listaNomeSalario(nomes.getList(),salarios.getList())
+    salarios.reajuste()
     print("Fim do teste!!!")
 
 if __name__ == "__main__":
