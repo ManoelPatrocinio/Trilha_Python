@@ -425,6 +425,164 @@ class ListaDatas(AnaliseDados):
             data.dia = 1
         return data
 
+class ListaSalarios(AnaliseDados):
+
+    def __init__(self):
+        super().__init__(type(float))
+        self.__lista = []        
+
+    def entradaDeDados(self):
+        '''
+        Este método pergunta ao usuários quantos
+        elementos vão existir na lista e depois
+        solicita a digitação de cada um deles
+        '''
+        
+        limpaTela()
+        print("\n\t=========== CADASTRO DE SALÁRIOS ===========\n")
+        
+        while True:
+            try:
+                quantElementos = int(input("\n\tQuantos elementos vão existir na lista: "))
+                break  # Se a conversão para int for bem-sucedida, sai do loop
+            except ValueError:
+                print("\tPor favor, digite um número inteiro válido.")
+                pause() 
+                limpaTela()
+        
+        for i in range(quantElementos):
+            while True:
+                try:
+                    print("\n\tDigite o elemento {}:".format(i + 1))
+                    elemento = float(input("\tNúmero: "))
+            
+                    # Se chegou aqui, o número é válido, então podemos adicionar à lista
+                    self.__lista.append(elemento)
+                    print(f"\n\tNúmero válido: {elemento}")
+            
+                    # Sai do loop se a entrada foi válida
+                    break
+
+                except ValueError:
+                    limpaTela()
+                    print("\n\tOps, entrada invalida! Por favor, digite um número válido.")
+                    pause()
+                    limpaTela()
+        pass
+            
+    def mostraMediana(self):
+        '''
+        Este método ordena a lista e mostra o
+        elemento que está na metade da lista
+        '''
+        
+        mediana = self.calcula_salario()
+
+        pass    
+
+    def mostraMenor(self):
+        '''
+        Este método retorna o menos elemento da lista
+        '''
+        
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular o menor elemento.")
+            return
+        
+        menor = self.__lista[0]
+        for elemento in self.__lista:
+            if elemento < menor:
+                menor = elemento
+        print(f"\n\tO menor elemento da lista é: {menor}")
+        pause()
+        
+        pass
+
+    def mostraMaior(self):
+        '''
+        Este método retorna o maior elemento da lista
+        '''
+        
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular o maior elemento.")
+            return
+        
+        maior = self.__lista[0]
+        for elemento in self.__lista:
+            if elemento > maior:
+                maior = elemento
+        print(f"\n\tO maior elemento da lista é: {maior}")
+        pause()
+        
+        pass
+    
+    def calcula_salario(self):
+    
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana dos salários.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de salários tem um número ímpar de elementos. A mediana é: {mediana:.2f}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana = (meio1 + meio2) / 2
+            print(f"\n\tA lista de salários tem um número par de elementos. A mediana é: {mediana:.2f}")
+
+        return mediana
+    
+    def listarEmOrdem(self):
+        '''
+        Este método ordena a lista e mostra os
+        elementos em ordem crescente
+        '''
+        limpaTela()
+        if not self.__lista:
+            print("A lista está vazia. Não é possível ordenar.")
+            return
+
+        lista_ordenada = sorted(self.__lista)
+        print("\n\t=========== LISTA DE SALÁRIOS EM ORDEM CRESCENTE ===========\n")
+        for elemento in lista_ordenada:
+            print(f"\tSalário: {elemento:.2f}")
+        pause()
+        
+        pass
+    
+    def reajustar_Salarios(self):
+        
+        limpaTela()
+        if not self._ListaSalarios__lista:
+            limpaTela()
+            print("\n\tA lista de salários está vazia, não é possível reajustar os salários")
+            pause()
+            return None
+
+        
+        def calcular_novo_salario(salario):
+            return salario * 1.1  # Reajuste de 10%
+
+        # Aplicar a função de reajuste a todos os salários usando o iterador map
+        salarios_reajustados = list(map(calcular_novo_salario, self._ListaSalarios__lista))
+
+        print("\n\t=========== SALÁRIOS ANTES E DEPOIS DO REAJUSTE ===========\n")
+        
+        for salario_original, salario_reajustado in zip(self._ListaSalarios__lista, salarios_reajustados):
+            print("\tSalário antes: {:.2f}, Salário reajustado: {:.2f}".format(salario_original, salario_reajustado))
+
+        # Calcular e exibir o custo total da folha de pagamento antes e depois do reajuste
+        custo_folha_anterior = sum(self._ListaSalarios__lista)
+        custo_folha_atual = sum(salarios_reajustados)
+
+        print("\n\tCusto total da folha de pagamento antes do reajuste: {:.2f}".format(custo_folha_anterior))
+        print("\tCusto total da folha de pagamento após o reajuste: {:.2f}".format(custo_folha_atual))
+
+        pause()
     
 def pause():
   input("\tPressione Enter para continuar...")
