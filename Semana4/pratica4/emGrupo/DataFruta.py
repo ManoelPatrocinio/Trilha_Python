@@ -731,7 +731,7 @@ def menu():
             return opcao
         else:
             limpaTela()
-            print("\n\tOps, opção inválida! Tente novamente.")
+            print("\n\tOps, opção inválida! Tente novamente...")
             pause()
 
 def aplicativo():
