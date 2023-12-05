@@ -173,7 +173,7 @@ class ListaNomes(AnaliseDados):
         for item in self.__lista:
             print(f'{item}')
             
-             
+    
 
     def __str__(self):
         pass
@@ -183,7 +183,8 @@ class ListaDatas(AnaliseDados):
     def __init__(self):
         super().__init__(type(Data))
         self.__lista = []        
-    
+    def getList(self):
+        return self.__lista
     def entradaDeDados(self):
         '''
         Este método pergunta ao usuários quantos
@@ -383,17 +384,40 @@ class ListaIdades(AnaliseDados):
 def listaNomeSalario(listaNomes, listaSalarios):
     for nome,salario in zip(listaNomes,listaSalarios):
         print(f"Nome: {nome}  | salario: {salario}")
-    
 
-    
+def alteraDia(data) :
+    if data.ano < 2019:
+        data.dia = 1 
+
+def alterarPorData(listDatas):
+        print("--- Lista de datas alteradas ---")
+        for item in filter(alterDia,listDatas):
+            print(f'{item}')
+            
+         
+def menu():
+   print(" 1 - p/ Incluir um nome na lista de nomes ")
+   print(" 2 - p/ Incluir um salário na lista de salários ")
+   print(" 3 - p/ Incluir uma data na lista de datas ")
+   print(" 4 - p/ Incluir uma idade na lista de idades ")
+   print(" 5 - p/ Percorrer as listas de nomes e salários ")
+   print(" 6 - p/ Calcular o valor da folha com um reajuste de 10% ")
+   print(" 7 - p/ Modificar o dia das datas anteriores a 2019 ")
+   print(" 8 - p/ Sair ")
+   escolha = int(input("Sua escolha: "))
+
+   return escolha
+
 def main():
     nomes = ListaNomes()
     datas = ListaDatas()
     salarios = ListaSalários()
     idades = ListaIdades()
 
-    listaListas = [nomes, datas, salarios, idades]
+    listaListas = []
+    # listaListas = [nomes, datas, salarios, idades]
 
+    '''
     for lista in listaListas:
         lista.listarEmOrdem()
         lista.entradaDeDados()
@@ -402,10 +426,42 @@ def main():
         lista.mostraMaior()
         
         print("___________________")
+    '''
 
     listaNomeSalario(nomes.getList(),salarios.getList())
     salarios.reajuste()
     print("Fim do teste!!!")
+
+
+    op = 0
+
+    while(op != 8):
+        match term:
+            case 1:
+                nomes.entradaDeDados()
+                listaListas.append(nomes)
+            case 2:
+                salarios.entradaDeDados()
+                listaListas.append(salarios)
+
+            case 3:
+                datas.entradaDeDados()
+                listaListas.append(datas)
+
+            case 4:
+                idades.entradaDeDados()
+                listaListas.append(idades)
+
+            case 5:
+                listaNomeSalario(nomes.getList(),salarios.getList())
+            case 6:
+                salarios.reajuste()
+            case 7:
+                alterarPorData(datas.getList())
+            case 8:
+                pass
+            case _:
+                print("opção inválida !! \n\n Escolha uma opção entre as listadas no menu")
 
 if __name__ == "__main__":
     main()
