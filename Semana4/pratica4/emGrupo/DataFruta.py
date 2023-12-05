@@ -248,6 +248,9 @@ class ListaNomes(AnaliseDados):
         for nome, salario in zip(self.__lista, outras_salarios._ListaSalarios__lista):
             print("\tNome: {}, Salário: {:.2f}".format(nome, salario))
         pause()
+    
+    def __str__(self):
+        pass
 	
 class ListaDatas(AnaliseDados):
         
@@ -406,6 +409,9 @@ class ListaDatas(AnaliseDados):
             data = copy.copy(data)
             data.dia = 1
         return data
+
+    def __str__(self):
+        pass
 
 class ListaSalarios(AnaliseDados):
 
@@ -685,124 +691,7 @@ class ListaIdades(AnaliseDados):
             print(f"\tIdade: {elemento}")
         pause()
         pass
-    
-    def __init__(self):
-        super().__init__(type(int))
-        self.__lista = []        
-    
-    def entradaDeDados(self):
-        '''
-        Este método realiza a entrada de dados
-        '''
-        limpaTela()
-        print("\n\t=========== CADASTRO DE IDADES ===========\n")
-        try:
-            quantElementos = int(input("\n\tDigite a quantidade de elementos da lista: "))
-            self.__lista = []
 
-            for i in range(quantElementos):
-                while True:
-                    elemento_str = input("\n\tDigite o elemento {}: ".format(i + 1))
-
-                    # Verifica se a entrada não está vazia
-                    if elemento_str.strip():
-                        try:
-                            elemento = int(elemento_str)
-                            self.__lista.append(elemento)
-                            break  # Sai do loop se a entrada for válida
-                        except ValueError:
-                            limpaTela()
-                            print("\n\tOps, idade inválida. Tente novamente.")
-                            pause()
-                    else:
-                        limpaTela()
-                        print("\n\tOps, idade inválida. Tente novamente.")
-                        pause()
-        except ValueError:
-            print("\n\tOps, digite um valor numérico válido.")
-            pause()
-            self.entradaDeDados()
-        pass
- 
-    def mostraMediana(self):
-        '''
-        Este método ordena a lista e mostra o
-        elemento que está na metade da lista
-        '''
-        
-        mediana = self.calcula_mediana()
-        
-        pass    
-    
-    def mostraMenor(self):
-        '''
-        Este método retorna o menos elemento da lista
-        '''
-        
-        if not self.__lista:
-            print("A lista está vazia. Não é possível calcular o menor elemento.")
-            return
-        
-        menor = self.__lista[0]
-        for elemento in self.__lista:
-            if elemento < menor:
-                menor = elemento
-        print(f"\n\tO menor elemento da lista é: {menor}")
-        pause()
-        
-        pass
-    
-    def mostraMaior(self):
-        '''
-        Este método retorna o maior elemento da lista
-        '''
-        
-        if not self.__lista:
-            print("A lista está vazia. Não é possível calcular o maior elemento.")
-            return
-        
-        maior = self.__lista[0]
-        for elemento in self.__lista:
-            if elemento > maior:
-                maior = elemento
-        print(f"\n\tO maior elemento da lista é: {maior}")
-        pause()
-        
-        pass
-    
-    def calcula_mediana(self):
-        if not self.__lista:
-            print("A lista está vazia. Não é possível calcular a mediana.")
-            return None
-
-        lista_ordenada = sorted(self.__lista)
-        tamanho = len(lista_ordenada)
-
-        if tamanho % 2 != 0:
-            mediana = lista_ordenada[tamanho // 2]
-            print(f"\n\tA lista tem um número ímpar de elementos. A mediana é: {mediana}")
-        else:
-            meio1 = lista_ordenada[tamanho // 2 - 1]
-            meio2 = lista_ordenada[tamanho // 2]
-            mediana = (meio1 + meio2) / 2
-            print(f"\n\tA lista tem um número par de elementos. A mediana é: {mediana}")
-
-        return mediana
-    
-    def listarEmOrdem(self):
-        '''
-        Este método ordena a lista e mostra os
-        elementos em ordem crescente
-        '''
-        limpaTela()     
-        print("\n\t=========== LISTA DE IDADES EM ORDEM CRESCENTE ===========\n")
-
-        lista_ordenada = sorted(self.__lista)
-        
-        for elemento in lista_ordenada:
-            print(f"\tIdade: {elemento}")
-        pause()
-        pass   
     
 def pause():
   input("\tPressione Enter para continuar...")
@@ -817,22 +706,38 @@ def limpaTela():
   else:
     print("Sistema operacional não suportado para limpar a tela.")
 
+def menu():
+    
+    while True:
+    
+        limpaTela()
+        formato_personalizado = "\n\t%A, %d de %B de %Y %H:%M:%S"
+        data_e_hora_formatada = data_e_hora_atual.strftime(formato_personalizado)
+        print(data_e_hora_formatada)
+        print("\tFalta", (datetime(data_e_hora_atual.year, 12, 31) - data_e_hora_atual).days + 1, "dias para o fim do ano")
+    
+        print("\n\t======= DATAFRUTA =======")
+        print("\t[1] - INCLUIR UM NOME DA LISTA DE NOMES")
+        print("\t[2] - INCLUIR SALÁRIO NA LISTA DE SALÁRIOS")
+        print("\t[3] - INCLUIR DATA NA LISTA DE DATAS")
+        print("\t[4] - INCLUIR IDADE NA LISTA DE IDADES")
+        print("\t[5] - PERCORRER AS LISTAS DE NOME E SALÁRIOS")
+        print("\t[6] - CALCULAR O VALOR DA FOLHA COM UM REAJUSTE DE 10%")
+        print("\t[7] - MODIFICAR OS DIAS DE DATAS ANTERIORES A 2019")
+        print("\t[0] - SAIR")
+        opcao = input("\tENTRADA -> ")
+
+        if(opcao == "1" or opcao == "2" or opcao == "3" or opcao == "4" or opcao == "5" or opcao == "6" or opcao == "7" or opcao == "0"):
+            return opcao
+        else:
+            limpaTela()
+            print("\n\tOps, opção inválida! Tente novamente.")
+            pause()
+
+
+              
 def main():
-    nomes = ListaNomes()
-    datas = ListaDatas()
-    salarios = ListaSalarios()
-    idades = ListaIdades()
-
-    listaListas = [nomes, datas, salarios, idades]
-
-    for lista in listaListas:
-        lista.entradaDeDados()
-        lista.mostraMediana()
-        lista.mostraMenor()
-        lista.mostraMaior()
-        print("___________________")
-
-    print("Fim do teste!!!")
+   
     
 if __name__ == "__main__":
     main()
