@@ -583,6 +583,126 @@ class ListaSalarios(AnaliseDados):
         print("\tCusto total da folha de pagamento após o reajuste: {:.2f}".format(custo_folha_atual))
 
         pause()
+ 
+class ListaIdades(AnaliseDados):
+    
+    def __init__(self):
+        super().__init__(type(int))
+        self.__lista = []        
+    
+    def entradaDeDados(self):
+        '''
+        Este método realiza a entrada de dados
+        '''
+        limpaTela()
+        print("\n\t=========== CADASTRO DE IDADES ===========\n")
+        try:
+            quantElementos = int(input("\n\tDigite a quantidade de elementos da lista: "))
+            self.__lista = []
+
+            for i in range(quantElementos):
+                while True:
+                    elemento_str = input("\n\tDigite o elemento {}: ".format(i + 1))
+
+                    # Verifica se a entrada não está vazia
+                    if elemento_str.strip():
+                        try:
+                            elemento = int(elemento_str)
+                            self.__lista.append(elemento)
+                            break  # Sai do loop se a entrada for válida
+                        except ValueError:
+                            limpaTela()
+                            print("\n\tOps, idade inválida. Tente novamente.")
+                            pause()
+                    else:
+                        limpaTela()
+                        print("\n\tOps, idade inválida. Tente novamente.")
+                        pause()
+        except ValueError:
+            print("\n\tOps, digite um valor numérico válido.")
+            pause()
+            self.entradaDeDados()
+        pass
+ 
+    def mostraMediana(self):
+        '''
+        Este método ordena a lista e mostra o
+        elemento que está na metade da lista
+        '''
+        
+        mediana = self.calcula_mediana()
+        
+        pass    
+    
+    def mostraMenor(self):
+        '''
+        Este método retorna o menos elemento da lista
+        '''
+        
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular o menor elemento.")
+            return
+        
+        menor = self.__lista[0]
+        for elemento in self.__lista:
+            if elemento < menor:
+                menor = elemento
+        print(f"\n\tO menor elemento da lista é: {menor}")
+        pause()
+        
+        pass
+    
+    def mostraMaior(self):
+        '''
+        Este método retorna o maior elemento da lista
+        '''
+        
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular o maior elemento.")
+            return
+        
+        maior = self.__lista[0]
+        for elemento in self.__lista:
+            if elemento > maior:
+                maior = elemento
+        print(f"\n\tO maior elemento da lista é: {maior}")
+        pause()
+        
+        pass
+    
+    def calcula_mediana(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista tem um número ímpar de elementos. A mediana é: {mediana}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana = (meio1 + meio2) / 2
+            print(f"\n\tA lista tem um número par de elementos. A mediana é: {mediana}")
+
+        return mediana
+    
+    def listarEmOrdem(self):
+        '''
+        Este método ordena a lista e mostra os
+        elementos em ordem crescente
+        '''
+        limpaTela()     
+        print("\n\t=========== LISTA DE IDADES EM ORDEM CRESCENTE ===========\n")
+
+        lista_ordenada = sorted(self.__lista)
+        
+        for elemento in lista_ordenada:
+            print(f"\tIdade: {elemento}")
+        pause()
+        pass   
     
 def pause():
   input("\tPressione Enter para continuar...")
