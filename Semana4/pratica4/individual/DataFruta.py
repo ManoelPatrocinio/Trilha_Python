@@ -266,6 +266,165 @@ class ListaNomes(AnaliseDados):
             print(f"\tIdade: {elemento}")
         pause()
         pass
+ 
+class ListaDatas(AnaliseDados):
+        
+    def __init__(self):
+        super().__init__(type(Data))
+        self.__lista = []        
+    
+    def entradaDeDados(self):
+        '''
+        Este método pergunta ao usuários quantos
+        elementos vão existir na lista e depois
+        solicita a digitação de cada um deles
+        '''
+        limpaTela()
+        print("\n\t=========== CADASTRO DE DATAS ===========\n")
+        
+        while True:
+            try:
+                quantElementos = int(input("\n\tQuantos elementos vão existir na lista: "))
+                break  # Se a conversão para int for bem-sucedida, sai do loop
+            except ValueError:
+                limpaTela()
+                print("\tPor favor, digite um número inteiro válido.")
+                pause() 
+                limpaTela() 
+        
+        for i in range(quantElementos):    
+            while True:
+                try:
+                    print("\n\tDigite o elemento {}:".format(i + 1))
+                    dia = int(input("\tDia: "))
+                    mes = int(input("\tMês: "))
+                    ano = int(input("\tAno: "))
+            
+                    # Verifica se a data é válida
+                    data = Data(dia, mes, ano)
+            
+                    # Se chegou aqui, a data é válida, então podemos adicionar à lista
+                    self.__lista.append(data)
+                    print(f"\n\tData válida: {data}")
+            
+                    # Sai do loop se a entrada foi válida
+                    break
+
+                except ValueError as e:
+                    limpaTela() 
+                    print("\n\tOps, data invalida!\n\tPor favor, digite uma data válida.")
+                    pause()
+                    limpaTela() 
+        pass
+    
+    def mostraMediana(self):
+        '''
+        Este método ordena a lista e mostra o
+        elemento que está na metade da lista
+        '''
+        
+        mediana = self.calcula_data_mediana()
+        
+        pass    
+     
+    def mostraMenor(self):
+        '''
+        Este método retorna o menos elemento da lista
+        '''
+    
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular o menor elemento.")
+            return
+        
+        menor = self.__lista[0]
+        for elemento in self.__lista:
+            if elemento < menor:
+                menor = elemento
+        print(f"\n\tO menor elemento da lista é: {menor}")
+        pause()
+        
+        pass
+    
+    def mostraMaior(self):
+        '''
+        Este método retorna o maior elemento da lista
+        '''
+        
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular o maior elemento.")
+            return
+        
+        maior = self.__lista[0]
+        for elemento in self.__lista:
+            if elemento > maior:
+                maior = elemento
+        print(f"\n\tO maior elemento da lista é: {maior}")
+        pause()
+        
+        pass
+    
+    def calcula_data_mediana(self):
+        
+        if not self.__lista:
+            print("A lista de datas está vazia. Não é possível calcular a mediana.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de datas tem um número ímpar de elementos. A mediana é: {mediana}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana = Data()  # Criar uma nova instância de Data para armazenar a mediana
+            if meio1 < meio2:
+                mediana = meio1
+            else:
+                mediana = meio2
+                print(f"\n\tA lista de datas tem um número par de elementos. A mediana é: {mediana}")
+
+        return mediana
+    
+    def listarEmOrdem(self):
+        '''
+        Este método ordena a lista e mostra os
+        elementos em ordem crescente
+        '''
+        lista_ordenada = sorted(self.__lista)
+    
+        limpaTela()
+        print("\n\t=========== LISTA DE DATAS ===========\n")
+    
+        for i, data in enumerate(lista_ordenada, start=1):
+            print(f"\tData {i}: {data}")
+        pause()
+    
+    def modificar_datas_anteriores_2019(self):
+        
+        if not self.__lista:
+            limpaTela()
+            print("\n\tA lista está vazia. Não é possível modificar as datas.")
+            pause()
+            return
+        
+        limpaTela()
+        print("\n\t=========== DATAS ANTES E DEPOIS DA MODIFICAÇÃO ===========\n")  
+
+        datas_modificadas = list(filter(lambda x: x is not None, map(lambda data: self.modificar_data(data), self.__lista.copy())))
+        
+        for data_original, data_modificada in zip(self.__lista, datas_modificadas):
+            print("\tData original: {}, Data modificada: {}".format(data_original, data_modificada))
+        pause()
+
+    def modificar_data(self, data):
+        if data.ano < 2019:
+            # Criar uma cópia do objeto Data para evitar modificar a lista original
+            data = copy.copy(data)
+            data.dia = 1
+        return data
+
     
 def pause():
   input("\tPressione Enter para continuar...")
