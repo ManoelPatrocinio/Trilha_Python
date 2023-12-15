@@ -5,6 +5,7 @@
     Sergio de Souza Santos | Branch : sergio | E-MAIL: sergiodesouzasantos97@gmail.com
     Tales  Araujo | Branch : tales | E-MAIL: talesaraujo18@gmail.com
     Vitor Sousa | Branch : Vitor | E-MAIL: vitor.pereira@cepedi.org.br
+    Thiago Sena | Branch : Thiago 
 
 ## ESTRUTURA DE PASTAS
     REPOSITÓRIO

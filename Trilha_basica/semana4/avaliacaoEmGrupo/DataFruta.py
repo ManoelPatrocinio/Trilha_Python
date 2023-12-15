@@ -762,7 +762,7 @@ def main():
             case "5":
                 nomes.percorreListaDeNomesESalarios(nomes, salarios)
             case "6":
-                salarios.reajustar_Salarios()
+               salarios.reajustar_Salarios()
             case "7":
                 datas.modificar_datas_anteriores_2019() 
             case "0":

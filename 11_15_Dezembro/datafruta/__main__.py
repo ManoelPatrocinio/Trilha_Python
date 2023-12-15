@@ -1,7 +1,6 @@
-from classes import ListaNomes,ListaSalarios, ListaDatas, ListaIdades
-from recursos import  limpaTela,pause
-
-from interface import menu
+from . classes import ListaNomes,ListaSalarios, ListaDatas, ListaIdades
+from . recursos import  limpaTela,pause
+from . interface import menu
 def main():
     nomes = ListaNomes()
     salarios = ListaSalarios()

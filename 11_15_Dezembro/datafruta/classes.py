@@ -1,4 +1,4 @@
-from recursos import  limpaTela,pause
+from . recursos import  limpaTela,pause
 from abc import ABC, abstractmethod
 import copy
 
