@@ -1,11 +1,7 @@
-import os
-import copy
-import platform
-import locale
-from datetime import datetime
-locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
-data_e_hora_atual = datetime.now()
+from recursos import  limpaTela,pause
 from abc import ABC, abstractmethod
+import copy
+
 
 class Data:
     
@@ -125,11 +121,7 @@ class ListaNomes(AnaliseDados):
         self.__salarios = []        
 
     def entradaDeDados(self):
-        '''
-        Este método pergunta ao usuários quantos
-        elementos vão existir na lista e depois
-        solicita a digitação de cada um deles.
-        '''
+
         limpaTela() 
         print("\n\t=========== CADASTRO DE NOMES ===========\n")
         
@@ -157,11 +149,7 @@ class ListaNomes(AnaliseDados):
         pass
 
     def mostraMediana(self):
-        '''
-        Este método ordena a lista e mostra o
-        elemento que está na metade da lista
-        '''
-        
+       
         if not self.__lista:
             print("A lista está vazia. Não é possível calcular a mediana.")
             return
@@ -182,10 +170,7 @@ class ListaNomes(AnaliseDados):
         pass    
 
     def mostraMenor(self):
-        '''
-        Este método retorna o menos elemento da lista
-        '''
-        
+
         if not self.__lista:
             print("A lista está vazia. Não é possível calcular o menor elemento.")
             return
@@ -200,9 +185,7 @@ class ListaNomes(AnaliseDados):
         pass
 
     def mostraMaior(self):
-        '''
-        Este método retorna o maior elemento da lista
-        '''
+       
         
         if not self.__lista:
             print("A lista está vazia. Não é possível calcular o maior elemento.")
@@ -218,10 +201,7 @@ class ListaNomes(AnaliseDados):
         pass    
 
     def listarEmOrdem(self):
-        '''
-        Este método ordena a lista e mostra os
-        elementos em ordem crescente
-        '''
+    
         limpaTela()
         if not self.__lista:
             print("A lista está vazia. Não é possível ordenar.")
@@ -259,11 +239,7 @@ class ListaDatas(AnaliseDados):
         self.__lista = []        
     
     def entradaDeDados(self):
-        '''
-        Este método pergunta ao usuários quantos
-        elementos vão existir na lista e depois
-        solicita a digitação de cada um deles
-        '''
+
         limpaTela()
         print("\n\t=========== CADASTRO DE DATAS ===========\n")
         
@@ -303,19 +279,12 @@ class ListaDatas(AnaliseDados):
         pass
     
     def mostraMediana(self):
-        '''
-        Este método ordena a lista e mostra o
-        elemento que está na metade da lista
-        '''
-        
+    
         mediana = self.calcula_data_mediana()
         
         pass    
      
     def mostraMenor(self):
-        '''
-        Este método retorna o menos elemento da lista
-        '''
     
         if not self.__lista:
             print("A lista está vazia. Não é possível calcular o menor elemento.")
@@ -331,10 +300,7 @@ class ListaDatas(AnaliseDados):
         pass
     
     def mostraMaior(self):
-        '''
-        Este método retorna o maior elemento da lista
-        '''
-        
+  
         if not self.__lista:
             print("A lista está vazia. Não é possível calcular o maior elemento.")
             return
@@ -373,10 +339,7 @@ class ListaDatas(AnaliseDados):
         return mediana
     
     def listarEmOrdem(self):
-        '''
-        Este método ordena a lista e mostra os
-        elementos em ordem crescente
-        '''
+  
         lista_ordenada = sorted(self.__lista)
     
         limpaTela()
@@ -420,12 +383,7 @@ class ListaSalarios(AnaliseDados):
         self.__lista = []        
 
     def entradaDeDados(self):
-        '''
-        Este método pergunta ao usuários quantos
-        elementos vão existir na lista e depois
-        solicita a digitação de cada um deles
-        '''
-        
+
         limpaTela()
         print("\n\t=========== CADASTRO DE SALÁRIOS ===========\n")
         
@@ -459,20 +417,14 @@ class ListaSalarios(AnaliseDados):
         pass
             
     def mostraMediana(self):
-        '''
-        Este método ordena a lista e mostra o
-        elemento que está na metade da lista
-        '''
+     
         
         mediana = self.calcula_salario()
 
         pass    
 
     def mostraMenor(self):
-        '''
-        Este método retorna o menos elemento da lista
-        '''
-        
+      
         if not self.__lista:
             print("A lista está vazia. Não é possível calcular o menor elemento.")
             return
@@ -487,10 +439,7 @@ class ListaSalarios(AnaliseDados):
         pass
 
     def mostraMaior(self):
-        '''
-        Este método retorna o maior elemento da lista
-        '''
-        
+
         if not self.__lista:
             print("A lista está vazia. Não é possível calcular o maior elemento.")
             return
@@ -525,10 +474,7 @@ class ListaSalarios(AnaliseDados):
         return mediana
     
     def listarEmOrdem(self):
-        '''
-        Este método ordena a lista e mostra os
-        elementos em ordem crescente
-        '''
+   
         limpaTela()
         if not self.__lista:
             print("A lista está vazia. Não é possível ordenar.")
@@ -579,9 +525,7 @@ class ListaIdades(AnaliseDados):
         self.__lista = []        
     
     def entradaDeDados(self):
-        '''
-        Este método realiza a entrada de dados
-        '''
+  
         limpaTela()
         print("\n\t=========== CADASTRO DE IDADES ===========\n")
         try:
@@ -613,20 +557,13 @@ class ListaIdades(AnaliseDados):
         pass
  
     def mostraMediana(self):
-        '''
-        Este método ordena a lista e mostra o
-        elemento que está na metade da lista
-        '''
-        
+
         mediana = self.calcula_mediana()
         
         pass    
     
     def mostraMenor(self):
-        '''
-        Este método retorna o menos elemento da lista
-        '''
-        
+
         if not self.__lista:
             print("A lista está vazia. Não é possível calcular o menor elemento.")
             return
@@ -641,9 +578,7 @@ class ListaIdades(AnaliseDados):
         pass
     
     def mostraMaior(self):
-        '''
-        Este método retorna o maior elemento da lista
-        '''
+       
         
         if not self.__lista:
             print("A lista está vazia. Não é possível calcular o maior elemento.")
@@ -678,10 +613,7 @@ class ListaIdades(AnaliseDados):
         return mediana
     
     def listarEmOrdem(self):
-        '''
-        Este método ordena a lista e mostra os
-        elementos em ordem crescente
-        '''
+  
         limpaTela()     
         print("\n\t=========== LISTA DE IDADES EM ORDEM CRESCENTE ===========\n")
 
@@ -692,93 +624,4 @@ class ListaIdades(AnaliseDados):
         pause()
         pass
 
-    
-def pause():
-  input("\tPressione Enter para continuar...")
   
-def limpaTela():
-  sistema_operacional = platform.system().lower()
-
-  if sistema_operacional == "windows":
-    os.system("cls")
-  elif sistema_operacional == "linux":
-    os.system("clear")
-  else:
-    print("Sistema operacional não suportado para limpar a tela.")
-
-def menu():
-    
-    while True:
-    
-        limpaTela()
-        formato_personalizado = "\n\t%A, %d de %B de %Y %H:%M:%S"
-        data_e_hora_formatada = data_e_hora_atual.strftime(formato_personalizado)
-        print(data_e_hora_formatada)
-        print("\tFalta", (datetime(data_e_hora_atual.year, 12, 31) - data_e_hora_atual).days + 1, "dias para o fim do ano")
-    
-        print("\n\t======= DATAFRUTA =======")
-        print("\t[1] - INCLUIR UM NOME DA LISTA DE NOMES")
-        print("\t[2] - INCLUIR SALÁRIO NA LISTA DE SALÁRIOS")
-        print("\t[3] - INCLUIR DATA NA LISTA DE DATAS")
-        print("\t[4] - INCLUIR IDADE NA LISTA DE IDADES")
-        print("\t[5] - PERCORRER AS LISTAS DE NOME E SALÁRIOS")
-        print("\t[6] - CALCULAR O VALOR DA FOLHA COM UM REAJUSTE DE 10%")
-        print("\t[7] - MODIFICAR OS DIAS DE DATAS ANTERIORES A 2019")
-        print("\t[0] - SAIR")
-        opcao = input("\tENTRADA -> ")
-
-        if(opcao == "1" or opcao == "2" or opcao == "3" or opcao == "4" or opcao == "5" or opcao == "6" or opcao == "7" or opcao == "0"):
-            return opcao
-        else:
-            limpaTela()
-            print("\n\tOps, opção inválida! Tente novamente...")
-            pause()
-
-def aplicativo():
-    
-    nomes = ListaNomes()
-    salarios = ListaSalarios()
-    datas = ListaDatas()
-    idades = ListaIdades()
-    
-    while True:
-        
-        opcao = menu()
-        
-        match opcao:
-           
-            case "1":
-                nomes.entradaDeDados()  
-                nomes.listarEmOrdem()
-            case "2":
-                salarios.entradaDeDados()
-                salarios.listarEmOrdem()    
-            case "3":
-                datas.entradaDeDados()
-                datas.listarEmOrdem()
-            case "4":
-                idades.entradaDeDados()
-                idades.listarEmOrdem()
-                pass   
-            case "5":
-                nomes.percorreListaDeNomesESalarios(nomes, salarios)
-            case "6":
-                salarios.reajustar_Salarios()
-            case "7":
-                datas.modificar_datas_anteriores_2019() 
-            case "0":
-                limpaTela()
-                print("\n\tObrigado por usar o DataFruta!")
-                pause()
-                exit()  
-            case _:
-                limpaTela()
-                print("\n\tOps, opção inválida! Tente novamente.")
-                pause()
-    pass
-              
-def main():
-    aplicativo()
-    
-if __name__ == "__main__":
-    main()
