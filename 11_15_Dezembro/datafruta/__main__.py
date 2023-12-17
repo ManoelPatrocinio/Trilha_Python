@@ -6,34 +6,42 @@ def main():
     salarios = ListaSalarios()
     datas = ListaDatas()
     idades = ListaIdades()
-    
+    listaDeLista = []
     while True:
         
         opcao = menu()
         
         match opcao:
            
-            case "1":
+            case 1:
                 nomes.entradaDeDados()  
+                listaDeLista.append(nomes)
+                
                 nomes.listarEmOrdem()
                 
-            case "2":
+            case 2:
                 salarios.entradaDeDados()
+                listaDeLista.append(salarios)
+                
                 salarios.listarEmOrdem()    
-            case "3":
+            case 3:
                 datas.entradaDeDados()
+                listaDeLista.append(datas)
+                
                 datas.listarEmOrdem()
-            case "4":
+            case 4:
                 idades.entradaDeDados()
+                listaDeLista.append(idades)
+                
                 idades.listarEmOrdem()
                 pass   
-            case "5":
+            case 5:
                 nomes.percorreListaDeNomesESalarios(nomes, salarios)
-            case "6":
+            case 6:
                 custo_folha_atual = salarios.reajustar_Salarios()
                 print("\tCusto total da folha de pagamento após o reajuste: {:.2f}".format(custo_folha_atual))
                 pause()
-            case "7":
+            case 7:
                 datas_modificadas = datas.modificar_datas_anteriores_2019() 
                 
                 limpaTela()
@@ -43,7 +51,27 @@ def main():
                     print("\tData modificada: {}".format(data_modificada))
                 
                 pause()
-            case "0":
+            case 8:
+                limpaTela()
+                if not listaDeLista:
+                    print("\nA lista de lista está vazia. Não é possível exibir os relatórios no memento.\n")
+                    pause()
+                else:                             
+                    print("\n\t=========== RELATÓRIO DOS DADOS ===========\n")  
+
+                    for lista in listaDeLista:
+        
+                        menor = lista.mostraMenor()
+                        maior = lista.mostraMaior()
+                        mediana = lista.mostraMediana()
+                    
+                        print("\tMENOR VALOR:\t{}".format(menor))
+                        print("\tMAIOR VALOR:\t{}".format(maior))
+                        print("\tA MEDIANA :\t{}".format(mediana))
+                        print("\t___________________\n") 
+                    pause()
+                
+            case 0:
                 limpaTela()
                 print("\n\tObrigado por usar o DataFruta!")
                 pause()
