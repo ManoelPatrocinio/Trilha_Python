@@ -16,6 +16,7 @@ def main():
             case "1":
                 nomes.entradaDeDados()  
                 nomes.listarEmOrdem()
+                
             case "2":
                 salarios.entradaDeDados()
                 salarios.listarEmOrdem()    
@@ -29,9 +30,19 @@ def main():
             case "5":
                 nomes.percorreListaDeNomesESalarios(nomes, salarios)
             case "6":
-                salarios.reajustar_Salarios()
+                custo_folha_atual = salarios.reajustar_Salarios()
+                print("\tCusto total da folha de pagamento após o reajuste: {:.2f}".format(custo_folha_atual))
+                pause()
             case "7":
-                datas.modificar_datas_anteriores_2019() 
+                datas_modificadas = datas.modificar_datas_anteriores_2019() 
+                
+                limpaTela()
+                print("\n\t=========== DATAS DEPOIS DA MODIFICAÇÃO ===========\n")  
+
+                for data_modificada in datas_modificadas:
+                    print("\tData modificada: {}".format(data_modificada))
+                
+                pause()
             case "0":
                 limpaTela()
                 print("\n\tObrigado por usar o DataFruta!")

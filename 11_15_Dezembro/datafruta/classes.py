@@ -117,8 +117,7 @@ class ListaNomes(AnaliseDados):
     def __init__(self):
         super().__init__(type("String"))
         self.__lista = []
-        self.__nomes = []
-        self.__salarios = []        
+         
 
     def entradaDeDados(self):
 
@@ -156,18 +155,16 @@ class ListaNomes(AnaliseDados):
 
         lista_ordenada = sorted(self.__lista)
         tamanho = len(lista_ordenada)
-
+        
         if tamanho % 2 == 0:
             meio1 = lista_ordenada[tamanho // 2 - 1]
             meio2 = lista_ordenada[tamanho // 2]
-            mediana = (meio1, meio2)
+            mediana = meio1
         else:
             mediana = lista_ordenada[tamanho // 2]
 
-        print(f"\n\tA mediana da lista é: {mediana[0]}")  # Mostra o primeiro valor na mediana
-        pause()
-        
-        pass    
+        return mediana  # retorna o primeiro valor na mediana
+       
 
     def mostraMenor(self):
 
@@ -179,10 +176,7 @@ class ListaNomes(AnaliseDados):
         for elemento in self.__lista:
             if elemento < menor:
                 menor = elemento
-        print(f"\n\tO menor elemento da lista é: {menor}")
-        pause()
-        
-        pass
+        return menor
 
     def mostraMaior(self):
        
@@ -195,10 +189,7 @@ class ListaNomes(AnaliseDados):
         for elemento in self.__lista:
             if elemento > maior:
                 maior = elemento
-        print(f"\n\tO maior elemento da lista é: {maior}")
-        pause()
-        
-        pass    
+        return maior 
 
     def listarEmOrdem(self):
     
@@ -282,7 +273,7 @@ class ListaDatas(AnaliseDados):
     
         mediana = self.calcula_data_mediana()
         
-        pass    
+        return mediana    
      
     def mostraMenor(self):
     
@@ -294,10 +285,9 @@ class ListaDatas(AnaliseDados):
         for elemento in self.__lista:
             if elemento < menor:
                 menor = elemento
-        print(f"\n\tO menor elemento da lista é: {menor}")
-        pause()
+        return menor
         
-        pass
+        
     
     def mostraMaior(self):
   
@@ -309,10 +299,7 @@ class ListaDatas(AnaliseDados):
         for elemento in self.__lista:
             if elemento > maior:
                 maior = elemento
-        print(f"\n\tO maior elemento da lista é: {maior}")
-        pause()
-        
-        pass
+        return maior
     
     def calcula_data_mediana(self):
         
@@ -357,14 +344,8 @@ class ListaDatas(AnaliseDados):
             pause()
             return
         
-        limpaTela()
-        print("\n\t=========== DATAS ANTES E DEPOIS DA MODIFICAÇÃO ===========\n")  
-
         datas_modificadas = list(filter(lambda x: x is not None, map(lambda data: self.modificar_data(data), self.__lista.copy())))
-        
-        for data_original, data_modificada in zip(self.__lista, datas_modificadas):
-            print("\tData original: {}, Data modificada: {}".format(data_original, data_modificada))
-        pause()
+        return datas_modificadas    
 
     def modificar_data(self, data):
         if data.ano < 2019:
@@ -420,8 +401,8 @@ class ListaSalarios(AnaliseDados):
      
         
         mediana = self.calcula_salario()
-
-        pass    
+        return mediana
+            
 
     def mostraMenor(self):
       
@@ -433,10 +414,7 @@ class ListaSalarios(AnaliseDados):
         for elemento in self.__lista:
             if elemento < menor:
                 menor = elemento
-        print(f"\n\tO menor elemento da lista é: {menor}")
-        pause()
-        
-        pass
+        return menor
 
     def mostraMaior(self):
 
@@ -448,10 +426,7 @@ class ListaSalarios(AnaliseDados):
         for elemento in self.__lista:
             if elemento > maior:
                 maior = elemento
-        print(f"\n\tO maior elemento da lista é: {maior}")
-        pause()
-        
-        pass
+        return maior
     
     def calcula_salario(self):
     
@@ -513,10 +488,9 @@ class ListaSalarios(AnaliseDados):
         custo_folha_anterior = sum(self._ListaSalarios__lista)
         custo_folha_atual = sum(salarios_reajustados)
 
-        print("\n\tCusto total da folha de pagamento antes do reajuste: {:.2f}".format(custo_folha_anterior))
-        print("\tCusto total da folha de pagamento após o reajuste: {:.2f}".format(custo_folha_atual))
-
-        pause()
+        # print("\n\tCusto total da folha de pagamento antes do reajuste: {:.2f}".format(custo_folha_anterior))
+   
+        return custo_folha_atual 
         
 class ListaIdades(AnaliseDados):
     
@@ -560,7 +534,7 @@ class ListaIdades(AnaliseDados):
 
         mediana = self.calcula_mediana()
         
-        pass    
+        return mediana    
     
     def mostraMenor(self):
 
@@ -572,10 +546,7 @@ class ListaIdades(AnaliseDados):
         for elemento in self.__lista:
             if elemento < menor:
                 menor = elemento
-        print(f"\n\tO menor elemento da lista é: {menor}")
-        pause()
-        
-        pass
+        return menor
     
     def mostraMaior(self):
        
@@ -588,10 +559,7 @@ class ListaIdades(AnaliseDados):
         for elemento in self.__lista:
             if elemento > maior:
                 maior = elemento
-        print(f"\n\tO maior elemento da lista é: {maior}")
-        pause()
-        
-        pass
+        return maior
     
     def calcula_mediana(self):
         if not self.__lista:
