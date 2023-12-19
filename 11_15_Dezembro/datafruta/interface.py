@@ -24,6 +24,7 @@ def menu():
         print("\t[6] - CALCULAR O VALOR DA FOLHA COM UM REAJUSTE DE 10%")
         print("\t[7] - MODIFICAR OS DIAS DE DATAS ANTERIORES A 2019")
         print("\t[8] - MOSTRAR RELATÓRIO (MEDIANA, MAIOR E MENOR)")
+        print("\t[9] - datas")
         print("\t[0] - SAIR")
         
         try:
@@ -34,7 +35,7 @@ def menu():
             pause()
             
   
-        if(opcao < 0 or opcao > 8):
+        if(opcao < 0 or opcao > 9):
             limpaTela()
             print("\n\tOps, opção inválida! Tente novamente...")
             pause()

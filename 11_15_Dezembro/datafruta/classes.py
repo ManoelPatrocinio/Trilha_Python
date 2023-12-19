@@ -1,6 +1,8 @@
 from . recursos import  limpaTela,pause
 from abc import ABC, abstractmethod
 import copy
+import random
+from datetime import date
 
 
 class Data:
@@ -10,7 +12,7 @@ class Data:
             raise ValueError("Dia inválido")
         if mes < 1 or mes > 12:
             raise ValueError("Mês inválido")
-        if ano < 1900 or ano > 2100:
+        if ano < 1950 or ano > 2100:
             raise ValueError("Ano inválido")
         self.__dia = dia
         self.__mes = mes
@@ -22,7 +24,7 @@ class Data:
     
     @year.setter
     def year(self, ano):
-        if ano < 2000 or ano > 2100:
+        if ano < 1950 or ano > 2100:
             raise ValueError("Ano inválido")
         self.__ano = ano
 
@@ -52,7 +54,7 @@ class Data:
     
     @ano.setter
     def ano(self, ano):
-        if ano < 2000 or ano > 2100:
+        if ano < 1950 or ano > 2100:
             raise ValueError("Ano inválido")
         self.__ano = ano
     
@@ -248,7 +250,7 @@ class ListaDatas(AnaliseDados):
             while True:
                 try:
                     print("\n\tDigite o elemento {}:".format(i + 1))
-                    dia = int(input("\tDia: "))
+                    dia =  random.randint(1, 10)
                     mes = int(input("\tMês: "))
                     ano = int(input("\tAno: "))
             
@@ -268,6 +270,40 @@ class ListaDatas(AnaliseDados):
                     pause()
                     limpaTela() 
         pass
+    
+    
+    def geraListaIdade(self, n , iMin = 18, iMax = 65):
+        novaLista = []
+        for i in range(n):    
+            while True:
+                try:
+                    dia =  random.randint(1, 31)
+                    mes =  random.randint(1, 12)                    
+                    LiMin = date.today().year - iMin
+                    LiMax = date.today().year - iMax
+                    ano =  random.randint(LiMax,LiMin )
+                    # Verifica se a data é válida
+                    data = Data(dia, mes, ano)
+            
+                    # Se chegou aqui, a data é válida, então podemos adicionar à lista
+                    novaLista.append(data)
+                    print(f"\n\tData válida: {data}")
+            
+                    # Sai do loop se a entrada foi válida
+                    break
+
+                except ValueError as e:
+                    # limpaTela() 
+                    print("\n\tOps, foi gerada uma data invalida!\n\t")
+                    pause()
+                    limpaTela() 
+        print("\n\t=========== LISTA DE DATAS ALEATORIAS ===========\n")
+    
+        for i, data in enumerate(novaLista, start=1):
+            print(f"\tData {i}: {data}")
+        pause()
+        
+    
     
     def mostraMediana(self):
     

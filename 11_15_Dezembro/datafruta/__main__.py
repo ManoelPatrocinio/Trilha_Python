@@ -70,6 +70,8 @@ def main():
                         print("\tA MEDIANA :\t{}".format(mediana))
                         print("\t___________________\n") 
                     pause()
+            case 9:
+                datas.geraListaIdade(3)
                 
             case 0:
                 limpaTela()
