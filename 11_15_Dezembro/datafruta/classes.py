@@ -527,6 +527,36 @@ class ListaSalarios(AnaliseDados):
         # print("\n\tCusto total da folha de pagamento antes do reajuste: {:.2f}".format(custo_folha_anterior))
    
         return custo_folha_atual 
+    
+    def adicionaElemento(self, elemento):
+        self.__lista.append(elemento)
+
+    @classmethod
+    def geraListaSalario(cls, quantElementos, salarioMinimo=None, salarioMaximo=None):
+        novaLista = cls()
+
+    
+        if salarioMinimo is None or salarioMaximo is None:
+            salarioMinimo = 1.0
+            salarioMaximo = 10.0
+
+        for i in range(quantElementos):
+            while True:
+                try:
+                    elemento = random.uniform(salarioMinimo, salarioMaximo)
+
+                    novaLista.adicionaElemento(elemento)
+                    print(f"\n\tNúmero válido: {elemento:.2f}")
+
+               
+                    break
+
+                except ValueError:
+                    print("\n\tOps, entrada inválida! Por favor, digite um número válido.")
+                    pause()
+                    limpaTela()
+        return novaLista
+
         
 class ListaIdades(AnaliseDados):
     

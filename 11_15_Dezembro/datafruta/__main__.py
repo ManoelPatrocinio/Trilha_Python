@@ -73,6 +73,10 @@ def main():
             case 9:
                 datas.geraListaIdade(3)
                 
+            case 10:
+                
+                salarios.geraListaSalario(5, 1000, 5000)
+                
             case 0:
                 limpaTela()
                 print("\n\tObrigado por usar o DataFruta!")
