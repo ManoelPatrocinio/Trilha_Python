@@ -113,7 +113,7 @@ def main():
             case 10:
               print("\n\t=========== RELATÓRIO DE IDADES COM DADOS ALEATÓRIOS ===========\n")  
                 
-              listaRandomIdades = idades.geraListaIdade(10)
+              listaRandomIdades = idades.geraListaIdade(5000,18,70)
               idadesAleatorias = ListaIdades(listaRandomIdades)  
             
               
@@ -131,9 +131,9 @@ def main():
               
               print("\n\tRELATÓRIO USANDO NUMPY ===========\n")  
             
-            #   novoObjetoIdade = ListaIdades()
-            #   ndarray = novoObjetoIdade.geraListaIdadeNumpy(5000)
-              ndarrayIdades = np.array(listaRandomIdades)
+              novoObjetoIdade = ListaIdades()
+              ndarrayIdades = novoObjetoIdade.geraListaIdadeNumpy(5000,18,70)
+            #   ndarrayIdades = np.array(listaRandomIdades)
 
               print(f"\tMediana: {np.median(ndarrayIdades):.2f}")
               tempoMediana = timeit.timeit(lambda:np.median(ndarrayIdades),number=1)
