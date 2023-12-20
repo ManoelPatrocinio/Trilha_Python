@@ -2,6 +2,7 @@ from . recursos import  limpaTela,pause
 from abc import ABC, abstractmethod
 import copy
 import random
+import numpy as np
 from datetime import date
 
 
@@ -272,7 +273,7 @@ class ListaDatas(AnaliseDados):
         pass
     
     
-    def geraListaIdade(self, n , iMin = 18, iMax = 65):
+    def geraListaDatas(self, n , iMin = 18, iMax = 65):
         novaLista = []
         for i in range(n):    
             while True:
@@ -297,11 +298,7 @@ class ListaDatas(AnaliseDados):
                     print("\n\tOps, foi gerada uma data invalida!\n\t")
                     pause()
                     limpaTela() 
-        print("\n\t=========== LISTA DE DATAS ALEATORIAS ===========\n")
-    
-        for i, data in enumerate(novaLista, start=1):
-            print(f"\tData {i}: {data}")
-        pause()
+        return novaLista
         
     
     
@@ -394,10 +391,14 @@ class ListaDatas(AnaliseDados):
         pass
 
 class ListaSalarios(AnaliseDados):
-
-    def __init__(self):
+ 
+    def __init__(self, lista_floats=None):
         super().__init__(type(float))
-        self.__lista = []        
+
+        if lista_floats is None:
+            self.__lista = []
+        else:
+            self.__lista = lista_floats[:]      
 
     def entradaDeDados(self):
 
@@ -527,12 +528,54 @@ class ListaSalarios(AnaliseDados):
         # print("\n\tCusto total da folha de pagamento antes do reajuste: {:.2f}".format(custo_folha_anterior))
    
         return custo_folha_atual 
-        
-class ListaIdades(AnaliseDados):
+   
+    @classmethod
+    def geraListaSalario(self, quantElementos, salarioMinimo=None, salarioMaximo=None):
+        novaLista = []
+
     
-    def __init__(self):
+        if salarioMinimo is None or salarioMaximo is None:
+            salarioMinimo = 1320
+            salarioMaximo = 13200
+
+        for i in range(quantElementos):
+            while True:
+                try:
+                    elemento = random.uniform(salarioMinimo, salarioMaximo)
+                    novaLista.append(elemento)
+                    break
+
+                except ValueError:
+                    print("\n\tOps, entrada inválida! Por favor, digite um número válido.")
+                    pause()
+                    limpaTela()
+        return novaLista
+    @classmethod
+    def geraListaSalarioNumpy(self, quantElementos, salarioMinimo=None, salarioMaximo=None):
+        arraySalarios_aleatorio = []
+
+        if salarioMinimo is None or salarioMaximo is None:
+            salarioMinimo = 1320
+            salarioMaximo = 13200
+
+        try:
+            arraySalarios_aleatorio = np.random.uniform(salarioMinimo, salarioMaximo + 1, quantElementos)
+        except ValueError as e:
+            print("\n\tOps, foi gerado um salário invalido!\n\t")
+            pause()
+            limpaTela() 
+               
+        return np.array(arraySalarios_aleatorio)
+         
+class ListaIdades(AnaliseDados):
+       
+    def __init__(self, lista_inteiros=None):
         super().__init__(type(int))
-        self.__lista = []        
+        
+        if lista_inteiros is None:
+            self.__lista = []
+        else:
+            self.__lista = lista_inteiros[:]
     
     def entradaDeDados(self):
   
@@ -566,6 +609,35 @@ class ListaIdades(AnaliseDados):
             self.entradaDeDados()
         pass
  
+    def geraListaIdade(self, n , iMin = 18, iMax = 65):
+        novaListaIdade = []
+        for i in range(n):    
+            while True:
+                try:
+                    idade =  random.randint(iMin,iMax )  
+                    # Se chegou aqui, a idade é válida, então podemos adicionar à lista
+                    novaListaIdade.append(idade)            
+                    # Sai do loop se a entrada foi válida
+                    break
+
+                except ValueError as e:
+                    # limpaTela() 
+                    print("\n\tOps, foi gerada uma idade invalida!\n\t")
+                    pause()
+                    limpaTela() 
+        return novaListaIdade
+    def geraListaIdadeNumpy(self, n , iMin = 18, iMax = 65):
+        arrayIdade_aleatorio = []
+        try:
+            arrayIdade_aleatorio = np.random.randint(iMin, iMax + 1, n)
+        except ValueError as e:
+            # limpaTela() 
+            print("\n\tOps, foi gerada uma idade invalida!\n\t")
+            pause()
+            limpaTela() 
+               
+        return np.array(arrayIdade_aleatorio)
+        
     def mostraMediana(self):
 
         mediana = self.calcula_mediana()
