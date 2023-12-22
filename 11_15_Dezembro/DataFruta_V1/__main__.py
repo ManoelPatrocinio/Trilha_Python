@@ -108,9 +108,16 @@ def main():
               novoObjetoSalario = ListaSalarios()
               ndarray = novoObjetoSalario.geraListaSalarioNumpy(5000)
 
-              print(f"\tMediana: {np.median(ndarray):.2f}")
+              mediana = np.median(ndarray)
+              print(f"\tMediana: {mediana:.2f}")
               tempoMediana = timeit.timeit(lambda:np.median(ndarray),number=1)
               print(f"\tTempo de execução do calculo da mediana: {tempoMediana}\n")
+              
+              tempoMedianaS = timeit.timeit(lambda:np.median([x for x in ndarray if x > mediana]),number=1)
+              print(f"\tTempo de execução do calculo da mediana superior: {tempoMedianaS}\n")
+              
+              tempoMedianaI = timeit.timeit(lambda:np.median([x for x in ndarray if x < mediana]),number=1)
+              print(f"\tTempo de execução do calculo da mediana inferior: {tempoMedianaS}\n")
               
               print(f"\tMaior: {np.max(ndarray):.2f}")              
               tempoMaior = timeit.timeit(lambda:np.max(ndarray),number=1)
@@ -131,6 +138,12 @@ def main():
               tempoMediana = timeit.timeit(lambda:idadesAleatorias.mostraMediana(),number=1)
               print(f"\tTempo de execução do calculo da mediana: {tempoMediana}\n")
               
+              tempoMedianaS = timeit.timeit(lambda:idadesAleatorias.mostraMedianaSuperior(),number=1)
+              print(f"\tTempo de execução do calculo da mediana superior: {tempoMedianaS}\n")
+              
+              tempoMedianaI = timeit.timeit(lambda:idadesAleatorias.mostraMedianaInferior(),number=1)
+              print(f"\tTempo de execução do calculo da mediana inferior: {tempoMedianaI}\n")
+              
               print(f"\tMaior: {idadesAleatorias.mostraMaior():.2f}")              
               tempoMaior = timeit.timeit(lambda:idadesAleatorias.mostraMaior(),number=1)
               print(f"\tTempo de execução do calculo do maior : {tempoMaior}\n")
@@ -146,9 +159,16 @@ def main():
               ndarrayIdades = novoObjetoIdade.geraListaIdadeNumpy(5000,18,70)
             #   ndarrayIdades = np.array(listaRandomIdades)
 
-              print(f"\tMediana: {np.median(ndarrayIdades):.2f}")
+              mediana = np.median(ndarrayIdades)
+              print(f"\tMediana: {mediana:.2f}")
               tempoMediana = timeit.timeit(lambda:np.median(ndarrayIdades),number=1)
               print(f"\tTempo de execução do calculo da mediana: {tempoMediana}\n")
+              
+              tempoMedianaS = timeit.timeit(lambda:np.median([x for x in ndarrayIdades if x > mediana]),number=1)
+              print(f"\tTempo de execução do calculo da mediana superior: {tempoMedianaS}\n")
+              
+              tempoMedianaI = timeit.timeit(lambda:np.median([x for x in ndarrayIdades if x < mediana]),number=1)
+              print(f"\tTempo de execução do calculo da mediana inferior: {tempoMedianaS}\n")
               
               print(f"\tMaior: {np.max(ndarrayIdades):.2f}")              
               tempoMaior = timeit.timeit(lambda:np.max(ndarrayIdades),number=1)
