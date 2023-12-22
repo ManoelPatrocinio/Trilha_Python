@@ -1,4 +1,4 @@
-from . classes import ListaNomes,ListaSalarios, ListaDatas, ListaIdades
+from . classes import ListaNomes,ListaSalarios, ListaDatas, ListaIdades, ListaNotas
 from . recursos import  limpaTela,pause
 from . interface import menu
 import timeit
@@ -10,6 +10,7 @@ def main():
     salarios = ListaSalarios()
     datas = ListaDatas()
     idades = ListaIdades()
+    notas = ListaNotas()
     listaDeLista = []
     while True:
         
@@ -148,6 +149,12 @@ def main():
               print(f"\tTempo de execução do calculo do menor : {tempoMenor}")
               
               pause()
+
+            case 11:
+                notas.entradaDeDados()  
+                listaDeLista.append(notas)
+                
+                notas.listarEmOrdem()
                 
             case 0:
                 limpaTela()

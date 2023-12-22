@@ -700,4 +700,89 @@ class ListaIdades(AnaliseDados):
         pause()
         pass
 
+class ListaNotas(AnaliseDados):
+    def __init__(self):
+        super().__init__(type(float))
+        self.__lista = []
+
+    def entradaDeDados(self):
+        limpaTela()
+        print("\n\t=========== CADASTRO DE NOTAS ===========\n")
+
+        while True:
+            try:
+                quantElementos = int(input("\n\tQuantas notas vão existir na lista: "))
+                break  # Se a conversão para int for bem-sucedida, sai do loop
+            except ValueError:
+                limpaTela()
+                print("\tPor favor, digite um número inteiro válido.")
+                pause()
+                limpaTela()
+
+        for i in range(quantElementos):
+            while True:
+                limpaTela()
+                try:
+                    elemento = float(input("\n\tDigite a nota {}: ".format(i + 1)))
+                    if 0 <= elemento <= 10:
+                        self.__lista.append(elemento)
+                        break
+                    else:
+                        limpaTela()
+                        print("\tPor favor, digite uma nota entre 0 e 10.")
+                        pause()
+                except ValueError:
+                    limpaTela()
+                    print("\tPor favor, digite uma nota válida.")
+                    pause()
+
+    def mostraMediana(self):
+        if not self.__lista:
+            print("A lista de notas está vazia. Não é possível calcular a mediana.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de notas tem um número ímpar de elementos. A mediana é: {mediana:.2f}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana = (meio1 + meio2) / 2
+            print(f"\n\tA lista de notas tem um número par de elementos. A mediana é: {mediana:.2f}")
+
+        return mediana
+
+    def mostraMenor(self):
+        if not self.__lista:
+            print("A lista de notas está vazia. Não é possível calcular a menor nota.")
+            return None
+
+        menor = min(self.__lista)
+        print(f"\n\tA menor nota é: {menor:.2f}")
+        return menor
+
+    def mostraMaior(self):
+        if not self.__lista:
+            print("A lista de notas está vazia. Não é possível calcular a maior nota.")
+            return None
+
+        maior = max(self.__lista)
+        print(f"\n\tA maior nota é: {maior:.2f}")
+        return maior
+
+    def listarEmOrdem(self):
+        limpaTela()
+        if not self.__lista:
+            print("A lista de notas está vazia. Não é possível ordenar.")
+            return
+
+        lista_ordenada = sorted(self.__lista)
+        print("\n\t=========== LISTA DE NOTAS EM ORDEM CRESCENTE ===========\n")
+        for nota in lista_ordenada:
+            print(f"\tNota: {nota:.2f}")
+        pause()
+
   
