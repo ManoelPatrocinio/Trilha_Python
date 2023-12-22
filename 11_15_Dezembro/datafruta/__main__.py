@@ -69,10 +69,14 @@ def main():
                         menor = lista.mostraMenor()
                         maior = lista.mostraMaior()
                         mediana = lista.mostraMediana()
+                        mediana_superior = lista.mostraMedianaSuperior()
+                        mediana_inferior = lista.mostraMedianaInferior()
                     
                         print("\tMENOR VALOR:\t{}".format(menor))
                         print("\tMAIOR VALOR:\t{}".format(maior))
                         print("\tA MEDIANA :\t{}".format(mediana))
+                        print("\tA MEDIANA SUPERIOR :\t{}".format(mediana_superior))
+                        print("\tA MEDIANA INFERIOR:\t{}".format(mediana_inferior))
                         print("\t___________________\n") 
                     pause()
             case 9:
@@ -84,6 +88,12 @@ def main():
 
               tempoMediana = timeit.timeit(lambda:salariosAleatorios.mostraMediana(),number=1)
               print(f"\tTempo de execução do calculo da mediana: {tempoMediana}\n")
+              
+              tempoMedianaS = timeit.timeit(lambda:salariosAleatorios.mostraMedianaSuperior(),number=1)
+              print(f"\tTempo de execução do calculo da mediana superior: {tempoMedianaS}\n")
+              
+              tempoMedianaI = timeit.timeit(lambda:salariosAleatorios.mostraMedianaInferior(),number=1)
+              print(f"\tTempo de execução do calculo da mediana inferior: {tempoMedianaI}\n")
 
               print(f"\tMaior: {salariosAleatorios.mostraMaior():.2f}")              
               tempoMaior = timeit.timeit(lambda:salariosAleatorios.mostraMaior(),number=1)

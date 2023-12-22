@@ -104,6 +104,14 @@ class AnaliseDados(ABC):
         pass
     
     @abstractmethod
+    def mostraMedianaSuperior(self):
+        pass
+    
+    @abstractmethod
+    def mostraMedianaInferior(self):
+        pass
+    
+    @abstractmethod
     def mostraMenor(self):
         pass
 
@@ -168,6 +176,39 @@ class ListaNomes(AnaliseDados):
 
         return mediana  # retorna o primeiro valor na mediana
        
+    def mostraMedianaSuperior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana superior.")
+            return
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+        
+        if tamanho % 2 == 0:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_superior = meio2
+        else:
+            mediana_superior = lista_ordenada[tamanho // 2]
+
+        return mediana_superior  # retorna o segundo valor na mediana
+    def mostraMedianaInferior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana inferior.")
+            return
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+        
+        if tamanho % 2 == 0:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_inferior = meio1
+        else:
+            mediana_inferior = lista_ordenada[tamanho // 2]
+
+        return mediana_inferior  # retorna o primeiro valor na mediana
+        
 
     def mostraMenor(self):
 
@@ -300,13 +341,48 @@ class ListaDatas(AnaliseDados):
                     limpaTela() 
         return novaLista
         
-    
-    
     def mostraMediana(self):
     
         mediana = self.calcula_data_mediana()
         
         return mediana    
+     
+    def mostraMedianaSuperior(self):
+        
+        if not self.__lista:
+            print("A lista de datas está vazia. Não é possível calcular a mediana superior.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_superior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de datas tem um número ímpar de elementos. A mediana superior é: {mediana_superior}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_superior = Data()  # Criar uma nova instância de Data para armazenar a mediana
+            mediana_superior = meio2
+        return mediana_superior
+    def mostraMedianaInferior(self):
+        
+        if not self.__lista:
+            print("A lista de datas está vazia. Não é possível calcular a mediana superior.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_inferior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de datas tem um número ímpar de elementos. A mediana inferior é: {mediana_inferior}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_inferior = Data()  # Criar uma nova instância de Data para armazenar a mediana
+            mediana_inferior = meio1
+        return mediana_inferior
      
     def mostraMenor(self):
     
@@ -439,6 +515,42 @@ class ListaSalarios(AnaliseDados):
         
         mediana = self.calcula_salario()
         return mediana
+    def mostraMedianaSuperior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana superior dos salários.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_superior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de salários tem um número ímpar de elementos. A mediana é: {mediana_superior:.2f}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_superior =  meio2
+
+        return mediana_superior
+    
+    def mostraMedianaInferior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana inferior dos salários.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_inferior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de salários tem um número ímpar de elementos. A mediana é: {mediana_inferior:.2f}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_inferior =  meio1
+
+        return mediana_inferior
+    
             
 
     def mostraMenor(self):
@@ -643,6 +755,42 @@ class ListaIdades(AnaliseDados):
         mediana = self.calcula_mediana()
         
         return mediana    
+    def mostraMedianaSuperior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana superior dos salários.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_superior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de salários tem um número ímpar de elementos. A mediana é: {mediana_superior:.2f}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_superior =  meio2
+
+        return mediana_superior
+    
+    def mostraMedianaInferior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana inferior dos salários.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_inferior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de salários tem um número ímpar de elementos. A mediana é: {mediana_inferior:.2f}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_inferior =  meio1
+
+        return mediana_inferior
+    
     
     def mostraMenor(self):
 
@@ -754,7 +902,42 @@ class ListaNotas(AnaliseDados):
             print(f"\n\tA lista de notas tem um número par de elementos. A mediana é: {mediana:.2f}")
 
         return mediana
+    def mostraMedianaSuperior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana superior das notas.")
+            return None
 
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_superior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de salários tem um número ímpar de elementos. A mediana é: {mediana_superior:.2f}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_superior =  meio2
+
+        return mediana_superior
+    
+    def mostraMedianaInferior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana inferior  das notas.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_inferior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de salários tem um número ímpar de elementos. A mediana é: {mediana_inferior:.2f}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_inferior =  meio1
+
+        return mediana_inferior
+    
     def mostraMenor(self):
         if not self.__lista:
             print("A lista de notas está vazia. Não é possível calcular a menor nota.")
