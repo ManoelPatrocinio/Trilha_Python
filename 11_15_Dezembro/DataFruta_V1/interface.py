@@ -26,6 +26,7 @@ def menu():
         print("\t[8] - MOSTRAR RELATÓRIO (MEDIANA, MAIOR E MENOR)")
         print("\t[9] - MOSTRAR RELATÓRIO COM SALÁRIOS ALEATÓRIOS (MEDIANA, MAIOR E MENOR)")
         print("\t[10] - MOSTRAR RELATÓRIO COM IDADES ALEATÓRIAS(MEDIANA, MAIOR E MENOR)")
+        print("\t[11] - INCLUIR NOTAS")
         print("\t[0] - SAIR")
          
         try:
@@ -36,7 +37,7 @@ def menu():
             pause()
             
   
-        if(opcao < 0 or opcao > 10):
+        if(opcao < 0 or opcao > 11):
             limpaTela()
             print("\n\tOps, opção inválida! Tente novamente...")
             pause()

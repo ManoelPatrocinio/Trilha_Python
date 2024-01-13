@@ -2,7 +2,7 @@ import os
 import platform
 
 def pause():
-  input("\tPressione Enter para continuar...")
+  input("\t\nPressione Enter para continuar...\n")
   
 def limpaTela():
   sistema_operacional = platform.system().lower()
