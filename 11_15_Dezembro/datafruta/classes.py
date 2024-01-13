@@ -1,6 +1,9 @@
-from recursos import  limpaTela,pause
+from . recursos import  limpaTela,pause
 from abc import ABC, abstractmethod
 import copy
+import random
+import numpy as np
+from datetime import date
 
 
 class Data:
@@ -10,7 +13,7 @@ class Data:
             raise ValueError("Dia inválido")
         if mes < 1 or mes > 12:
             raise ValueError("Mês inválido")
-        if ano < 1900 or ano > 2100:
+        if ano < 1950 or ano > 2100:
             raise ValueError("Ano inválido")
         self.__dia = dia
         self.__mes = mes
@@ -22,7 +25,7 @@ class Data:
     
     @year.setter
     def year(self, ano):
-        if ano < 2000 or ano > 2100:
+        if ano < 1950 or ano > 2100:
             raise ValueError("Ano inválido")
         self.__ano = ano
 
@@ -52,7 +55,7 @@ class Data:
     
     @ano.setter
     def ano(self, ano):
-        if ano < 2000 or ano > 2100:
+        if ano < 1950 or ano > 2100:
             raise ValueError("Ano inválido")
         self.__ano = ano
     
@@ -101,6 +104,14 @@ class AnaliseDados(ABC):
         pass
     
     @abstractmethod
+    def mostraMedianaSuperior(self):
+        pass
+    
+    @abstractmethod
+    def mostraMedianaInferior(self):
+        pass
+    
+    @abstractmethod
     def mostraMenor(self):
         pass
 
@@ -117,8 +128,7 @@ class ListaNomes(AnaliseDados):
     def __init__(self):
         super().__init__(type("String"))
         self.__lista = []
-        self.__nomes = []
-        self.__salarios = []        
+         
 
     def entradaDeDados(self):
 
@@ -156,18 +166,49 @@ class ListaNomes(AnaliseDados):
 
         lista_ordenada = sorted(self.__lista)
         tamanho = len(lista_ordenada)
-
+        
         if tamanho % 2 == 0:
             meio1 = lista_ordenada[tamanho // 2 - 1]
             meio2 = lista_ordenada[tamanho // 2]
-            mediana = (meio1, meio2)
+            mediana = meio1
         else:
             mediana = lista_ordenada[tamanho // 2]
 
-        print(f"\n\tA mediana da lista é: {mediana[0]}")  # Mostra o primeiro valor na mediana
-        pause()
+        return mediana  # retorna o primeiro valor na mediana
+       
+    def mostraMedianaSuperior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana superior.")
+            return
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
         
-        pass    
+        if tamanho % 2 == 0:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_superior = meio2
+        else:
+            mediana_superior = lista_ordenada[tamanho // 2]
+
+        return mediana_superior  # retorna o segundo valor na mediana
+    def mostraMedianaInferior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana inferior.")
+            return
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+        
+        if tamanho % 2 == 0:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_inferior = meio1
+        else:
+            mediana_inferior = lista_ordenada[tamanho // 2]
+
+        return mediana_inferior  # retorna o primeiro valor na mediana
+        
 
     def mostraMenor(self):
 
@@ -179,10 +220,7 @@ class ListaNomes(AnaliseDados):
         for elemento in self.__lista:
             if elemento < menor:
                 menor = elemento
-        print(f"\n\tO menor elemento da lista é: {menor}")
-        pause()
-        
-        pass
+        return menor
 
     def mostraMaior(self):
        
@@ -195,10 +233,7 @@ class ListaNomes(AnaliseDados):
         for elemento in self.__lista:
             if elemento > maior:
                 maior = elemento
-        print(f"\n\tO maior elemento da lista é: {maior}")
-        pause()
-        
-        pass    
+        return maior 
 
     def listarEmOrdem(self):
     
@@ -257,7 +292,7 @@ class ListaDatas(AnaliseDados):
             while True:
                 try:
                     print("\n\tDigite o elemento {}:".format(i + 1))
-                    dia = int(input("\tDia: "))
+                    dia =  random.randint(1, 10)
                     mes = int(input("\tMês: "))
                     ano = int(input("\tAno: "))
             
@@ -278,11 +313,76 @@ class ListaDatas(AnaliseDados):
                     limpaTela() 
         pass
     
+    
+    def geraListaDatas(self, n , iMin = 18, iMax = 65):
+        novaLista = []
+        for i in range(n):    
+            while True:
+                try:
+                    dia =  random.randint(1, 31)
+                    mes =  random.randint(1, 12)                    
+                    LiMin = date.today().year - iMin
+                    LiMax = date.today().year - iMax
+                    ano =  random.randint(LiMax,LiMin )
+                    # Verifica se a data é válida
+                    data = Data(dia, mes, ano)
+            
+                    # Se chegou aqui, a data é válida, então podemos adicionar à lista
+                    novaLista.append(data)
+                    print(f"\n\tData válida: {data}")
+            
+                    # Sai do loop se a entrada foi válida
+                    break
+
+                except ValueError as e:
+                    # limpaTela() 
+                    print("\n\tOps, foi gerada uma data invalida!\n\t")
+                    pause()
+                    limpaTela() 
+        return novaLista
+        
     def mostraMediana(self):
     
         mediana = self.calcula_data_mediana()
         
-        pass    
+        return mediana    
+     
+    def mostraMedianaSuperior(self):
+        
+        if not self.__lista:
+            print("A lista de datas está vazia. Não é possível calcular a mediana superior.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_superior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de datas tem um número ímpar de elementos. A mediana superior é: {mediana_superior}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_superior = Data()  # Criar uma nova instância de Data para armazenar a mediana
+            mediana_superior = meio2
+        return mediana_superior
+    def mostraMedianaInferior(self):
+        
+        if not self.__lista:
+            print("A lista de datas está vazia. Não é possível calcular a mediana superior.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_inferior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de datas tem um número ímpar de elementos. A mediana inferior é: {mediana_inferior}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_inferior = Data()  # Criar uma nova instância de Data para armazenar a mediana
+            mediana_inferior = meio1
+        return mediana_inferior
      
     def mostraMenor(self):
     
@@ -294,10 +394,9 @@ class ListaDatas(AnaliseDados):
         for elemento in self.__lista:
             if elemento < menor:
                 menor = elemento
-        print(f"\n\tO menor elemento da lista é: {menor}")
-        pause()
+        return menor
         
-        pass
+        
     
     def mostraMaior(self):
   
@@ -309,10 +408,7 @@ class ListaDatas(AnaliseDados):
         for elemento in self.__lista:
             if elemento > maior:
                 maior = elemento
-        print(f"\n\tO maior elemento da lista é: {maior}")
-        pause()
-        
-        pass
+        return maior
     
     def calcula_data_mediana(self):
         
@@ -357,14 +453,8 @@ class ListaDatas(AnaliseDados):
             pause()
             return
         
-        limpaTela()
-        print("\n\t=========== DATAS ANTES E DEPOIS DA MODIFICAÇÃO ===========\n")  
-
         datas_modificadas = list(filter(lambda x: x is not None, map(lambda data: self.modificar_data(data), self.__lista.copy())))
-        
-        for data_original, data_modificada in zip(self.__lista, datas_modificadas):
-            print("\tData original: {}, Data modificada: {}".format(data_original, data_modificada))
-        pause()
+        return datas_modificadas    
 
     def modificar_data(self, data):
         if data.ano < 2019:
@@ -377,10 +467,14 @@ class ListaDatas(AnaliseDados):
         pass
 
 class ListaSalarios(AnaliseDados):
-
-    def __init__(self):
+ 
+    def __init__(self, lista_floats=None):
         super().__init__(type(float))
-        self.__lista = []        
+
+        if lista_floats is None:
+            self.__lista = []
+        else:
+            self.__lista = lista_floats[:]      
 
     def entradaDeDados(self):
 
@@ -420,8 +514,44 @@ class ListaSalarios(AnaliseDados):
      
         
         mediana = self.calcula_salario()
+        return mediana
+    def mostraMedianaSuperior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana superior dos salários.")
+            return None
 
-        pass    
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_superior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de salários tem um número ímpar de elementos. A mediana é: {mediana_superior:.2f}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_superior =  meio2
+
+        return mediana_superior
+    
+    def mostraMedianaInferior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana inferior dos salários.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_inferior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de salários tem um número ímpar de elementos. A mediana é: {mediana_inferior:.2f}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_inferior =  meio1
+
+        return mediana_inferior
+    
+            
 
     def mostraMenor(self):
       
@@ -433,10 +563,7 @@ class ListaSalarios(AnaliseDados):
         for elemento in self.__lista:
             if elemento < menor:
                 menor = elemento
-        print(f"\n\tO menor elemento da lista é: {menor}")
-        pause()
-        
-        pass
+        return menor
 
     def mostraMaior(self):
 
@@ -448,10 +575,7 @@ class ListaSalarios(AnaliseDados):
         for elemento in self.__lista:
             if elemento > maior:
                 maior = elemento
-        print(f"\n\tO maior elemento da lista é: {maior}")
-        pause()
-        
-        pass
+        return maior
     
     def calcula_salario(self):
     
@@ -513,16 +637,57 @@ class ListaSalarios(AnaliseDados):
         custo_folha_anterior = sum(self._ListaSalarios__lista)
         custo_folha_atual = sum(salarios_reajustados)
 
-        print("\n\tCusto total da folha de pagamento antes do reajuste: {:.2f}".format(custo_folha_anterior))
-        print("\tCusto total da folha de pagamento após o reajuste: {:.2f}".format(custo_folha_atual))
+        # print("\n\tCusto total da folha de pagamento antes do reajuste: {:.2f}".format(custo_folha_anterior))
+   
+        return custo_folha_atual 
+   
+    @classmethod
+    def geraListaSalario(self, quantElementos, salarioMinimo=None, salarioMaximo=None):
+        novaLista = []
 
-        pause()
-        
-class ListaIdades(AnaliseDados):
     
-    def __init__(self):
+        if salarioMinimo is None or salarioMaximo is None:
+            salarioMinimo = 1320
+            salarioMaximo = 13200
+
+        for i in range(quantElementos):
+            while True:
+                try:
+                    elemento = random.uniform(salarioMinimo, salarioMaximo)
+                    novaLista.append(elemento)
+                    break
+
+                except ValueError:
+                    print("\n\tOps, entrada inválida! Por favor, digite um número válido.")
+                    pause()
+                    limpaTela()
+        return novaLista
+    @classmethod
+    def geraListaSalarioNumpy(self, quantElementos, salarioMinimo=None, salarioMaximo=None):
+        arraySalarios_aleatorio = []
+
+        if salarioMinimo is None or salarioMaximo is None:
+            salarioMinimo = 1320
+            salarioMaximo = 13200
+
+        try:
+            arraySalarios_aleatorio = np.random.uniform(salarioMinimo, salarioMaximo + 1, quantElementos)
+        except ValueError as e:
+            print("\n\tOps, foi gerado um salário invalido!\n\t")
+            pause()
+            limpaTela() 
+               
+        return np.array(arraySalarios_aleatorio)
+         
+class ListaIdades(AnaliseDados):
+       
+    def __init__(self, lista_inteiros=None):
         super().__init__(type(int))
-        self.__lista = []        
+        
+        if lista_inteiros is None:
+            self.__lista = []
+        else:
+            self.__lista = lista_inteiros[:]
     
     def entradaDeDados(self):
   
@@ -556,11 +721,76 @@ class ListaIdades(AnaliseDados):
             self.entradaDeDados()
         pass
  
+    def geraListaIdade(self, n , iMin = 18, iMax = 65):
+        novaListaIdade = []
+        for i in range(n):    
+            while True:
+                try:
+                    idade =  random.randint(iMin,iMax )  
+                    # Se chegou aqui, a idade é válida, então podemos adicionar à lista
+                    novaListaIdade.append(idade)            
+                    # Sai do loop se a entrada foi válida
+                    break
+
+                except ValueError as e:
+                    # limpaTela() 
+                    print("\n\tOps, foi gerada uma idade invalida!\n\t")
+                    pause()
+                    limpaTela() 
+        return novaListaIdade
+    def geraListaIdadeNumpy(self, n , iMin = 18, iMax = 65):
+        arrayIdade_aleatorio = []
+        try:
+            arrayIdade_aleatorio = np.random.randint(iMin, iMax + 1, n)
+        except ValueError as e:
+            # limpaTela() 
+            print("\n\tOps, foi gerada uma idade invalida!\n\t")
+            pause()
+            limpaTela() 
+               
+        return np.array(arrayIdade_aleatorio)
+        
     def mostraMediana(self):
 
         mediana = self.calcula_mediana()
         
-        pass    
+        return mediana    
+    def mostraMedianaSuperior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana superior dos salários.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_superior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de salários tem um número ímpar de elementos. A mediana é: {mediana_superior:.2f}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_superior =  meio2
+
+        return mediana_superior
+    
+    def mostraMedianaInferior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana inferior dos salários.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_inferior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de salários tem um número ímpar de elementos. A mediana é: {mediana_inferior:.2f}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_inferior =  meio1
+
+        return mediana_inferior
+    
     
     def mostraMenor(self):
 
@@ -572,10 +802,7 @@ class ListaIdades(AnaliseDados):
         for elemento in self.__lista:
             if elemento < menor:
                 menor = elemento
-        print(f"\n\tO menor elemento da lista é: {menor}")
-        pause()
-        
-        pass
+        return menor
     
     def mostraMaior(self):
        
@@ -588,10 +815,7 @@ class ListaIdades(AnaliseDados):
         for elemento in self.__lista:
             if elemento > maior:
                 maior = elemento
-        print(f"\n\tO maior elemento da lista é: {maior}")
-        pause()
-        
-        pass
+        return maior
     
     def calcula_mediana(self):
         if not self.__lista:
@@ -623,5 +847,125 @@ class ListaIdades(AnaliseDados):
             print(f"\tIdade: {elemento}")
         pause()
         pass
+
+class ListaNotas(AnaliseDados):
+    def __init__(self):
+        super().__init__(type(float))
+        self.__lista = []
+
+    def entradaDeDados(self):
+        limpaTela()
+        print("\n\t=========== CADASTRO DE NOTAS ===========\n")
+
+        while True:
+            try:
+                quantElementos = int(input("\n\tQuantas notas vão existir na lista: "))
+                break  # Se a conversão para int for bem-sucedida, sai do loop
+            except ValueError:
+                limpaTela()
+                print("\tPor favor, digite um número inteiro válido.")
+                pause()
+                limpaTela()
+
+        for i in range(quantElementos):
+            while True:
+                limpaTela()
+                try:
+                    elemento = float(input("\n\tDigite a nota {}: ".format(i + 1)))
+                    if 0 <= elemento <= 10:
+                        self.__lista.append(elemento)
+                        break
+                    else:
+                        limpaTela()
+                        print("\tPor favor, digite uma nota entre 0 e 10.")
+                        pause()
+                except ValueError:
+                    limpaTela()
+                    print("\tPor favor, digite uma nota válida.")
+                    pause()
+
+    def mostraMediana(self):
+        if not self.__lista:
+            print("A lista de notas está vazia. Não é possível calcular a mediana.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de notas tem um número ímpar de elementos. A mediana é: {mediana:.2f}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana = (meio1 + meio2) / 2
+            print(f"\n\tA lista de notas tem um número par de elementos. A mediana é: {mediana:.2f}")
+
+        return mediana
+    def mostraMedianaSuperior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana superior das notas.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_superior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de salários tem um número ímpar de elementos. A mediana é: {mediana_superior:.2f}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_superior =  meio2
+
+        return mediana_superior
+    
+    def mostraMedianaInferior(self):
+        if not self.__lista:
+            print("A lista está vazia. Não é possível calcular a mediana inferior  das notas.")
+            return None
+
+        lista_ordenada = sorted(self.__lista)
+        tamanho = len(lista_ordenada)
+
+        if tamanho % 2 != 0:
+            mediana_inferior = lista_ordenada[tamanho // 2]
+            print(f"\n\tA lista de salários tem um número ímpar de elementos. A mediana é: {mediana_inferior:.2f}")
+        else:
+            meio1 = lista_ordenada[tamanho // 2 - 1]
+            meio2 = lista_ordenada[tamanho // 2]
+            mediana_inferior =  meio1
+
+        return mediana_inferior
+    
+    def mostraMenor(self):
+        if not self.__lista:
+            print("A lista de notas está vazia. Não é possível calcular a menor nota.")
+            return None
+
+        menor = min(self.__lista)
+        print(f"\n\tA menor nota é: {menor:.2f}")
+        return menor
+
+    def mostraMaior(self):
+        if not self.__lista:
+            print("A lista de notas está vazia. Não é possível calcular a maior nota.")
+            return None
+
+        maior = max(self.__lista)
+        print(f"\n\tA maior nota é: {maior:.2f}")
+        return maior
+
+    def listarEmOrdem(self):
+        limpaTela()
+        if not self.__lista:
+            print("A lista de notas está vazia. Não é possível ordenar.")
+            return
+
+        lista_ordenada = sorted(self.__lista)
+        print("\n\t=========== LISTA DE NOTAS EM ORDEM CRESCENTE ===========\n")
+        for nota in lista_ordenada:
+            print(f"\tNota: {nota:.2f}")
+        pause()
 
   
