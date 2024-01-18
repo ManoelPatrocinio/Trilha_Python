@@ -967,5 +967,59 @@ class ListaNotas(AnaliseDados):
         for nota in lista_ordenada:
             print(f"\tNota: {nota:.2f}")
         pause()
+        
+class NotasTurma:
+    
+    def __init__(self, nAlunos=30, nCreditos=3):
+        self.__nAlunos = nAlunos
+        self.__nCreditos = nCreditos
+        self.__notas = [[0] * nCreditos for _ in range(nAlunos)]
+
+    def leNotas(self):
+        for i in range(self.__nAlunos):
+            for j in range(self.__nCreditos):
+                while True:
+                    try:
+                        nota = float(input(f'Digite a nota do aluno {i + 1} na avaliação {j + 1}: '))
+                        if 0 <= nota <= 10:
+                            self.__notas[i][j] = nota
+                            break
+                        else:
+                            print('Por favor, digite uma nota entre 0 e 10.')
+                    except ValueError:
+                        print('Por favor, digite uma nota válida.')
+
+    def mediaTurma(self):
+        total = 0
+        for i in range(self.__nAlunos):
+            total += sum(self.__notas[i])
+        return total / (self.__nAlunos * self.__nCreditos)
+
+    def mediaAluno(self, index=0):
+        return sum(self.__notas[index]) / self.__nCreditos
+
+    def mediaAvaliacao(self, index=0):
+        total = sum(self.__notas[i][index] for i in range(self.__nAlunos))
+        return total / self.__nAlunos
+
+    def quantAprovados(self):
+        return sum(1 for i in range(self.__nAlunos) if self.mediaAluno(i) >= 6)
+
+    def quantReprovados(self):
+        return sum(1 for i in range(self.__nAlunos) if self.mediaAluno(i) < 6)
+
+    def menorNota(self):
+        menor_avaliacao = [min(self.__notas[i][j] for i in range(self.__nAlunos)) for j in range(self.__nCreditos)]
+        menor_media = min(self.mediaAluno(i) for i in range(self.__nAlunos))
+        return menor_avaliacao, menor_media
+
+    def maiorNota(self):
+        maior_avaliacao = [max(self.__notas[i][j] for i in range(self.__nAlunos)) for j in range(self.__nCreditos)]
+        maior_media = max(self.mediaAluno(i) for i in range(self.__nAlunos))
+        return maior_avaliacao, maior_media
+
+    def __str__(self):
+        pass
+
 
   
