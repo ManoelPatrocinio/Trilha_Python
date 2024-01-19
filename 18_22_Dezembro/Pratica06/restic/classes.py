@@ -1,45 +1,72 @@
 from . recursos import  formacao_tipos,formacao_especifica,formacao_geral,TrilhasNomes
 import numpy as np
+from datetime import datetime
 import pandas as pd
 class Residente():
     
 
-    def __init__(self,nome, cpf, ano_nascimento, idade, formacao, area_geral=None, area_especifica=None, andamento_graduacao=None, tempo_formado=None, experiencia_programacao=False):
+    def __init__(self,nome, trilha, cpf, ano_nascimento, idade, formacao, area_geral=None, area_especifica=None, andamento_graduacao=None, tempo_formado=None, experiencia_programacao=False):
         # Verificações de tipos
-        if (not isinstance(cpf, str) 
-            or not isinstance(nome, str) 
-            or not isinstance(ano_nascimento, str) 
-            or not isinstance(idade, int) 
-            or not isinstance(formacao, int) 
-            or not isinstance(area_geral, int)
-            or not isinstance(area_especifica, int) 
-            or not isinstance(andamento_graduacao, float) 
-            or not isinstance(andamento_graduacao, float) 
-            or not isinstance(tempo_formado, int) 
-            or not isinstance(experiencia_programacao, bool) 
-            ):
+        if (not isinstance(cpf, str)
+            or not isinstance(nome, str)
+            or not isinstance(trilha, str)
+            or not isinstance(ano_nascimento, str)
+            or not isinstance(idade, (int, type(None)))
+            or not isinstance(formacao, (int, type(None)))
+            or not isinstance(area_geral, (int, type(None)))
+            or not isinstance(area_especifica, (int, type(None)))
+            or not isinstance(andamento_graduacao, (float, type(None)))
+            or not isinstance(tempo_formado, (int, type(None)))
+            or not isinstance(experiencia_programacao, bool)
+        ):
             raise TypeError("Tipos de dados incorretos.")
 
         # Verificações de intervalos
         if (idade < 0 or idade > 100 
             or formacao not in [0, 1, 2, 3] 
-            or area_geral not in [0, 1] 
-            or area_especifica not in [0, 1,2,3]
-            or andamento_graduacao < 0.0 or andamento_graduacao > 100.0
+            or (area_geral is not None and area_geral not in [0, 1])
+            or (area_especifica is not None and area_especifica not in [0, 1, 2, 3])
+            or trilha not in TrilhasNomes
+            or (andamento_graduacao is not None and (andamento_graduacao < 0.0 or andamento_graduacao > 100.0))
             ):
             raise ValueError("Valores fora dos intervalos esperados.")
         
-        self.identificador = f'tic18Py{cpf[:3]}{ano_nascimento[-2:]}'
+        
         self.nome = nome
+        self.trilha = trilha
+        self.cpf = cpf
+        self.ano_nascimento = ano_nascimento
         self.idade = idade
         self.formacao =  formacao_tipos[formacao]
-        self.area_geral = formacao_geral[area_geral]
-        self.area_especifica =   formacao_especifica[area_especifica]
-        self.andamento_graduacao = andamento_graduacao
-        self.tempo_formado = tempo_formado
+        self.area_geral = formacao_geral[area_geral] if area_geral is not None else None
+        self.area_especifica =  formacao_especifica[area_especifica] if area_especifica is not None else None
+        self.andamento_graduacao = andamento_graduacao if andamento_graduacao is not None else None
+        self.tempo_formado = tempo_formado if tempo_formado is not None else None
         self.experiencia_programacao = experiencia_programacao
+        
+        # Verificar se a idade fornecida está correta
+        if idade is not None:
+            if self.calcular_idade() != idade:
+                raise TypeError("A idade informada não coincide com o ano de nascimento.")
 
-   
+        self.identificador = self.gerar_identificador()
+
+    def gerar_identificador(self):
+        if self.trilha in TrilhasNomes:
+            prefixo_trilha = f"tic18{self.trilha[:3]}"
+        else:
+            print(f"Trilha não reconhecida: {self.trilha}")
+            return None
+
+        identificador = f"{prefixo_trilha}{self.cpf[:3]}{self.ano_nascimento[-2:]}"
+
+        return identificador
+    
+    def calcular_idade(self):
+        data_atual = datetime.now()
+        ano_atual = data_atual.year
+        return ano_atual - int(self.ano_nascimento)
+    
     def __str__(self):
         print( f"Identificador: {self.identificador}\nNome: {self.nome}\nIdade: {self.idade}\nFormação: {self.formacao}\nÁrea Geral: {self.area_geral}\nÁrea Específica: {self.area_especifica}\nAndamento Graduação: {self.andamento_graduacao}\nTempo Formado: {self.tempo_formado}\nExperiência em Programação: {self.experiencia_programacao}")
 
