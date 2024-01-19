@@ -138,7 +138,7 @@ class Residencia:
         print(f"Trilha {nome_trilha} não encontrada na turma {self.nome_turma}.")
 
     def mostrar_info_turma(self):
-        print(f"Informações da turma {self.nome_turma} - {self.quantidade_alunos} alunos:")
+        print(f"\nInformações da turma: {self.nome_turma} \n")
         for trilha in self.trilhas:
             trilha.__str__()
 

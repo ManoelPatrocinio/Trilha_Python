@@ -13,20 +13,7 @@ def main():
         match opcao:
            
             case 1:
-                nome = "Manoel Patrocínio"
-                trilha = "Python"
-                cpf = "12345678901"
-                ano_nascimento = "1990"
-                idade = 34
-                formacao = 0  
-                area_geral = None  
-                area_especifica = None
-                andamento_graduacao = None 
-                experiencia_programacao = True
-
-                residente1 = Residente(nome,trilha,cpf, ano_nascimento, idade, formacao, area_geral, area_especifica, andamento_graduacao, experiencia_programacao)
-               
-
+              
                 
                 residencia_turma_a = Residencia("Turma A", 20)
                 residencia_turma_a.adicionar_trilha(".NET")
@@ -36,6 +23,18 @@ def main():
                 residencia_turma_b.adicionar_trilha(".NET")
                 residencia_turma_b.adicionar_trilha("Python")
 
+                nome = "Manoel Patrocínio"
+                trilha = "Python"
+                cpf = "12345678901"
+                ano_nascimento = "1990"
+                idade = 34
+                formacao = 0  # Formação técnica
+                area_geral = None  
+                area_especifica = None
+                andamento_graduacao = None 
+                experiencia_programacao = True
+                residente1 = Residente(nome,trilha,cpf, ano_nascimento, idade, formacao, area_geral, area_especifica, andamento_graduacao, experiencia_programacao)
+               
                 residente2 = Residente("Rebeca","Python","2222222222", "2000", 24, 2, 0, 1, 30.5, False)
                 residente3 = Residente("Luiza",".NET","3333333333",  "2010", 14, 1, 0, 2, 40.5, True)
                 residente4 = Residente("Carlos",".NET","4444444444", "1997", 27, 2, 1, 3, 50.5, False)

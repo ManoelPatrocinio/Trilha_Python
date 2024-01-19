@@ -16,7 +16,7 @@ def menu():
         print("\tFalta", (datetime(data_e_hora_atual.year, 12, 31) - data_e_hora_atual).days + 1, "dias para o fim do ano")
     
         print("\n\t======= RESITIC 18 DATA =======\n\n")
-        print("\t[1] - CADASTRAR RESIDENTE")
+        print("\t[1] - INICIAR SISTEMA")
         print("\t[0] - SAIR")
          
         try:
@@ -27,7 +27,7 @@ def menu():
             pause()
             
   
-        if(opcao < 0 or opcao > 11):
+        if(opcao < 0 or opcao > 1):
             limpaTela()
             print("\n\tOps, opção inválida! Tente novamente...")
             pause()

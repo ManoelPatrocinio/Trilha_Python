@@ -5,7 +5,7 @@ def main():
     # Questão 1
     
     identificador = ["tic18Py07999","tic18Py07497","tic18Py08196","tic18Py07900"]
-    idade = [25,27,28,24]
+    idade = [24,25,28,24]
     formacao = [1,1,3,0]
     formaçãoGeral = [1,0,1,None]
     formacaoEspecifica = ["Computação","Engenharia","Computação",None]
