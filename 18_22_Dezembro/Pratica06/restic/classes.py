@@ -2,6 +2,7 @@ from . recursos import  formacao_tipos,formacao_especifica,formacao_geral,Trilha
 import numpy as np
 from datetime import datetime
 import pandas as pd
+import os
 class Residente():
     
 
@@ -141,5 +142,77 @@ class Residencia:
         print(f"\nInformações da turma: {self.nome_turma} \n")
         for trilha in self.trilhas:
             trilha.__str__()
+    
+    def salvar_dados_turma_csv(self):
+        # criar um objeto(dicionário) para agrupa od dados
+        dados_turma = {"Nome da Turma": [], "Quantidade de Alunos": [], "Nome da Trilha": [], "Dados dos Residentes": []}
+
+        for trilha in self.trilhas:
+            dados_turma["Nome da Turma"].append(self.nome_turma)
+            dados_turma["Quantidade de Alunos"].append(self.quantidade_alunos)
+            dados_turma["Nome da Trilha"].append(trilha.nome_trilha)
+            dados_turma["Dados dos Residentes"].append(trilha.dados_residentes)
+
+        df_turma = pd.DataFrame(dados_turma)
+
+        # Cria um diretório para salvar os arquivos CSV, se não existir
+        if not os.path.exists("dados_turmas_csv"):
+            os.makedirs("dados_turmas_csv")
+
+        # Salva o DataFrame em um arquivo CSV
+        arquivo_csv = f"dados_turmas_csv/{self.nome_turma}_dados.csv"
+        df_turma.to_csv(arquivo_csv, index=False)
+
+        print(f"Dados da turma {self.nome_turma} salvos em {arquivo_csv}.")
+    # @staticmethod porque não faz referência a instâncias específicas da classe Residencia. 
+    @staticmethod
+    def carregar_dados_turma_csv(nome_turma):
+        arquivo_csv = f"dados_turmas_csv/{nome_turma}_dados.csv"
+        
+        try:
+            # Carrega o arquivo CSV em um DataFrame
+            df_turma = pd.read_csv(arquivo_csv)
+
+            # Exibe os dados carregados
+            print(f"Dados da turma {nome_turma} carregados:")
+            print(df_turma)
+
+            return df_turma
+        except FileNotFoundError:
+            print(f"Arquivo CSV {arquivo_csv} não encontrado.")
+            return None
+
+
+
+
+# def salvar_dados_turma_csv(self):
+#         # criar um objeto(dicionário) para agrupa od dados
+#         dados_turma = {"Nome da Turma": [], "Quantidade de Alunos": [], "Nome da Trilha": [], "Nome do Residente": [], "Idade": [], "Formacao": [], "Area_Geral": [], "Area_Especifica": [], "Andamento_Graduacao": [], "Tempo_Formado": [], "Experiencia_Programacao": []}
+
+#         for trilha in self.trilhas:
+#             for idx, residente in trilha.dados_residentes.iterrows():
+#                 dados_turma["Nome da Turma"].append(self.nome_turma)
+#                 dados_turma["Quantidade de Alunos"].append(self.quantidade_alunos)
+#                 dados_turma["Nome da Trilha"].append(trilha.nome_trilha)
+#                 dados_turma["Nome do Residente"].append(residente["Nome"])
+#                 dados_turma["Idade"].append(residente["Idade"])
+#                 dados_turma["Formacao"].append(residente["Formacao"])
+#                 dados_turma["Area_Geral"].append(residente["Area_Geral"])
+#                 dados_turma["Area_Especifica"].append(residente["Area_Especifica"])
+#                 dados_turma["Andamento_Graduacao"].append(residente["Andamento_Graduacao"])
+#                 dados_turma["Tempo_Formado"].append(residente["Tempo_Formado"])
+#                 dados_turma["Experiencia_Programacao"].append(residente["Experiencia_Programacao"])
+
+#         df_turma = pd.DataFrame(dados_turma)
+
+#         # Cria um diretório para salvar os arquivos CSV, se não existir
+#         if not os.path.exists("dados_turmas_csv"):
+#             os.makedirs("dados_turmas_csv")
+
+#         # Salva o DataFrame em um arquivo CSV
+#         arquivo_csv = f"dados_turmas_csv/{self.nome_turma}_dados.csv"
+#         df_turma.to_csv(arquivo_csv, index=False)
+
+#         print(f"Dados da turma {self.nome_turma} salvos em {arquivo_csv}.")
 
     
