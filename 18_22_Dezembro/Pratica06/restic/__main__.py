@@ -61,7 +61,7 @@ def main():
                 residencia_turma_b.salvar_dados_turma_csv()
                 
                 
-                print("\n\n------ DADOS CARREGADOS DO AQUIVO CSV ------\n")
+                print("\n\n------ DADOS CARREGADOS DO ARQUIVO CSV ------\n")
                 residencia_turma_a.carregar_dados_turma_csv(residencia_turma_a.nome_turma)
                 print("\n")
                 residencia_turma_a.carregar_dados_turma_csv(residencia_turma_b.nome_turma)

@@ -163,7 +163,7 @@ class Residencia:
         arquivo_csv = f"dados_turmas_csv/{self.nome_turma}_dados.csv"
         df_turma.to_csv(arquivo_csv, index=False)
 
-        print(f"Dados da turma {self.nome_turma} salvos em {arquivo_csv}.")
+        print(f"\nDados da turma {self.nome_turma} salvos em {arquivo_csv}.")
     # @staticmethod porque não faz referência a instâncias específicas da classe Residencia. 
     @staticmethod
     def carregar_dados_turma_csv(nome_turma):
@@ -173,9 +173,14 @@ class Residencia:
             # Carrega o arquivo CSV em um DataFrame
             df_turma = pd.read_csv(arquivo_csv)
 
-            # Exibe os dados carregados
+            # Exibe os dados carregado            print(df_turma)
+
             print(f"Dados da turma {nome_turma} carregados:")
             print(df_turma)
+            print(f"\n\nDetalhes da turma {nome_turma}:")
+            print(df_turma.describe())
+            
+            
 
             return df_turma
         except FileNotFoundError:
