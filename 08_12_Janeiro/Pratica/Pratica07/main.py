@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 
 
-
 # QUESTAO 1 IMPORTANDO DADOS
 
 print("\n DADOS BRUTOS DO DATASET\n")
