@@ -1,26 +1,15 @@
 import pandas as pd
 import numpy as np
-from unidecode import unidecode
 
-
-
-def processar_nomes_colunas(df):
-    # Função para remover acentuação e substituir espaços por underscores em um texto
-    def remover_acentuacao_substituir_espacos(texto):
-        sem_acentos = unidecode(texto)
-        return sem_acentos.replace(' ', '_')
-
-    # Aplica a função para cada coluna do DataFrame
-    df.columns = [remover_acentuacao_substituir_espacos(coluna) for coluna in df.columns]
 
 
 # QUESTAO 1 IMPORTANDO DADOS
 
 print("\n DADOS BRUTOS DO DATASET\n")
 
-df_Belem_2003 = pd.read_csv("datasets/BELEM_2003.CSV", sep=';', decimal=',' , encoding='latin-1') 
-df_Belem_2013 = pd.read_csv("datasets/BELEM_2013.CSV", sep=';', decimal=',' , encoding='latin-1') 
-df_Belem_2023 = pd.read_csv("datasets/BELEM_2023.CSV", sep=';', decimal=',' , encoding='latin-1') 
+df_Belem_2003 = pd.read_csv("datasets/BELEM_2003.csv", sep=';', decimal=',' , encoding='latin-1') 
+df_Belem_2013 = pd.read_csv("datasets/BELEM_2013.csv", sep=';', decimal=',' , encoding='latin-1') 
+df_Belem_2023 = pd.read_csv("datasets/BELEM_2023.csv", sep=';', decimal=',' , encoding='latin-1') 
 
 
 # Exibindo os primeiros registros do DataFrame
