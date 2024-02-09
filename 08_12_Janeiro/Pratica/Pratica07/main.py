@@ -1,17 +1,5 @@
 import pandas as pd
 import numpy as np
-from unidecode import unidecode
-
-
-
-def processar_nomes_colunas(df):
-    # Função para remover acentuação e substituir espaços por underscores em um texto
-    def remover_acentuacao_substituir_espacos(texto):
-        sem_acentos = unidecode(texto)
-        return sem_acentos.replace(' ', '_')
-
-    # Aplica a função para cada coluna do DataFrame
-    df.columns = [remover_acentuacao_substituir_espacos(coluna) for coluna in df.columns]
 
 
 # QUESTAO 1 IMPORTANDO DADOS
