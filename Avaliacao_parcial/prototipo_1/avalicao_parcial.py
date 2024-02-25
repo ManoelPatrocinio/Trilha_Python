@@ -165,7 +165,7 @@ def telaError():
 
     # Mensagem de titulo
     messageMain = Label(frame, text="Houve um error na aplicação, por favor volte mais tarde ")
-    messageMain.grid(row=0,column=1, pady=20, padx=20,sticky=CENTER)
+    messageMain.grid(row=0,column=1, pady=20, padx=20)
     
   
     botaoSair = Button(root, text='Sair', command=quit) 
