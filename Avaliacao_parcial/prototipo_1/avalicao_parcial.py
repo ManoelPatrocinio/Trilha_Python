@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
+import requests
 from time import sleep
 
 from abc import ABC, abstractmethod
@@ -86,7 +87,32 @@ class Estacoes(AnaliseDados):
         else: 
             print('Nada encontrado')
             return None
-                    
+    
+    def downloadDataFrame(url) :
+        try:
+     
+            # Baixar o arquivo usando requests
+            resposta = requests.get(url)
+            
+            # Verificar se a pasta de destino existe, senão criar
+            pasta_destino = "downloads"
+            if not os.path.exists(pasta_destino):
+                os.makedirs(pasta_destino)
+            
+            # Caminho completo para o arquivo ZIP
+            caminho_arquivo_zip = os.path.join(pasta_destino, "dados.zip")
+            
+            # Salvar o arquivo ZIP
+            with open(caminho_arquivo_zip, "wb") as arquivo_zip:
+                arquivo_zip.write(resposta.content)
+            
+            print("Download concluído com sucesso! O arquivo foi salvo em:", caminho_arquivo_zip)
+        
+        except Exception as e:
+            print("Ocorreu um erro durante o download:", e)
+        
+       
+        
     def exclusaoDeDados(self):
         pass
 
