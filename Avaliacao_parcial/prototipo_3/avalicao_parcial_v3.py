@@ -148,7 +148,7 @@ class Estacoes():
             # Calcular a média de temperatura máxima por mês
             df['DATA (YYYY-MM-DD)'] = pd.to_datetime(df['DATA (YYYY-MM-DD)'])
             df['Mês'] = df['DATA (YYYY-MM-DD)'].dt.month
-            media_temp_max_por_mes = df.groupby('Mês')['PRECIPITAÇÃO TOTAL, HORÁRIO (mm)'].mean()
+            media_temp_max_por_mes = df.groupby('Mês')['PRECIPITAÇÃO TOTAL, HORÁRIO (mm)'].sum()
             
             # return media_temp_max_por_mes
             return media_temp_max_por_mes
