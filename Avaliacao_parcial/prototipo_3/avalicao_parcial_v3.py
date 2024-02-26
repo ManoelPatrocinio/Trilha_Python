@@ -255,7 +255,7 @@ def widget_grafico_precipitação(root, dadosTempMedia):
     ax.plot(meses, valores, marker='o', color='red', linestyle='-')
     ax.set_xlabel('Mês')
     ax.set_ylabel('Precipitação Total')
-    ax.set_title('Média Precipitação Total')
+    ax.set_title('Acumulado Precipitação Total')
 
     # Integrar o gráfico ao Tkinter
     canvas = FigureCanvasTkAgg(fig, master=root)
