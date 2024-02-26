@@ -22,7 +22,6 @@ from tkinter.ttk import *
 import os
 import sys
 
-
 class Estacoes():
     
     
@@ -116,7 +115,7 @@ class Estacoes():
             df = df.where(pd.notna(df), np.NaN)
             df = df.replace(-9999.0,np.NaN)
 
-            print("\nDataframe Tratado\n")
+            print("\nDataroot Tratado\n")
             print(df.head())
             
             # Calcular a média de temperatura máxima por mês
@@ -142,7 +141,7 @@ class Estacoes():
             df = df.where(pd.notna(df), np.NaN)
             df = df.replace(-9999.0,np.NaN)
 
-            print("\nDataframe Tratado\n")
+            print("\nDataroot Tratado\n")
             print(df.head())
             print(df.info())
             
@@ -173,18 +172,20 @@ def telaError():
     root.title("Estações Meteorológicas")
 
     # Frame para conter os widgets
-    frame = Frame(root)
-    frame.grid(row=0, column=0, sticky=(W,E,N,S))
+    root = Frame(root)
+    root.grid(row=0, column=0, sticky=(W,E,N,S))
 
     # Mensagem de titulo
-    messageMain = Label(frame, text="Houve um error na aplicação, por favor volte mais tarde ")
-    messageMain.grid(row=0,column=1, pady=20, padx=20)
+    messageError = Label(root, text="Houve um error na aplicação, por favor volte mais tarde ")
+    messageError.grid(row=0,column=1, pady=20, padx=20)
+    messageError.config(font=('Helvetica', 12, 'bold')) 
+    
     
   
     botaoSair = Button(root, text='Sair', command=quit) 
     botaoSair.grid(row=1,column=1, pady=20, padx=20)
     root.mainloop()        
-def widget_lista_estacoes(frame,datas):
+def widget_lista_estacoes(root,datas):
     estacoes = Estacoes() 
        
     def estacao_selecionada(event):
@@ -198,30 +199,33 @@ def widget_lista_estacoes(frame,datas):
             serie_mediaPreciptacao = estacoes.CalcMediaPreciptacaoCSV(datas[item_selecionado])
             
             if serie_mediaTemp is not None:
-                widget_grafico_temperatura(frame,serie_mediaTemp)
+                widget_grafico_temperatura(root,serie_mediaTemp)
                 
             if serie_mediaPreciptacao is not None:
-                widget_grafico_precipitação(frame,serie_mediaPreciptacao)
+                widget_grafico_precipitação(root,serie_mediaPreciptacao)
      
         
     # Label da Listbox
-    labelListboxEstacoes = Label(frame, text="Selecione a estação:")
-    labelListboxEstacoes.grid(row=2, column=1,padx=5, pady=5)
+    labelListboxEstacoes = Label(root, text="Selecione a estação:")
+    labelListboxEstacoes.grid(row=2, column=1,padx=10, pady=5)
+    labelListboxEstacoes.config(font=('Helvetica', 12, 'bold'),foreground='white',background="#242424") 
+    
     
     # Lista para exibir as estações de medições
     list_estacoes = Variable(value = list(datas.keys()))
     
     lista_estacoes = Listbox(
-        frame,
+        root,
         height=12,
         selectmode=BROWSE,
         width= 0,
         listvariable=list_estacoes
     )
-    lista_estacoes.grid(row=3, column=1, padx=5, pady=5)
+    lista_estacoes.grid(row=3, column=1, padx=10, pady=5)
+    lista_estacoes.config(foreground="#242424", background="#cecece",font=('Helvetica', 10, 'bold'))
     lista_estacoes.bind("<<ListboxSelect>>", estacao_selecionada)
     
-def widget_grafico_temperatura(frame, dadosTempMedia):
+def widget_grafico_temperatura(root, dadosTempMedia):
    
     # dados do gráfico
     meses = dadosTempMedia.index
@@ -235,12 +239,12 @@ def widget_grafico_temperatura(frame, dadosTempMedia):
     ax.set_title(' MÉDIA TEMPERATURA MÁXIMA NA HORA ANT. (AUT)')
 
     # Integrar o gráfico ao Tkinter
-    canvas = FigureCanvasTkAgg(fig, master=frame)
+    canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
     canvas.get_tk_widget().grid(row=4, column=0, padx=5, pady=5)
 
 
-def widget_grafico_precipitação(frame, dadosTempMedia):
+def widget_grafico_precipitação(root, dadosTempMedia):
    
     # dados do gráfico
     meses = dadosTempMedia.index
@@ -254,14 +258,16 @@ def widget_grafico_precipitação(frame, dadosTempMedia):
     ax.set_title('Média Precipitação Total')
 
     # Integrar o gráfico ao Tkinter
-    canvas = FigureCanvasTkAgg(fig, master=frame)
+    canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
     canvas.get_tk_widget().grid(row=4, column=1, padx=5, pady=5)
 
 
-def widget_Label_AnoSelecionado(frame, anoSelecinado):  
-    LabelAnoSelecinado = Label(frame, text=anoSelecinado)
+def widget_Label_AnoSelecionado(root, anoSelecinado):  
+    LabelAnoSelecinado = Label(root, text=anoSelecinado)
     LabelAnoSelecinado.grid(row=1,column=1, pady=10)
+    LabelAnoSelecinado.config(font=('Helvetica', 12, 'bold'),foreground='white',background="#242424") 
+    
     
     
 def telaPrincipal(anos_disponiveis):
@@ -269,22 +275,22 @@ def telaPrincipal(anos_disponiveis):
     # Define a janela principal
     root = Tk()
     root.title("Estações Meteorológicas")
-
-    # Frame para conter os widgets
-    frame = Frame(root)
-    frame.grid(row=0, column=0, sticky=(W,E,N,S))
-
+    root.configure(bg="#242424")
+    
     # Mensagem de titulo
-    messageMain = Label(frame, text="Interface de consulta de dados as estações meteorológicas brasileiras")
+    messageMain = Label(root, text="Dados das estações meteorológicas brasileiras")
     messageMain.grid(row=0,column=1, pady=10)
-     
+    messageMain.config(font=('Helvetica', 16, 'bold'),foreground="green", background="#242424") 
+    
     def ano_selecionado(event):
         index = listbox_anos_disponiveis.curselection()[0]
         item_selecionado = listbox_anos_disponiveis.get(index)
+        
         print("ano selecionado:", item_selecionado)
-        widget_Label_AnoSelecionado(frame,item_selecionado)
+        widget_Label_AnoSelecionado(root,item_selecionado)
+        
         disc_estacoes = estacoes.downloadDataFrame(anos_disponiveis[item_selecionado])
-        widget_lista_estacoes(frame,disc_estacoes)
+        widget_lista_estacoes(root,disc_estacoes)
     
     def quit():
         print('Hello, I must be going...') 
@@ -293,30 +299,34 @@ def telaPrincipal(anos_disponiveis):
       
    
     # Label da Listbox p/ anos
-    labelListboxAnos = Label(frame, text=" Selecione o ano:")
-    labelListboxAnos.grid(row=2, column=0,padx=5, pady=5)
+    labelListboxAnos = Label(root, text=" Selecione o ano:")
+    labelListboxAnos.grid(row=2, column=0,padx=10, pady=5)
+    labelListboxAnos.config(font=('Helvetica', 12, 'bold'), foreground='white',background="#242424") 
+    
     
     # Listbox para selecionar o ano
 
     list_anos = Variable(value = list(anos_disponiveis.keys()))
     listbox_anos_disponiveis = Listbox(
-        frame,
+        root,
         height=12,
         listvariable=list_anos,
         selectmode=BROWSE,
         width= 0
         
     )
+
     listbox_anos_disponiveis.grid(row=3, column=0, padx=10, pady=10)
+    listbox_anos_disponiveis.config(foreground="#242424", background="#cecece",font=('Helvetica', 10, 'bold'))
     listbox_anos_disponiveis.bind("<<ListboxSelect>>", ano_selecionado)
 
 
     # Botão p/ fecha janela principal
     button = Button(root, text="Fechar", command=quit)
     button.grid(row=2, column=2, padx=10, pady=10)
-    
 
-    # Roda o loop principal da aplicação
+
+
     root.mainloop()
 def main():
 

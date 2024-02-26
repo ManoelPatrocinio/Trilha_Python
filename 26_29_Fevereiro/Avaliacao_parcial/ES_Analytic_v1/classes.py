@@ -26,8 +26,8 @@ class Estacoes(AnaliseDados):
 
     def requisicaoDeDados(self):
         url = 'https://portal.inmet.gov.br/dadoshistoricos'
-        # navegador = webdriver.Chrome()
-        navegador = webdriver.Chrome(executable_path='/usr/local/bin/chromedriver_linux64/chromedriver')
+        navegador = webdriver.Chrome()
+        # navegador = webdriver.Chrome(executable_path='./chromedriver_linux64/chromedriver')
 
         # realiza a requisição e aguarda 3 segundos
         navegador.get(url)
