@@ -16,7 +16,7 @@ Tem o intuito de mostrar  ao usuário a ordem que o script roda.
 6° Função CalcTempMediaCSV(self, arquivoURL) ler o arquivo CSV baixado, após isso, trata os dados obtidos e calcula à média da temperatura máxima de cada mês. 
 
 7° Função CalcMediaPreciptacaoCSV(self, arquivoURL) ler o arquivo CSV baixado, após isso, trata os dados obtidos, faz a soma das precipitações e retorna o acúmulo das precipitações.
-
+ 
 ## RESUMO DAS FUNÇÕES
 
 ### requisicaoDeDados()

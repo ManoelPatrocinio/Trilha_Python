@@ -267,9 +267,7 @@ def widget_Label_AnoSelecionado(root, anoSelecinado):
     LabelAnoSelecinado = Label(root, text=anoSelecinado)
     LabelAnoSelecinado.grid(row=1,column=1, pady=10)
     LabelAnoSelecinado.config(font=('Helvetica', 12, 'bold'),foreground='white',background="#242424") 
-    
-    
-    
+  
 def telaPrincipal(anos_disponiveis):
     estacoes = Estacoes()
     # Define a janela principal
