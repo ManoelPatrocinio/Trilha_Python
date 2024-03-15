@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class B3Config(AppConfig):
+class SiteAppConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "b3"
+    name = "site_app"
