@@ -1,1 +1,14 @@
-<p> Hellow  world </p>
+{% extends "index.html" %}
+
+{% block content %}
+    <header class="row w-100 bg-dark">
+       <img 
+            src="https://assets.troc.com.br/general-site/assets/troc_logo.png" 
+            alt="logo"
+            class="col-1"
+        > 
+        <div class=" col-4 ">
+            <input type="search" class="form-control" placeholder="Busque por ID, nome ou marca"  aria-describedby="basic-addon2">
+        </div>
+    </header>
+{% endblock content %}
