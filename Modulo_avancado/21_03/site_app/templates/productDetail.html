@@ -1,14 +1,11 @@
 {% extends 'index.html' %}
 
 {% block content %}
-  <header class="w-100 position-sticky top-0 left-0 shadow mb-3 z-3">
+  <header class="w-100 position-sticky top-0 left-0 shadow mb-3">
     <nav class="w-100 navbar-expand-lg navbar bg-black border-bottom border-body" data-bs-theme="dark">
       <div class="row col-12 justify-content-between align-items-end px-5 py-2 text-white">
         <div class="col-3 d-flex justify-content-start">
-         <a href="{% url 'home' %}">
-
-           <img src="https://assets.troc.com.br/general-site/assets/troc_logo.png" alt="logo" style="width: 5rem; height: 3rem;" />
-         </a> 
+          <img src="https://assets.troc.com.br/general-site/assets/troc_logo.png" alt="logo" style="width: 5rem; height: 3rem;" />
         </div>
 
         <button class="navbar-toggler col-3 col-md-1 col-lg-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -28,7 +25,7 @@
                   <a class="dropdown-item" href="#">Maculinas</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">Femininas</a>
+                  <a class="dropdown-item text-decoration-none text-black" href="{% url 'roupas' %}" class="text-decoration-none">Femininas</a>
                 </li>
                 <li>
                   <hr class="dropdown-divider" />
@@ -59,7 +56,7 @@
         <strong>New In</strong>
       </li>
       <li class="nav-item col-1 text-black">Luxos</li>
-      <li class="nav-item col-1 text-black">Roupas</li>
+      <li class="nav-item col-1 text-black "><a href="{% url 'roupas' %}" class="text-decoration-none text-black"> Roupas </a></li>
       <li class="nav-item col-1 text-black">Bolsas</li>
       <li class="nav-item col-1 text-black">Calçados</li>
       <li class="nav-item col-1 text-black">Acessórios</li>
@@ -72,34 +69,14 @@
     </ul>
   </header>
   <main class="w-100 d-flex flex-column align-items-center justify-content-center px-2 px-md-5 bg-light">
-    <div class="w-100">
-        <img src="https://assets.troc.com.br/general-site/marketing/women-trocmesconsumidor-1803-header_15032024.jpg?d=1330x0"  class="img-fluid w-100 h-100" alt="">
-    </div>
+    <div class="w-100 d-flex justify-content-between align-items-start">
+        <!-- <div class="w-50 h-100 mw-50"><img src={{produto.prod_imgUrl}}/></div>
+        <div class="w-50 h-100 mw-50 text-left">
+            <h3 class="fs-4"> {{produto.prod_name}}</h3>
+            <p class="text-success fw-bold">R$ {{produto.prod_price}</p>
 
-    <div class="w-100  d-flex  flex-column flex-md-row  justify-content-center gap-2 mt-2">
-        <img src="https://assets.troc.com.br/general-site/marketing/women-trocmesconsumidor-1803-primeiracompra_15032024.png" class="img-fluid w-100 w-md-50" alt="">
-        <img src="https://assets.troc.com.br/general-site/marketing/women-trocmesconsumidor-1803-influsdamodacircular_15032024.png" class="img-fluid w-100 w-md-50" alt="">
-    </div>
-    <h2 class="w-100 text-center fs-3 text-black my-4">Nossos Vestidos em destaque</h2>
-    <div class="position-relative w-100 d-flex justify-content-between align-items-start flex-wrap px-3">
-        {% for produto in produto %}
-    
-          <div class="card flex-column justify-content-between" style="width: 18rem; min-height: 28rem;">
-            <div class="w-100" style="height: 70%;">
-              <img src={{ produto.prod_imgUrl }} class="img-fluid w-100 h-100" alt="...">
-            </div>
-            <div class="card-body text-center" style="height: 30%;  ">
-              <h5 class="card-title fs-6">
-                <a href="{% url 'detalhes' %}">
-                  {{produto.id }} 
-                </a>
-
-              </h5>
-              <p class="text-success fw-bolder">R$ {{ produto.prod_price }}</p>
-              <a href="#" class="btn btn-success w-100">Adicinar</a>
-            </div>
-          </div>
-        {% endfor %}
+            <p class="fs-5 w-100"> {{produto.prod_description}} </p>
+        </div>       -->
     </div>
   </main>
 {% endblock content%}
