@@ -13,7 +13,7 @@ def page_roupas (request):
     context = {'produtos': produtoData}
     return render(request,'roupas.html',context)
 
-def page_prod_detail(request, produto_id):
+def page_roupa_detalhe(request, produto_id):
     produto = produto.objects.get(id=produto_id)
     context = {'produto':produto}
     return render(request,'refeicao.html',context)
