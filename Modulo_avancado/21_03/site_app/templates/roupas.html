@@ -76,25 +76,30 @@
         <img src="https://assets.troc.com.br/general-site/marketing/women-trocmesconsumidor-1803-header_15032024.jpg?d=1330x0"  class="img-fluid w-100 h-100" alt="">
     </div>
 
-    <div class="w-100  d-flex  flex-column flex-md-row  justify-content-center gap-2 mt-2">
-        <img src="https://assets.troc.com.br/general-site/marketing/women-trocmesconsumidor-1803-primeiracompra_15032024.png" class="img-fluid w-100 w-md-50" alt="">
-        <img src="https://assets.troc.com.br/general-site/marketing/women-trocmesconsumidor-1803-influsdamodacircular_15032024.png" class="img-fluid w-100 w-md-50" alt="">
-    </div>
-    <h2 class="w-100 text-center fs-3 text-black my-4">Nossos Vestidos em destaque</h2>
+    <h2 class="w-100 text-center fs-3 text-black my-4"> Vestidos em destaque</h2>
     <div class="position-relative w-100 d-flex justify-content-between align-items-start flex-wrap px-3">
-        {% for produto in produto %}
+        {% for produto in produtos %}
     
           <div class="card flex-column justify-content-between" style="width: 18rem; min-height: 28rem;">
             <div class="w-100" style="height: 70%;">
               <img src={{ produto.prod_imgUrl }} class="img-fluid w-100 h-100" alt="...">
             </div>
             <div class="card-body text-center" style="height: 30%;  ">
-              <h5 class="card-title fs-6      ">{{produto.prod_name }}</h5>
+              <h5 class="card-title fs-6 "> 
+                <a  href="{% url 'roupa' produto.id %}" >
+                  {{produto.prod_name }}
+                </a> 
+              </h5>
               <p class="text-success fw-bolder">R$ {{ produto.prod_price }}</p>
-              <a href="#" class="btn btn-success w-100">Adicinar</a>
+              <button type="button" class="btn btn-success w-100">Adicinar</button>
             </div>
           </div>
         {% endfor %}
     </div>
+
+    <div class="w-100  d-flex  flex-column flex-md-row  justify-content-center gap-2 my-5">
+      <img src="https://assets.troc.com.br/general-site/marketing/women-trocmesconsumidor-1803-primeiracompra_15032024.png" class="img-fluid w-100 w-md-50" alt="">
+      <img src="https://assets.troc.com.br/general-site/marketing/women-trocmesconsumidor-1803-influsdamodacircular_15032024.png" class="img-fluid w-100 w-md-50" alt="">
+  </div>
   </main>
 {% endblock content%}

@@ -8,16 +8,12 @@ def home (request):
     return render(request,'home.html',context)
 
 
-def lista_produtos(request):
-    produtos = Produto.objects.all()
-    return render(request, 'lista_produtos.html', {'produtos': produtos})
-
-
 def page_roupas (request):
     produtoData = produto.objects.order_by('id')
-    context = {'produto': produtoData}
+    context = {'produtos': produtoData}
     return render(request,'roupas.html',context)
 
-def page_prod_detail(request):
-    pass
-    # path('produto/<int:produto_id>/', detalhes_produto, name='detalhes_produto'),
+def page_prod_detail(request, produto_id):
+    produto = produto.objects.get(id=produto_id)
+    context = {'produto':produto}
+    return render(request,'refeicao.html',context)
