@@ -9,7 +9,9 @@
     list-style: none !important;
     text-decoration: none !important;
 }
-
+html{
+    scroll-behavior: smooth;
+}
 
 *::-webkit-scrollbar {
     width: 0.2rem;
@@ -26,4 +28,10 @@
     border-radius: 2px;
     -webkit-box-shadow: inset 0 0 6px  #cecece;
     box-shadow: inset 0 0 6px  #cecece;
+}
+
+.subtitle{
+    color: #F2550A !important;
+    font-weight: 500 !important;
+    font-size: 2rem !important;
 }

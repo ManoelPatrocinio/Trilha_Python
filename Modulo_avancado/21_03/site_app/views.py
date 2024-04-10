@@ -3,7 +3,9 @@ from site_app.models import produto
 # Create your views here.
 
 def home (request): 
-    return render(request,'home.html')
+    produtoData = produto.objects.order_by('id')
+    context = {'produtos': produtoData} 
+    return render(request,'home.html',context)
 
 def page_roupas (request):
     produtoData = produto.objects.order_by('id')
