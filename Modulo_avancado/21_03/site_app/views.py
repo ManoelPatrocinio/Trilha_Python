@@ -16,3 +16,9 @@ def page_roupa_detalhe(request, produto_id):
     produtoData = produto.objects.get(id=produto_id)
     context = {'produto':produtoData}
     return render(request,'roupa_detalhe.html',context)
+
+def page_login (request): 
+    return render(request,'login.html')
+
+def page_registro (request): 
+    return render(request,'registro.html')

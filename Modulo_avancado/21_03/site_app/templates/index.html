@@ -31,16 +31,16 @@
                 <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Inicio</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">New In</a>
+                <a class="nav-link" href="{% url 'roupas' %}">Roupas</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle"  href="{% url 'roupas' %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">Roupas</a>
+                <a class="nav-link dropdown-toggle"   role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorias</a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a class="dropdown-item" href="#">Maculinas</a>
+                    <a class="dropdown-item" href="{% url 'roupas' %}">Maculinas</a>
                   </li>
                   <li>
-                    <a class="dropdown-item text-decoration-none text-black" href="{% url 'roupas' %}" class="text-decoration-none">Femininas</a>
+                    <a class="dropdown-item " href="{% url 'roupas' %}" class="text-decoration-none">Femininas</a>
                   </li>
                   <li>
                     <hr class="dropdown-divider" />
@@ -49,6 +49,9 @@
                     <a class="dropdown-item" href="#">Kids</a>
                   </li>
                 </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
               </li>
             </ul>
             <form class="d-flex d-lg-none d-xl-none" role="search ">
@@ -62,7 +65,7 @@
           </form>
           <div class="col-3 d-none d-none d-lg-flex d-xl-flex justify-content-end gap-4">
             <button class="btn border bg-gray-700">Quero Vender</button>
-            <button class="btn border bg-gray-700">Login</button>
+            <a href="{% url 'login' %}" class="btn border bg-gray-700">Login</a>
           </div>
         </div>
       </nav>
