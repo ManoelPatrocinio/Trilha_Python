@@ -3,7 +3,7 @@
 
 
 #criar ambiente virtual
-  python -m venv <nome_amb>
+  python -m venv virtual
 #ativar ambiente virtual
   source virtual/bin/activate
 

@@ -39,7 +39,7 @@ def page_registroProduto (request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect('home', pk=post.pk)
+            return redirect('home')
     else:
         form = produto_form()
         
