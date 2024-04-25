@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from site_app.models import Produto
-from site_app.forms import produto_form
+from site_app.forms import *
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -23,25 +23,60 @@ def page_roupa_detalhe(request, produto_id):
 
 
 def page_login (request): 
-    return render(request,'login.html')
+    if request.method == "POST":
+        form = SignIn_form(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return HttpResponseRedirect(reverse('home'))
+    else:
+        form = SignIn_form()
+        
+    context = {'form_signIn':form}
+    return render(request,'login.html',context)
 
 def page_registro (request): 
-    
-    return render(request,'registro.html')
+    if request.method == "POST":
+        form = SignUp_form(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return HttpResponseRedirect(reverse('home'))
+    else:
+        form = SignUp_form()
+        
+    context = {'form_signUp':form}
+    return render(request,'registro.html',context)
+
+def page_registro_influencer (request): 
+    if request.method == "POST":
+        form = Influencer_form(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return HttpResponseRedirect(reverse('registro_influencer'))
+    else:
+        form = Influencer_form()
+        
+    context = {'form_influencer':form}
+    return render(request,'registro_influencer.html',context)
 
 
 # Admin views
 
 def page_registroProduto (request): 
     if request.method == "POST":
-        form = produto_form(request.POST)
+        form = Produto_form(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect('home')
+            return redirect('createProduct')
     else:
-        form = produto_form()
+        form = Produto_form()
         
     context = {'form_add':form}
     return render(request,'registroProduto.html',context)

@@ -1,5 +1,6 @@
   . criar página sobre
-  . check responsividade 
+  . Adicionar opções no model de categoria
+  . Verificar como delimitar os produtos no cadastra de influencer
 
 
 #criar ambiente virtual
