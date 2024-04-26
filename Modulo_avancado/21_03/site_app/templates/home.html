@@ -8,6 +8,14 @@
     </div>
     <section class="w-100 text-center my-4">
       <h2 class="w-100 text-center subtitle my-5">Destaques</h2>
+        {% if user.is_authenticated %}
+          <h3 class="text-black">bem vindo {{user.username}} </h3>
+          <a href="{% url 'logout' %}">Sair</a>
+
+        {% else %}
+          <h3 class="text-black"> Não autenticado </h3>
+        {% endif %}
+
       <div class="position-relative w-100 d-flex justify-content-between align-items-start flex-wrap px-3">
         {% for produto in produtos %}
           <div class="card flex-column justify-content-between" style="width: 18rem; min-height: 28rem;">

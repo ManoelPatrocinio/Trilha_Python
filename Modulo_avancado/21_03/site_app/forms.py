@@ -106,7 +106,7 @@ class Influencer_form (forms.ModelForm):
             'inf_store_name': 'Nome da loja',
             'produtos': '',
         }
-        widgets = {'produtos': SelectMultiple()}
+        # widgets = {'produtos': SelectMultiple()}
         
     def __init__ (self, *args, **kwargs):
         super().__init__(*args, **kwargs)

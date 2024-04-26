@@ -4,7 +4,8 @@ from site_app.forms import *
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-# Create your views here.
+from django.contrib.auth import authenticate,login,logout as authLogout
+from django.contrib.auth.hashers import make_password
 
 def home (request): 
     produtoData = Produto.objects.order_by('id')
@@ -24,11 +25,12 @@ def page_roupa_detalhe(request, produto_id):
 
 def page_login (request): 
     if request.method == "POST":
-        form = SignIn_form(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
+        user = authenticate(
+            email = request.POST.get('user_email'),
+            password = request.POST.get('user_email')
+        )
+        if user: 
+            login(request, user)
             return HttpResponseRedirect(reverse('home'))
     else:
         form = SignIn_form()
@@ -36,14 +38,21 @@ def page_login (request):
     context = {'form_signIn':form}
     return render(request,'login.html',context)
 
+def logout(request):
+    authLogout(request)
+    return HttpResponseRedirect(reverse('home'))
+    
 def page_registro (request): 
     if request.method == "POST":
         form = SignUp_form(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
-            return HttpResponseRedirect(reverse('home'))
+            if request.POST.get('id_user_confirme_password') != request.POST.get('user_password'):
+              form.add_error("user_password","As senha precisam ser iguais")  
+            else:
+                post = form.save(commit=False)
+                post.user_password = make_password(post.user_password)
+                post.save()
+                return HttpResponseRedirect(reverse('home'))
     else:
         form = SignUp_form()
         
@@ -64,7 +73,12 @@ def page_registro_influencer (request):
     context = {'form_influencer':form}
     return render(request,'registro_influencer.html',context)
 
-
+def removeAcount(request):
+    user = Usuario.objects.get(id=request.user.id)
+    user.delete()
+    authLogout(request)
+    return HttpResponseRedirect(reverse('home'))
+    
 # Admin views
 
 def page_registroProduto (request): 
