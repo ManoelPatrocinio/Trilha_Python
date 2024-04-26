@@ -2,7 +2,14 @@ from django.db import models
 
 class Categoria (models.Model):
 
-    cat_name = models.CharField(max_length=15)
+    CATEGORY_CHOICES = ( 
+        ("Vestidos", "Vestidos"), 
+        ("Saias", "Saias"), 
+        ("Calcas", "Calças"), 
+        ("Saias", "Saias"), 
+        ("Shots", "Shorts"),
+    )
+    cat_name = models.CharField(max_length=15, choices=CATEGORY_CHOICES)
 
     def __str__ (self):
         return self.cat_name

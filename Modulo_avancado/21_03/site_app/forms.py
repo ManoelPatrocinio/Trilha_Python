@@ -1,7 +1,6 @@
 from django import forms
 from site_app.models import  *
 from django.forms.widgets import *
-from django.forms.widgets import *
 
 class Produto_form (forms.ModelForm):
     class Meta:
