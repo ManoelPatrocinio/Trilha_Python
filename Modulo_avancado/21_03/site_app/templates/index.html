@@ -50,9 +50,20 @@
               </li>
 
               {% if user.is_authenticated %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'logout' %}">Sair</a>
-                </li>
+                <div class="dropdown">
+                  <button class="btn bg-transparent dropdown-toggle text-white p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.username }}</button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="#">Editar</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{% url 'remove_account' %}">Excluir conta</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{% url 'logout' %}">Sair</a>
+                    </li>
+                  </ul>
+                </div>
               {% else %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'login' %}">Login</a>
@@ -69,11 +80,11 @@
             <input class="form-control me-2 bg-white text-black" type="search" placeholder="Buscar por ID, Nome, Marca ou Lojinha" aria-label="Search" />
           </form>
           <div class="col-3 d-none d-none d-lg-flex d-xl-flex justify-content-end gap-4">
-            <a href="{% url 'registro_influencer' %}" class="btn border bg-gray-700">Quero Vender</a>
+            <a href="{% url 'registro_influencer' %}" class="btn border bg-gray-700" style="text-wrap: nowrap;">Quero Vender</a>
 
             {% if user.is_authenticated %}
               <div class="dropdown">
-                <button class="btn bg-transparent dropdown-toggle text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{user.username}}</button>
+                <button class="btn bg-transparent dropdown-toggle text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.username }}</button>
                 <ul class="dropdown-menu">
                   <li>
                     <a class="dropdown-item" href="#">Editar</a>

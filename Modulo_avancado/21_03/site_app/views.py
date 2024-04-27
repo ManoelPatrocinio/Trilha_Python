@@ -25,14 +25,21 @@ def page_roupa_detalhe(request, produto_id):
 
 def page_login (request): 
     if request.method == "POST":
-        user = authenticate(
-            email = request.POST.get('user_email'),
+        form = SignIn_form(request.POST)
+        if form.is_valid():
+            email = request.POST.get('user_email')
             password = request.POST.get('user_email')
-        )
-        if user: 
-            login(request, user)
-            return HttpResponseRedirect(reverse('home'))
+            print("email e senha recebida", email,password)
+            
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect(reverse('home'))
+            else:
+                
+                form.add_error(None, "Credenciais inválidas. Por favor, tente novamente.")
     else:
+        print("requisição do tipo get")
         form = SignIn_form()
         
     context = {'form_signIn':form}
@@ -74,11 +81,17 @@ def page_registro_influencer (request):
     return render(request,'registro_influencer.html',context)
 
 def removeAccount(request):
-    print("usuario id",request.user.id)
-    userData = Usuario.objects.get(id = request.user.id)
 
-    userData.delete()
-    authLogout(request)
+    if request.user.is_authenticated:
+        try:
+            userData = Usuario.objects.get(id=request.user.id)
+            userData.delete()
+            authLogout(request)
+        except Usuario.DoesNotExist:
+            # caso em que o usuário não existe
+            print("sem usuario com esse ID")
+            return HttpResponseRedirect(reverse('home'))
+            
     return HttpResponseRedirect(reverse('home'))
     
 # Admin views
