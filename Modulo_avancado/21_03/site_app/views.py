@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from site_app.models import Produto
+from site_app.models import *
 from site_app.forms import *
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
@@ -73,9 +73,11 @@ def page_registro_influencer (request):
     context = {'form_influencer':form}
     return render(request,'registro_influencer.html',context)
 
-def removeAcount(request):
-    user = Usuario.objects.get(id=request.user.id)
-    user.delete()
+def removeAccount(request):
+    print("usuario id",request.user.id)
+    userData = Usuario.objects.get(id = request.user.id)
+
+    userData.delete()
     authLogout(request)
     return HttpResponseRedirect(reverse('home'))
     

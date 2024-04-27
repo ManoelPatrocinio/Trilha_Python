@@ -12,7 +12,7 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     path('registro', views.page_registro, name='registro'),
     path('registro-influencer', views.page_registro_influencer, name='registro_influencer'),
-    path('remove-acount', views.removeAcount, name='remove_acount'),
+    path('remove-acount', views.removeAccount, name='remove_account'),
     
     # admin routes
     
