@@ -54,7 +54,7 @@
                   <button class="btn bg-transparent dropdown-toggle text-white p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.username }}</button>
                   <ul class="dropdown-menu">
                     <li>
-                      <a class="dropdown-item" href="#">Editar</a>
+                      <a class="dropdown-item" href="{% url 'edicao' %}">Editar</a>
                     </li>
                     <li>
                       <a class="dropdown-item" href="{% url 'remove_account' %}">Excluir conta</a>
@@ -87,7 +87,7 @@
                 <button class="btn bg-transparent dropdown-toggle text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.username }}</button>
                 <ul class="dropdown-menu">
                   <li>
-                    <a class="dropdown-item" href="#">Editar</a>
+                    <a class="dropdown-item" href="{% url 'edicao' %}">Editar</a>
                   </li>
                   <li>
                     <a class="dropdown-item" href="{% url 'remove_account' %}">Excluir conta</a>
@@ -121,7 +121,7 @@
         <li style="width: min-content;" class="nav-item text-black text-nowrap">Bazar</li>
         <li style="width: min-content;" class="nav-item text-black text-nowrap">Influences</li>
         <li style="width: min-content;" class="nav-item text-black text-nowrap">Sale</li>
-        <li style="width: min-content;" class="nav-item text-black text-nowrap">OutLet</li>
+        <li style="width: min-content;" class="nav-item text-black text-nowrap"><a href="{% url 'sobre' %}" class="text-decoration-none text-black"> Sobre</a></li>
       </ul>
     </header>
     {% block content %}

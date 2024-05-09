@@ -1,6 +1,7 @@
   . criar página sobre
   . Verificar como delimitar os produtos no cadastro de influencers
-  . Tranformar card produto em componente
+  . Transformar card produto em componente
+  . Implementar input de busca
 
 
 #criar ambiente virtual

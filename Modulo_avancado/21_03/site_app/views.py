@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import authenticate,login,logout as authLogout
+from django.contrib.auth.models import User 
 from django.contrib.auth.hashers import make_password
 
 def home (request): 
@@ -26,18 +27,18 @@ def page_roupa_detalhe(request, produto_id):
 def page_login (request): 
     if request.method == "POST":
         form = SignIn_form(request.POST)
-        if form.is_valid():
-            email = request.POST.get('user_email')
-            password = request.POST.get('user_email')
-            print("email e senha recebida", email,password)
-            
-            user = authenticate(request, email=email, password=password)
-            if user is not None:
-                login(request, user)
-                return HttpResponseRedirect(reverse('home'))
-            else:
-                
-                form.add_error(None, "Credenciais inválidas. Por favor, tente novamente.")
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        print("username e senha recebida", username,password)
+        
+        user = authenticate(username=username, password=password)
+        print("status do user",user)
+        
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('home'))
+        else: 
+            form.add_error(None, "Credenciais inválidas. Por favor, tente novamente.")
     else:
         print("requisição do tipo get")
         form = SignIn_form()
@@ -53,11 +54,11 @@ def page_registro (request):
     if request.method == "POST":
         form = SignUp_form(request.POST)
         if form.is_valid():
-            if request.POST.get('id_user_confirme_password') != request.POST.get('user_password'):
-              form.add_error("user_password","As senha precisam ser iguais")  
+            if request.POST.get('id_user_confirme_password') != request.POST.get('password'):
+              form.add_error("password","As senha precisam ser iguais")  
             else:
                 post = form.save(commit=False)
-                post.user_password = make_password(post.user_password)
+                post.password = make_password(post.password)
                 post.save()
                 return HttpResponseRedirect(reverse('home'))
     else:
@@ -94,6 +95,47 @@ def removeAccount(request):
             
     return HttpResponseRedirect(reverse('home'))
     
+def page_about(request):
+    return render(request,'sobre.html')
+
+def page_registerCategory(request):
+    if request.method == "POST":
+        form = Catagoria_form(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return HttpResponseRedirect(reverse('home'))           
+    else:
+        form = Catagoria_form()
+        
+    context = {'form_addCategoria':form}
+    return render(request,'registro_categoria.html',context)
+
+def page_editperfil (request):
+    if request.method == 'POST':
+        usuario = User.objects.get(id=request.user.id)
+        novo_usuario = request.POST.copy()
+        
+        novo_usuario['password'] = usuario.password
+        novo_usuario['username'] = usuario.username
+        
+        user = SignUp_form(instance=usuario, data=novo_usuario)
+        if user.is_valid:
+            user.save()
+    else:        
+        if request.user.is_authenticated:
+            context = {
+                'formEdit' : SignUp_form(),
+            }
+            context['formEdit'] = SignUp_form(instance=User.objects.get(id=request.user.id))
+            text = User.objects.get(id=request.user.id)
+            print("get user", context)
+            
+            return render(request,"edit_user.html",context) 
+        else:
+            return HttpResponseRedirect(reverse('home'))
+
+
 # Admin views
 
 def page_registroProduto (request): 

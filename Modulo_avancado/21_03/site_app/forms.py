@@ -1,6 +1,8 @@
 from django import forms
 from site_app.models import  *
 from django.forms.widgets import *
+from django.contrib.auth.models import User
+
 
 class Produto_form (forms.ModelForm):
     class Meta:
@@ -41,32 +43,33 @@ class Produto_form (forms.ModelForm):
 class SignUp_form (forms.ModelForm):
     class Meta:
         
-        model = Usuario
-        fields = ['user_firstName','user_lastName','user_email','user_password']
+        model = User
+        fields = ['username','last_name','email','password']
         labels = {
-            'user_firstName': 'Seu primerio nome',
-            'user_lastName': "Seu sobrenome",
-            'user_password': 'Senha',
-            'user_email': 'E-mail'
+            'username': 'Seu primerio nome',
+            'last_name': "Seu sobrenome",
+            'email': 'E-mail',
+            'password': 'Senha',
         }
-        widgets = {'user_password':PasswordInput()}
+        widgets = {'password':PasswordInput()}
         
     def __init__ (self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['user_firstName'].widget.attrs.update(
+        self.fields['username'].widget.attrs.update(
             {'placeholder':'',
             'class' : 'form-control mt-2'}
         )
-        self.fields['user_lastName'].widget.attrs.update(
+        self.fields['last_name'].widget.attrs.update(
             {'placeholder':'',
             'class' : 'form-control mt-2'}
         )
-        self.fields['user_password'].widget.attrs.update(
+        
+        self.fields['email'].widget.attrs.update(
+            {'placeholder':'',
+            'class' : 'form-control mt-2'}
+        )
+        self.fields['password'].widget.attrs.update(
             {'placeholder':'Sua melhor senha',
-            'class' : 'form-control mt-2'}
-        )
-        self.fields['user_email'].widget.attrs.update(
-            {'placeholder':'',
             'class' : 'form-control mt-2'}
         )
         
@@ -74,21 +77,21 @@ class SignUp_form (forms.ModelForm):
 class SignIn_form (forms.ModelForm):
     class Meta:
         
-        model = Usuario
-        fields = ['user_email','user_password']
+        model = User
+        fields = ['username','password']
         labels = {
-            'user_email': 'Seu e-mail',
-            'user_password': 'Senha',
+            'username': 'Usuario',
+            'password': 'Senha',
         }
-        widgets = {'user_password':PasswordInput()}
+        widgets = {'password':PasswordInput()}
         
     def __init__ (self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['user_password'].widget.attrs.update(
-            {'placeholder':'',
+        self.fields['username'].widget.attrs.update(
+            {'placeholder':'Seu nome de usuário',
             'class' : 'form-control mt-2'}
         )
-        self.fields['user_email'].widget.attrs.update(
+        self.fields['password'].widget.attrs.update(
             {'placeholder':'',
             'class' : 'form-control mt-2'}
         )
@@ -98,12 +101,11 @@ class Influencer_form (forms.ModelForm):
         
         model = Influencer
         
-        fields = ['inf_name','inf_at','inf_store_name','produtos']
+        fields = ['inf_name','inf_at','inf_store_name']
         labels = {
             'inf_name': 'Nome/Apelido como Influencer',
             'inf_at': 'Seu arroba',
             'inf_store_name': 'Nome da loja',
-            'produtos': '',
         }
         # widgets = {'produtos': SelectMultiple()}
         
@@ -121,8 +123,22 @@ class Influencer_form (forms.ModelForm):
             {'placeholder':'',
             'class' : 'form-control mt-2'}
         ) 
-        self.fields['produtos'].widget.attrs.update(
-            {'placeholder':'',
+   
+        
+class Catagoria_form (forms.ModelForm):
+    class Meta:
+        
+        model = Categoria
+        fields = ['cat_name']
+        labels = {
+            'cat_name': 'Categoria',
+        }
+        
+    def __init__ (self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['cat_name'].widget.attrs.update(
+            {'placeholder':'Nome da categoria',
             'class' : 'form-control mt-2'}
         )
-        
+     
+  
