@@ -2,14 +2,17 @@
 {% load static %}
 
 {% block content %}
-    <main>
+    <main class="row  w-100 m-0 p-0">
+        <div class="col-3 m-0 ">
+            <p>nav esquerdo</p>
+        </div>
         
-        <article>
-            <div class="w-100" style="height: 10rem;">
+        <article class="col-6">
+            <div class="w-100 mb-4" style="height: 10rem;">
                 <img src="https://www.loja-taygra.com.br/img/bannieres/homepage_logo_2.jpg" alt="" class="w-100 h-100">
             </div>
-            <h1> TAYGRA, os calçados 100% Brasileiros
-            <h2>Sapatos artesanais feitos no Brasil, com respeito ao homem e ao meio ambiente</h2>
+            <h1 class="fs-3 fw-medium w-full text-center text-body-secondary"> TAYGRA, os calçados 100% Brasileiros
+            <h2 class="fs-5 fw-lighter text-secondary w-full text-center mb-3">Sapatos artesanais feitos no Brasil, com respeito ao homem e ao meio ambiente</h2>
             
             <p>Tênis, chinelos, botas, sandálias, os sapatos ecológicos e veganos da Taygra, vindos diretamente do Brasil, permitem que cada um descubra o conforto dos tênis brasileiros.</p>
             
@@ -23,5 +26,9 @@
             100% Brasil!</p>
 
         </article>
+
+        <div class="col-3 m-0">
+            <p>nav direita</p>
+        </div>
     </main>
 {% endblock content %}

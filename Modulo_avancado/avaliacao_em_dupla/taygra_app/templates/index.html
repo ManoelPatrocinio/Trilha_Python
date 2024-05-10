@@ -20,39 +20,89 @@
 <body style="position: relative;">
   <header class="w-100">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <nav class="w-100 navbar-expand-lg navbar  border-bottom border-body" data-bs-theme="light" style="background-color: #88C661;">
+      <div class="row col-12 justify-content-between align-items-end px-5 py-2 text-white">
+        <a class="col-3 d-flex justify-content-start" href="{% url 'home' %}" ><img src="https://www.loja-taygra.com.br/img/logo.jpg" alt="logo"  class=" rounded" style="width: 6rem; "/></a>
+
+        <button class="navbar-toggler col-3 col-md-1 col-lg-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+        <div class="d-lg-none! collapse navbar-md-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-lg-none d-xl-none">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" href="{% url 'home' %}">Carrinho</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <!-- <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorias</a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="{% url 'home' %}">Maculinas</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'home' %}" class="text-decoration-none">Femininas</a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Kids</a>
+                </li>
               </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
+            </li> -->
+
+            {% if user.is_authenticated %}
+              <div class="dropdown">
+                <button class="btn bg-transparent dropdown-toggle text-white p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.username }}</button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="{% url 'home' %}">Editar</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'home' %}">Excluir conta</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'home' %}">Sair</a>
+                  </li>
+                </ul>
+              </div>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Login</a>
+              </li>
+            {% endif %}
           </ul>
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <form class="d-flex d-lg-none d-xl-none" role="search ">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
+        </div>
+
+        <form class="col-4 d-none d-none d-lg-block d-xl-block" role="search">
+          <input class="form-control me-2 bg-white text-black" type="search" placeholder="O que voce precisa ?" aria-label="Search" />
+        </form>
+        <div class="col-3 d-none d-none d-lg-flex d-xl-flex justify-content-end gap-4">
+          <a href="{% url 'home' %}" class="btn text-white fw-medium " style="text-wrap: nowrap;">Carrinho</a>
+
+          {% if user.is_authenticated %}
+            <div class="dropdown">
+              <button class="btn bg-transparent dropdown-toggle text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.username }}</button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="{% url 'home' %}">Editar</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'home' %}">Excluir conta</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'home' %}">Sair</a>
+                </li>
+              </ul>
+            </div>
+          {% else %}
+            <a href="{% url 'home' %}" class="btn text-white fw-medium">Login/Entrar</a>
+          {% endif %}
         </div>
       </div>
     </nav>
