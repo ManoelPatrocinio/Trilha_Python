@@ -98,19 +98,6 @@ def removeAccount(request):
 def page_about(request):
     return render(request,'sobre.html')
 
-def page_registerCategory(request):
-    if request.method == "POST":
-        form = Catagoria_form(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.save()
-            return HttpResponseRedirect(reverse('home'))           
-    else:
-        form = Catagoria_form()
-        
-    context = {'form_addCategoria':form}
-    return render(request,'registro_categoria.html',context)
-
 def page_editperfil (request):
     if request.method == 'POST':
         usuario = User.objects.get(id=request.user.id)
@@ -122,19 +109,16 @@ def page_editperfil (request):
         user = SignUp_form(instance=usuario, data=novo_usuario)
         if user.is_valid:
             user.save()
+            return HttpResponseRedirect(reverse('home'))
     else:        
         if request.user.is_authenticated:
             context = {
                 'formEdit' : SignUp_form(),
             }
             context['formEdit'] = SignUp_form(instance=User.objects.get(id=request.user.id))
-            text = User.objects.get(id=request.user.id)
-            print("get user", context)
-            
             return render(request,"edit_user.html",context) 
         else:
             return HttpResponseRedirect(reverse('home'))
-
 
 # Admin views
 
@@ -152,3 +136,15 @@ def page_registroProduto (request):
     context = {'form_add':form}
     return render(request,'registroProduto.html',context)
 
+def page_registerCategory(request):
+    if request.method == "POST":
+        form = Catagoria_form(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return HttpResponseRedirect(reverse('home'))           
+    else:
+        form = Catagoria_form()
+        
+    context = {'form_addCategoria':form}
+    return render(request,'registro_categoria.html',context)
