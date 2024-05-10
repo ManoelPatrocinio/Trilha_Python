@@ -63,13 +63,13 @@
                     <a class="dropdown-item" href="{% url 'home' %}">Excluir conta</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="{% url 'home' %}">Sair</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}">Sair</a>
                   </li>
                 </ul>
               </div>
             {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'home' %}">Login</a>
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
               </li>
             {% endif %}
           </ul>
@@ -96,12 +96,12 @@
                   <a class="dropdown-item" href="{% url 'home' %}">Excluir conta</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="{% url 'home' %}">Sair</a>
+                  <a class="dropdown-item" href="{% url 'logout' %}">Sair</a>
                 </li>
               </ul>
             </div>
           {% else %}
-            <a href="{% url 'home' %}" class="btn text-white fw-medium">Login/Entrar</a>
+            <a href="{% url 'login' %}" class="btn text-white fw-medium">Login/Entrar</a>
           {% endif %}
         </div>
       </div>
