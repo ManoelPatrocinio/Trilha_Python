@@ -6,10 +6,20 @@
       {% csrf_token %}
       <h2 class="w-100 text-center fs-4 mb-1">Edição</h2>
       <p class="w-100 text-center form-text mb-5">Altere a informação desejado e ao final, clique em 'Atualizar'</p>
-     
-      {{ formEdit}}
 
-     
+      <div class="input-group d-flex flex-column align-items-start mb-3">
+        <label for="nome" class="form-label fw-medium">Nome</label>
+        {{ formEdit.username }}
+      </div>
+      <div class="input-group d-flex flex-column align-items-start mb-3">
+        <label for="nome" class="form-label fw-medium">Sobre nome</label>
+        {{ formEdit.last_name }}
+      </div>
+      <div class="input-group d-flex flex-column align-items-start mb-3">
+        <label for="nome" class="form-label fw-medium">E-mail</label>
+        {{ formEdit.email }}
+      </div>
+
       <button type="submit" class="btn d-block mx-auto text-white bg-black px-3 py2 mt-5">Atualizar</button>
     </form>
   </main>

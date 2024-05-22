@@ -20,23 +20,23 @@ class Produto_form (forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['prod_name'].widget.attrs.update(
             {'placeholder':'Título de exibição',
-            'class' : 'form-control mt-2'}
+            'class' : 'form-control  w-100 rounded'}
         )
         self.fields['prod_imgUrl'].widget.attrs.update(
             {'placeholder':'link da imagem ',
-            'class' : 'form-control mt-2'}
+            'class' : 'form-control  w-100 rounded'}
         )
         self.fields['prod_price'].widget.attrs.update(
             {'placeholder':'Preço atual',
-            'class' : 'form-control mt-2'}
+            'class' : 'form-control  w-100 rounded'}
         )
         self.fields['prod_description'].widget.attrs.update(
             {'placeholder':'Informe as principais caracteristicas do produto, separando as linhas por ";" ',
-            'class' : 'form-control mt-2'}
+            'class' : 'form-control  w-100 rounded'}
         )
         self.fields['prod_categoria'].widget.attrs.update(
             {'placeholder':'Selecione a categoria ideal do seu produto ',
-            'class' : 'form-control mt-2'}
+            'class' : 'form-control  w-100 rounded'}
         )
         
 
@@ -57,20 +57,20 @@ class SignUp_form (forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update(
             {'placeholder':'',
-            'class' : 'form-control mt-2'}
+            'class' : 'form-control  w-100 rounded'}
         )
         self.fields['last_name'].widget.attrs.update(
             {'placeholder':'',
-            'class' : 'form-control mt-2'}
+            'class' : 'form-control  w-100 rounded'}
         )
         
         self.fields['email'].widget.attrs.update(
             {'placeholder':'',
-            'class' : 'form-control mt-2'}
+            'class' : 'form-control  w-100 rounded'}
         )
         self.fields['password'].widget.attrs.update(
             {'placeholder':'Sua melhor senha',
-            'class' : 'form-control mt-2'}
+            'class' : 'form-control  w-100 rounded'}
         )
         
 
@@ -89,11 +89,11 @@ class SignIn_form (forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update(
             {'placeholder':'Seu nome de usuário',
-            'class' : 'form-control mt-2'}
+            'class' : 'form-control  w-100 rounded'}
         )
         self.fields['password'].widget.attrs.update(
             {'placeholder':'',
-            'class' : 'form-control mt-2'}
+            'class' : 'form-control  w-100 rounded'}
         )
         
 class Influencer_form (forms.ModelForm):
@@ -113,15 +113,15 @@ class Influencer_form (forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['inf_name'].widget.attrs.update(
             {'placeholder':'',
-            'class' : 'form-control mt-2'}
+            'class' : 'form-control  w-100 rounded'}
         )
         self.fields['inf_at'].widget.attrs.update(
             {'placeholder':'',
-            'class' : 'form-control mt-2'}
+            'class' : 'form-control  w-100 rounded'}
         )
         self.fields['inf_store_name'].widget.attrs.update(
             {'placeholder':'',
-            'class' : 'form-control mt-2'}
+            'class' : 'form-control  w-100 rounded'}
         ) 
    
         
@@ -138,7 +138,24 @@ class Catagoria_form (forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['cat_name'].widget.attrs.update(
             {'placeholder':'Nome da categoria',
-            'class' : 'form-control mt-2'}
+            'class' : 'form-control  w-100 rounded'}
+        )
+     
+        
+class Search_form (forms.ModelForm):
+    class Meta:
+        
+        model = Produto
+        fields = ['prod_name']
+        labels = {
+            'prod_name': '',
+        }
+        
+    def __init__ (self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['prod_name'].widget.attrs.update(
+            {'placeholder':'Qual peça você deseja ?',
+            'class' : 'form-control  w-100 me-2 bg-white text-black rounded'}
         )
      
   

@@ -4,8 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Login_form (forms.ModelForm):
-    class Meta:
-        
+    class Meta:    
         model = User
         fields = ['username','password']
         labels = {
@@ -18,11 +17,11 @@ class Login_form (forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update(
             {'placeholder':'Seu nome de usuário',
-            'class' : 'form-control mt-2'}
+            'class' : 'w-100 form-control mt-2'}
         )
         self.fields['password'].widget.attrs.update(
             {'placeholder':'',
-            'class' : 'form-control mt-2'}
+            'class' : 'w-100 form-control mt-2'}
         )
      
 class cadastro_form (forms.ModelForm):
@@ -42,19 +41,19 @@ class cadastro_form (forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update(
             {'placeholder':'',
-            'class' : 'form-control mt-2'}
+            'class' : 'w-100 form-control mt-2'}
         )
         self.fields['last_name'].widget.attrs.update(
             {'placeholder':'',
-            'class' : 'form-control mt-2'}
+            'class' : 'w-100 form-control mt-2'}
         )
         
         self.fields['email'].widget.attrs.update(
             {'placeholder':'',
-            'class' : 'form-control mt-2'}
+            'class' : 'w-100 form-control mt-2'}
         )
         self.fields['password'].widget.attrs.update(
             {'placeholder':'Sua melhor senha',
-            'class' : 'form-control mt-2'}
+            'class' : 'w-100 form-control mt-2'}
         )
         

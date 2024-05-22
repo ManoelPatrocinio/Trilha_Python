@@ -15,10 +15,13 @@ urlpatterns = [
     path('remove-acount', views.removeAccount, name='remove_account'),
     path('sobre', views.page_about, name='sobre'),
     path('user/edit', views.page_editperfil, name='edicao'),
+    path('search',views.search, name='search'),
     
     # admin routes
     
     path('auth/registro-categoria', views.page_registerCategory, name='add_categoria'),
     path('auth/create-product', views.page_registroProduto, name='createProduct'),
-     
+    path('auth/painel', views.page_painelAdmin, name='painel'),
+    path('auth/toggleactive/<user_id>', views.toggleactive, name="toggleactive"),    
 ]
+ 

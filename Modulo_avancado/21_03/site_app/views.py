@@ -7,11 +7,34 @@ from django.urls import reverse
 from django.contrib.auth import authenticate,login,logout as authLogout
 from django.contrib.auth.models import User 
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import Permission, Group
+
 
 def home (request): 
-    produtoData = Produto.objects.order_by('id')
-    context = {'produtos': produtoData} 
+    form = Search_form()
+    results = []
+    if request.method == 'POST' :
+        form = Search_form(request.POST)
+        if form.is_valid():
+            query = request.POST.get('prod_name')
+            results = Produto.objects.filter(prod_name__icontains=query)
+            
+    produtoData = Produto.objects.order_by('id')        
+    context = {'produtos': produtoData,'searchForm': form, 'results': results} 
     return render(request,'home.html',context)
+
+def search(request):
+    form = Search_form()
+    results = []
+    if request.method == 'POST' :
+        form = Search_form(request.POST)
+        if form.is_valid():
+            query = request.POST.get('prod_name')
+            results = Produto.objects.filter(prod_name__icontains=query)
+            
+    context = {'searchForm': form, 'results': results} 
+    return render(request,'search_result.html',context)
+
 
 def page_roupas (request):
     produtoData = Produto.objects.order_by('id')
@@ -54,13 +77,13 @@ def page_registro (request):
     if request.method == "POST":
         form = SignUp_form(request.POST)
         if form.is_valid():
-            if request.POST.get('id_user_confirme_password') != request.POST.get('password'):
-              form.add_error("password","As senha precisam ser iguais")  
-            else:
-                post = form.save(commit=False)
-                post.password = make_password(post.password)
-                post.save()
-                return HttpResponseRedirect(reverse('home'))
+            # if request.POST.get('id_user_confirme_password') != request.POST.get('password'):
+            #   form.add_error("password","As senha precisam ser iguais")  
+            # else:
+            post = form.save(commit=False)
+            post.password = make_password(post.password)
+            post.save()
+            return HttpResponseRedirect(reverse('home'))
     else:
         form = SignUp_form()
         
@@ -85,10 +108,10 @@ def removeAccount(request):
 
     if request.user.is_authenticated:
         try:
-            userData = Usuario.objects.get(id=request.user.id)
+            userData = User.objects.get(id=request.user.id)
             userData.delete()
             authLogout(request)
-        except Usuario.DoesNotExist:
+        except User.DoesNotExist:
             # caso em que o usuário não existe
             print("sem usuario com esse ID")
             return HttpResponseRedirect(reverse('home'))
@@ -148,3 +171,30 @@ def page_registerCategory(request):
         
     context = {'form_addCategoria':form}
     return render(request,'registro_categoria.html',context)
+
+
+def toggleactive (request,user_id):
+    if request.method == 'GET' and request.user.is_superuser:
+        usuario = User.objects.get(id=user_id)
+        usuario.is_active = not usuario.is_active
+        usuario.save()
+        return HttpResponseRedirect(reverse('painel'))
+    return HttpResponseRedirect(reverse('index'))
+
+def page_painelAdmin(request):
+    if request.method == 'GET' and request.user.is_superuser:
+        permissoes = Permission.objects.order_by('id')
+        permissoes_agrupadas = {}
+        for permissao in permissoes:
+            objeto = permissao.codename.split("_")
+            if objeto[1] not in permissoes_agrupadas:
+                permissoes_agrupadas[objeto[1]] = {objeto[0] : permissao.id}
+            else:
+                permissoes_agrupadas[objeto[1]][objeto[0]] = permissao.id
+       
+        contexto = {'formuser': SignUp_form()}
+        contexto['permissoes'] = permissoes_agrupadas
+        contexto['grupos'] = Group.objects.all()
+        contexto['users'] = User.objects.order_by('first_name')
+        return render(request,'painel.html',contexto)
+    return HttpResponseRedirect(reverse('home'))
