@@ -23,5 +23,6 @@ urlpatterns = [
     path('auth/create-product', views.page_registroProduto, name='createProduct'),
     path('auth/painel', views.page_painelAdmin, name='painel'),
     path('auth/toggleactive/<user_id>', views.toggleactive, name="toggleactive"),    
+    path('auth/create-group', views.page_group, name="addGroup"),    
 ]
  

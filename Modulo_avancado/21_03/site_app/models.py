@@ -1,21 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 
 class Categoria (models.Model):
-
-    # CATEGORY_CHOICES = ( 
-    #     ("Vestidos", "Vestidos"), 
-    #     ("Saias", "Saias"), 
-    #     ("Calcas", "Calças"), 
-    #     ("Saias", "Saias"), 
-    #     ("Shots", "Shorts"),
-    # )
     cat_name = models.CharField(max_length=15)
 
     def __str__ (self):
         return self.cat_name
  
-# class Usuario (User):
+class Usuario (User):
+    cpf = models.CharField(max_length=14)
+    dt_nascimento = models.DateField(verbose_name="Data de Nascimento")
+
+    class Meta:
+        verbose_name_plural = 'Usuarios'
+    def __str__ (self):
+        return self.username
+
  
 class Produto (models.Model):
     
@@ -49,8 +50,7 @@ class Venda (models.Model):
 
     def __str__ (self):
         return self.vend_total
-  
-   
+     
 class ProdutosVenda(models.Model):
     product = models.ForeignKey(Produto, on_delete=models.CASCADE)
     venda = models.ForeignKey(Venda, on_delete=models.CASCADE)
@@ -60,7 +60,6 @@ class ProdutosVenda(models.Model):
     def __str__(self):
         return f"{self.product.prod_name} - {self.influencer.inf_name}"
 
-    
 class ProdutoInfluencer(models.Model):
     product = models.ForeignKey(Produto, on_delete=models.CASCADE)
     influencer = models.ForeignKey(Influencer, on_delete=models.CASCADE)

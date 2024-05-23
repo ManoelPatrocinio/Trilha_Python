@@ -1,7 +1,7 @@
 from django import forms
 from site_app.models import  *
 from django.forms.widgets import *
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 
 
 class Produto_form (forms.ModelForm):
@@ -43,15 +43,20 @@ class Produto_form (forms.ModelForm):
 class SignUp_form (forms.ModelForm):
     class Meta:
         
-        model = User
-        fields = ['username','last_name','email','password']
+        model = Usuario
+        fields = ['username','last_name','cpf','dt_nascimento','email','password']
         labels = {
             'username': 'Seu primerio nome',
-            'last_name': "Seu sobrenome",
+            'last_name': 'Seu sobrenome',
+            'cpf': 'Seu CPF',
+            'dt_nascimento': 'Data de aniversário',
             'email': 'E-mail',
             'password': 'Senha',
         }
-        widgets = {'password':PasswordInput()}
+        widgets = {
+            'password':PasswordInput(),
+             'dt_nascimento': DateInput(attrs={'type': 'date'}),
+        }
         
     def __init__ (self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -63,9 +68,17 @@ class SignUp_form (forms.ModelForm):
             {'placeholder':'',
             'class' : 'form-control  w-100 rounded'}
         )
+        self.fields['cpf'].widget.attrs.update(
+            {'placeholder':'XXX.XXX.XXX-XX',
+            'class' : 'form-control  w-100 rounded'}
+        )
+        self.fields['dt_nascimento'].widget.attrs.update(
+            {'placeholder':'',
+            'class' : 'form-control  w-100 rounded'}
+        )
         
         self.fields['email'].widget.attrs.update(
-            {'placeholder':'',
+            {'placeholder':'exemplo@gmail.com',
             'class' : 'form-control  w-100 rounded'}
         )
         self.fields['password'].widget.attrs.update(
@@ -157,5 +170,21 @@ class Search_form (forms.ModelForm):
             {'placeholder':'Qual peça você deseja ?',
             'class' : 'form-control  w-100 me-2 bg-white text-black rounded'}
         )
+
+class Grupo_form (forms.ModelForm):
+    class Meta:
+        
+        model = Group
+        fields = ['name']
+        labels = {
+            'cat_name': 'Categoria',
+        }
+        
+    def __init__ (self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs.update(
+            {'placeholder':'informe o nome do grupo ',
+            'class' : 'form-control  w-100 rounded'}
+        )
      
-  
+ 

@@ -52,11 +52,8 @@ def page_login (request):
         form = SignIn_form(request.POST)
         username = request.POST.get('username')
         password = request.POST.get('password')
-        print("username e senha recebida", username,password)
         
-        user = authenticate(username=username, password=password)
-        print("status do user",user)
-        
+        user = authenticate(username=username, password=password)        
         if user is not None:
             login(request, user)
             return HttpResponseRedirect(reverse('home'))
@@ -77,13 +74,13 @@ def page_registro (request):
     if request.method == "POST":
         form = SignUp_form(request.POST)
         if form.is_valid():
-            # if request.POST.get('id_user_confirme_password') != request.POST.get('password'):
-            #   form.add_error("password","As senha precisam ser iguais")  
-            # else:
-            post = form.save(commit=False)
-            post.password = make_password(post.password)
-            post.save()
-            return HttpResponseRedirect(reverse('home'))
+            if request.POST.get('id_user_confirme_password') != request.POST.get('password'):
+              form.add_error("password","As senha precisam ser iguais")  
+            else:
+                post = form.save(commit=False)
+                post.password = make_password(post.password)
+                post.save()
+                return HttpResponseRedirect(reverse('login'))
     else:
         form = SignUp_form()
         
@@ -113,7 +110,6 @@ def removeAccount(request):
             authLogout(request)
         except User.DoesNotExist:
             # caso em que o usuário não existe
-            print("sem usuario com esse ID")
             return HttpResponseRedirect(reverse('home'))
             
     return HttpResponseRedirect(reverse('home'))
@@ -123,7 +119,7 @@ def page_about(request):
 
 def page_editperfil (request):
     if request.method == 'POST':
-        usuario = User.objects.get(id=request.user.id)
+        usuario = Usuario.objects.get(id=request.user.id)
         novo_usuario = request.POST.copy()
         
         novo_usuario['password'] = usuario.password
@@ -138,7 +134,7 @@ def page_editperfil (request):
             context = {
                 'formEdit' : SignUp_form(),
             }
-            context['formEdit'] = SignUp_form(instance=User.objects.get(id=request.user.id))
+            context['formEdit'] = SignUp_form(instance=Usuario.objects.get(id=request.user.id))
             return render(request,"edit_user.html",context) 
         else:
             return HttpResponseRedirect(reverse('home'))
@@ -172,7 +168,6 @@ def page_registerCategory(request):
     context = {'form_addCategoria':form}
     return render(request,'registro_categoria.html',context)
 
-
 def toggleactive (request,user_id):
     if request.method == 'GET' and request.user.is_superuser:
         usuario = User.objects.get(id=user_id)
@@ -181,6 +176,19 @@ def toggleactive (request,user_id):
         return HttpResponseRedirect(reverse('painel'))
     return HttpResponseRedirect(reverse('index'))
 
+def page_group(request):
+    if request.method == "POST" and request.user.is_authenticated and  request.user.is_superuser:
+        form = Grupo_form(request.POST)
+        if form.is_valid():
+            form.save()
+            form.clean()
+            return HttpResponseRedirect(reverse('addGroup'))
+    else:
+        form = Grupo_form()
+        
+    context = {'form_group':form}
+    return render(request,'registro_group.html',context)
+    
 def page_painelAdmin(request):
     if request.method == 'GET' and request.user.is_superuser:
         permissoes = Permission.objects.order_by('id')
@@ -195,6 +203,6 @@ def page_painelAdmin(request):
         contexto = {'formuser': SignUp_form()}
         contexto['permissoes'] = permissoes_agrupadas
         contexto['grupos'] = Group.objects.all()
-        contexto['users'] = User.objects.order_by('first_name')
+        contexto['users'] = Usuario.objects.order_by('first_name')
         return render(request,'painel.html',contexto)
     return HttpResponseRedirect(reverse('home'))

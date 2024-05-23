@@ -18,6 +18,16 @@
                         {{formuser.last_name}}    
                     </div>
                 </div>
+                <div class="row gap-2">
+                    <div class="col">
+                        <span>CPF</span>
+                        {{formuser.cpf}}
+                    </div>
+                    <div class="col">
+                        <span>Nascimento</span>
+                        {{formuser.dt_nascimento}}    
+                    </div>
+                </div>
                 <div class="col my-2">
                     <span>E-mail</span>
                     {{formuser.email}}
@@ -89,13 +99,22 @@
         <h2 class="my-3 text-center"> Painel Administrativo </h2>
 
         <div class="mx-3">
-            <button class="btn my-2 d-flex align-items-center gap-2" data-bs-target="#modal-cadastro" data-bs-toggle="modal">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="green" class="bi bi-plus-circle" viewBox="0 0 16 16">
+
+            <div class="w-100 d-flex  justify-content-start align-items-center gap-4">
+
+                <button class="btn my-2 d-flex align-items-center gap-2" data-bs-target="#modal-cadastro" data-bs-toggle="modal" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="green" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                    </svg>
+                    Novo Usuário
+                </button>
+                <a class="text-black d-flex align-items-center gap-2" href="{% url 'addGroup' %}">  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="green" class="bi bi-plus-circle" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                </svg>
-                Novo Usuário
-            </button>
+                </svg>Grupo de usuário</a>
+            </div>
+
             <table class="table">
                 <thead class="table-primary">
                     <th>Nome</th>
