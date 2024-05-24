@@ -225,6 +225,7 @@ def page_painelAdmin(request):
         contexto = {'formuser': SignUp_form()}
         contexto['permissoes'] = permissoes_agrupadas
         contexto['grupos'] = Group.objects.all()
-        contexto['users'] = Usuario.objects.order_by('first_name')
+        contexto['users'] = [(user.id, user, SignUp_form(instance=user, auto_id=False)) for user in Usuario.objects.order_by('first_name')]
+        
         return render(request,'painel.html',contexto)
     return HttpResponseRedirect(reverse('home'))

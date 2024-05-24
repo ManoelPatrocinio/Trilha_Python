@@ -21,3 +21,5 @@
   
 #executar servidor
   python3 manage.py runserver
+
+#instalar o Django REST
