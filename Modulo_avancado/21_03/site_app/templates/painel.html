@@ -5,7 +5,7 @@
     <div class="modal-dialog position-absolute start-50 translate-middle w-75 w-lg-50" style="top:85%">
       <div class="modal-content p-2">
         <h2 class="text-center"> Cadastro de Usuário </h2>
-        <form action="{% url 'registro' %}" method="post">
+        <form action="{% url 'addUser' %}" method="post">
             {% csrf_token %}
             <div>
                 <div class="row gap-2">
@@ -37,10 +37,10 @@
                 <span>Senha</span>
                 {{formuser.password}}
                 </div>
-                {% comment %} <div class="col my-2">
+                <div class="col my-2">
                     <span>Confirme sua senha</span>
-                    <input type="password" name="confirmacao" required='True' placeholder='Confirmação da Senha' class='col form-control my-2 p-2' autocomplete='new-password'>
-                </div> {% endcomment %}
+                    <input type="password" class="w-100 form-control mt-2 rounded" id="id_user_confirme_password" name="id_user_confirme_password" placeholder="Repita a senha informada" required />
+                </div>
             </div>
             <div>
                 <table class="table">
@@ -79,6 +79,31 @@
                         {% endfor %}
                         </tr>
                     {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <table class="table">
+                    <thead class="table-primary">
+                        <tr>
+                            <td></td>
+                            <td>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus" style="transform: translateX(-.5rem)" viewBox="0 0 16 16">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                                </svg>
+                            </td>
+                      
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in grupos %}
+                            <tr>
+                                <td>{{item.name}}</td>
+                            
+                                <td width="30"><input name="grupo" value="{{item.name}}" type="checkbox"></td>
+                            
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

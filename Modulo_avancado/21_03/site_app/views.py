@@ -80,6 +80,7 @@ def page_registro (request):
                 post = form.save(commit=False)
                 post.password = make_password(post.password)
                 post.save()
+                
                 return HttpResponseRedirect(reverse('login'))
     else:
         form = SignUp_form()
@@ -119,7 +120,7 @@ def page_about(request):
 
 def page_editperfil (request):
     if request.method == 'POST':
-        usuario = Usuario.objects.get(id=request.user.id)
+        usuario = Usuario.objects.get(user_ptr_id=request.user.id)
         novo_usuario = request.POST.copy()
         
         novo_usuario['password'] = usuario.password
@@ -134,7 +135,7 @@ def page_editperfil (request):
             context = {
                 'formEdit' : SignUp_form(),
             }
-            context['formEdit'] = SignUp_form(instance=Usuario.objects.get(id=request.user.id))
+            context['formEdit'] = SignUp_form(instance=Usuario.objects.get(user_ptr_id=request.user.id))
             return render(request,"edit_user.html",context) 
         else:
             return HttpResponseRedirect(reverse('home'))
@@ -170,7 +171,7 @@ def page_registerCategory(request):
 
 def toggleactive (request,user_id):
     if request.method == 'GET' and request.user.is_superuser:
-        usuario = User.objects.get(id=user_id)
+        usuario = Usuario.objects.get(user_ptr_id=user_id)
         usuario.is_active = not usuario.is_active
         usuario.save()
         return HttpResponseRedirect(reverse('painel'))
@@ -188,18 +189,39 @@ def page_group(request):
         
     context = {'form_group':form}
     return render(request,'registro_group.html',context)
-    
+
+ 
+def page_admCadUser (request): 
+    if request.method == "POST" and request.user.is_superuser:
+        form = SignUp_form(request.POST)
+        if form.is_valid():
+            if request.POST.get('id_user_confirme_password') != request.POST.get('password'):
+              form.add_error("password","As senha precisam ser iguais")  
+            else:
+                permlist = []
+                for permissao in request.POST.getlist("permissao"):
+                    permlist.append(Permission.objects.get(id=permissao))
+
+                post = form.save(commit=False)
+                post.password = make_password(post.password)
+                post.save()
+                
+                post.user_permissions.set(permlist)
+        return HttpResponseRedirect(reverse('painel'))
+    return render(request,'home.html')
+   
 def page_painelAdmin(request):
     if request.method == 'GET' and request.user.is_superuser:
         permissoes = Permission.objects.order_by('id')
         permissoes_agrupadas = {}
+        
         for permissao in permissoes:
             objeto = permissao.codename.split("_")
             if objeto[1] not in permissoes_agrupadas:
                 permissoes_agrupadas[objeto[1]] = {objeto[0] : permissao.id}
             else:
                 permissoes_agrupadas[objeto[1]][objeto[0]] = permissao.id
-       
+                
         contexto = {'formuser': SignUp_form()}
         contexto['permissoes'] = permissoes_agrupadas
         contexto['grupos'] = Group.objects.all()

@@ -21,6 +21,7 @@ urlpatterns = [
     
     path('auth/registro-categoria', views.page_registerCategory, name='add_categoria'),
     path('auth/create-product', views.page_registroProduto, name='createProduct'),
+    path('auth/create-user', views.page_admCadUser, name='addUser'),
     path('auth/painel', views.page_painelAdmin, name='painel'),
     path('auth/toggleactive/<user_id>', views.toggleactive, name="toggleactive"),    
     path('auth/create-group', views.page_group, name="addGroup"),    
