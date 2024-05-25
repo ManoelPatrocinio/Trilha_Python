@@ -199,14 +199,48 @@ def page_admCadUser (request):
               form.add_error("password","As senha precisam ser iguais")  
             else:
                 permlist = []
+                grouplist = []
                 for permissao in request.POST.getlist("permissao"):
                     permlist.append(Permission.objects.get(id=permissao))
+                
+                for group in request.POST.getlist("grupo"):
+                    grouplist.append(Group.objects.get(id=group))
 
                 post = form.save(commit=False)
                 post.password = make_password(post.password)
                 post.save()
                 
                 post.user_permissions.set(permlist)
+                post.groups.set(grouplist)
+                
+        return HttpResponseRedirect(reverse('painel'))
+    return render(request,'home.html')
+
+
+def page_admEditUser (request,user_id): 
+    if request.method == "POST" and request.user.is_superuser:
+        print(" id recebido ", user_id)
+        usuario = Usuario.objects.get(user_ptr_id=user_id)
+        novo_usuario = request.POST.copy()
+        
+        novo_usuario['password'] = usuario.password
+        novo_usuario['username'] = usuario.username
+        
+        form = SignUp_form(instance=usuario, data=novo_usuario)
+        if form.is_valid:
+            user = form.save()
+            
+            permlist = []
+            grouplist = []
+            for permissao in request.POST.getlist("permissao"):
+                permlist.append(Permission.objects.get(id=permissao))
+            
+            for group in request.POST.getlist("grupo"):
+                grouplist.append(Group.objects.get(id=group))
+            
+            user.user_permissions.set(permlist)
+            user.groups.set(grouplist)
+                
         return HttpResponseRedirect(reverse('painel'))
     return render(request,'home.html')
    

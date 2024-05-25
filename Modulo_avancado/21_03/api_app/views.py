@@ -8,15 +8,14 @@ from api_app.serializers import *
 
 @api_view(['GET','POST'])
 def roupas(request):
-  if request.method == "POST":
+  if request.method == "POST" and request.user.is_authenticated and "site_app" in request.user.get_all_permition:
     serializer = GetRoupasSerializers(data = request.data)
     if serializer.is_valid():
       serializer.save()
       return Response(serializer.data,status= status.HTTP_201_CREATED)
  
     return Response(serializer.erros,status= status.HTTP_400_BAD_REQUEST)
-      
-             
+       
   elif request.method == "GET":
     produtoData = Produto.objects.order_by('id') 
     serializer = GetRoupasSerializers(produtoData,many=True) 
@@ -34,7 +33,7 @@ def roupas_id(request, produto_id):
     return Response(serializer.data,status= status.HTTP_200_OK)
     
   elif  request.method == "PUT":
-    serializer = GetRoupasSerializers(instace=produtoData, data = request.data)
+    serializer = GetRoupasSerializers(instance=produtoData, data = request.data)
     if serializer.is_valid():
       serializer.save()
       return Response(serializer.data,status= status.HTTP_202_ACCEPTED)

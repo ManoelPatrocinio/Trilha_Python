@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     "site_app",
     "api_app",
+    "api_prova_app",
 ]
 
 MIDDLEWARE = [
